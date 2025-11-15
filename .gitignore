@@ -20,3 +20,6 @@ shopify.theme.toml
 ## Release files
 release
 *.zip
+
+# Vite build output
+assets/theme.min.js

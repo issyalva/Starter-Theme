@@ -27,6 +27,9 @@
     {% # Social, title, etc. %}
     {% render 'meta-tags' %}
 
+    {% # Load bundled theme JavaScript %}
+    <script src='{{ "theme.min.js" | asset_url }}' defer></script>
+
     {{ content_for_header }}
   </head>
 
