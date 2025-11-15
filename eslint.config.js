@@ -1,4 +1,5 @@
 import js from '@eslint/js';
+import globals from 'globals';
 
 export default [
   // Apply recommended rules to JavaScript files
@@ -6,19 +7,16 @@ export default [
 
   {
     // Define which files to lint
-    files: ['**/*.js', '**/*.liquid'],
+    files: ['**/*.js'],
 
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
       globals: {
-        // Browser globals
-        window: 'readonly',
-        document: 'readonly',
-        console: 'readonly',
-        fetch: 'readonly',
+        // Include all browser globals (HTMLElement, customElements, etc.)
+        ...globals.browser,
 
-        // Shopify globals
+        // Shopify-specific globals
         Shopify: 'readonly',
         theme: 'readonly',
         CartJS: 'readonly',
