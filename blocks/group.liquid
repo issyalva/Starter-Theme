@@ -12,11 +12,11 @@
 {% enddoc %}
 
 <div
-  class="group {{ block.settings.layout_direction }}"
-  style="
+  class='group {{ block.settings.layout_direction }}'
+  style='
     --padding: {{ block.settings.padding }}px;
     --alignment: {{ block.settings.alignment }};
-  "
+  '
   {{ block.shopify_attributes }}
 >
   {% content_for 'blocks' %}
@@ -55,7 +55,10 @@
       "label": "t:labels.layout_direction",
       "default": "group--vertical",
       "options": [
-        { "value": "group--horizontal", "label": "t:options.direction.horizontal" },
+        {
+          "value": "group--horizontal",
+          "label": "t:options.direction.horizontal"
+        },
         { "value": "group--vertical", "label": "t:options.direction.vertical" }
       ]
     },

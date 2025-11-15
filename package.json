@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{js,json,liquid,css,md}\"",
+    "format:check": "prettier --check \"**/*.{js,json,liquid,css,md}\""
+  },
+  "devDependencies": {
+    "@shopify/prettier-plugin-liquid": "^1.10.0",
+    "eslint": "^9.39.1",
+    "prettier": "^3.6.2"
+  }
+}
