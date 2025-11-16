@@ -23,3 +23,4 @@ release
 
 # Vite build output
 assets/theme.min.js
+assets/theme.min.css
