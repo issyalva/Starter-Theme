@@ -1,6 +1,8 @@
 {
   "type": "module",
   "scripts": {
+    "dev": "concurrently \"npm run shopify:dev\" \"npm run build:watch\"",
+    "shopify:dev": "shopify theme dev -e dev",
     "build": "vite build",
     "build:watch": "vite build --watch",
     "lint": "eslint .",
@@ -10,6 +12,7 @@
   },
   "devDependencies": {
     "@shopify/prettier-plugin-liquid": "^1.10.0",
+    "concurrently": "^9.2.1",
     "eslint": "^9.39.1",
     "globals": "^16.5.0",
     "prettier": "^3.6.2",
