@@ -1,62 +1,46 @@
-export function createFocusTrap(container) {
-  let previouslyFocused = null;
-  let firstFocusable = null;
-  let lastFocusable = null;
+const getFocusableElements = (element) => {
+  return element.querySelectorAll(
+    'a[href]:not([disabled]), ' +
+      'button:not([disabled]), ' +
+      'input:not([disabled]), ' +
+      'select:not([disabled]), ' +
+      'textarea:not([disabled]), ' +
+      '[tabindex]:not([tabindex="-1"]), ' +
+      'div[role="button"], ' +
+      'a[role="button"] '
+  )
+}
 
-  function getFocusableElements() {
-    return container.querySelectorAll(
-      'a[href], button, input, textarea, select, details,[tabindex]:not([tabindex="-1"])'
-    );
+export function createFocusTrap(element) {
+  const focusableElements = getFocusableElements(element)
+  console.log({focusableElements})
+  if (!focusableElements.length) return () => {}
+
+  const firstFocusableElement = focusableElements[0]
+  const lastFocusableElement = focusableElements[focusableElements.length - 1]
+
+  if (!element.contains(document.activeElement)) {
+    firstFocusableElement.focus()
+    // if (preventFirstVisibleOutline)
+    //   firstFocusableElement.style.outlineWidth = '0'
   }
 
-  function trap(e) {
-    // Only handle Tab and Shift+Tab
-    if (e.key !== "Tab") return;
+  const handleTabKey = (e) => {
+    if (e.key !== 'Tab') return
+    // if (preventFirstVisibleOutline)
+    //   firstFocusableElement.style.outlineWidth = 'initial'
 
-    const focusable = getFocusableElements();
-    if (!focusable.length) return;
+    const shouldPreventDefault =
+      (e.shiftKey && document.activeElement === firstFocusableElement) ||
+      (!e.shiftKey && document.activeElement === lastFocusableElement)
 
-    firstFocusable = focusable[0];
-    lastFocusable = focusable[focusable.length - 1];
-
-    // SHIFT + TAB
-    if (e.shiftKey) {
-      if (document.activeElement === firstFocusable) {
-        e.preventDefault();
-        lastFocusable.focus();
-      }
-      return;
-    }
-
-    // TAB (forward)
-    if (document.activeElement === lastFocusable) {
-      e.preventDefault();
-      firstFocusable.focus();
+    if (shouldPreventDefault) {
+      e.preventDefault()
+      e.shiftKey ? lastFocusableElement.focus() : firstFocusableElement.focus()
     }
   }
 
-  return {
-    activate() {
-      previouslyFocused = document.activeElement;
-      const focusable = getFocusableElements();
+  element.addEventListener('keydown', handleTabKey)
 
-      if (focusable.length) {
-        focusable[0].focus();
-      } else {
-        // Make container itself focusable
-        container.setAttribute("tabindex", "-1");
-        container.focus();
-      }
-
-      document.addEventListener("keydown", trap);
-    },
-
-    deactivate() {
-      document.removeEventListener("keydown", trap);
-
-      if (previouslyFocused && previouslyFocused.focus) {
-        previouslyFocused.focus();
-      }
-    }
-  };
+  return () => element.removeEventListener('keydown', handleTabKey)
 }

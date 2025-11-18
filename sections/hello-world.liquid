@@ -33,12 +33,13 @@
       supporting assets. Use these building blocks to create modular,
       customizable themes.
     </p>
-    <p>
-    <ui-toggle>
-      <button data-trigger>Toggle</button>
-      <div data-container>Hello!</div>
+    <button aria-controls='demo-drawer' class='mt-4 p-2 border rounded'>
+      Toggle Drawer
+    </button>
+    <ui-toggle id='demo-drawer'>
+      <a href='#' data-trigger>Close</a>
+      <p class='p-4 border rounded-2xl'>Hello! This is a drawer that can be toggled from anywhere.</p>
     </ui-toggle>
-    </p>
   </div>
 
   <div class='highlight'>
