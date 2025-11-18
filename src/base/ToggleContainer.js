@@ -8,10 +8,8 @@ export class ToggleContainer extends HTMLElement {
   constructor() {
     super();
     this._focusTrapCleanup = null;
-    this._triggers = [];
+    this._cleanupFns = [];
     this._handleEscape = null;
-    this._handleTriggerClick = null;
-    this._handleTriggerKeydown = null;
   }
 
   connectedCallback() {
@@ -41,34 +39,42 @@ export class ToggleContainer extends HTMLElement {
   _bindTriggers() {
     if (!this.id) return;
 
-    this._triggers = Array.from(
-      document.querySelectorAll(`[aria-controls="${this.id}"]`)
-    );
+    // External triggers that toggle
+    const externalTriggers = document.querySelectorAll(`[aria-controls="${this.id}"]`);
+    this._setupTriggers(externalTriggers, () => this.toggle());
 
-    this._handleTriggerClick = () => this.toggle();
+    // Internal triggers that close
+    const internalTriggers = this.querySelectorAll('[data-trigger]');
+    this._setupTriggers(internalTriggers, () => this.hide());
+  }
 
-    this._handleTriggerKeydown = (e) => {
+  _setupTriggers(triggers, action) {
+    const handleClick = () => action();
+    const handleKeydown = (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        this.toggle();
+        action();
       }
     };
 
-    this._triggers.forEach((trigger) => {
-      trigger.addEventListener('click', this._handleTriggerClick);
-      trigger.addEventListener('keydown', this._handleTriggerKeydown);
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('click', handleClick);
+      trigger.addEventListener('keydown', handleKeydown);
+      
+      // Store cleanup info
+      if (!this._cleanupFns) this._cleanupFns = [];
+      this._cleanupFns.push(() => {
+        trigger.removeEventListener('click', handleClick);
+        trigger.removeEventListener('keydown', handleKeydown);
+      });
     });
   }
 
   _unbindTriggers() {
-    if (!this._handleTriggerClick || !this._handleTriggerKeydown) return;
-
-    this._triggers.forEach((trigger) => {
-      trigger.removeEventListener('click', this._handleTriggerClick);
-      trigger.removeEventListener('keydown', this._handleTriggerKeydown);
-    });
-
-    this._triggers = [];
+    if (this._cleanupFns) {
+      this._cleanupFns.forEach(fn => fn());
+      this._cleanupFns = [];
+    }
   }
 
   attributeChangedCallback(name) {
