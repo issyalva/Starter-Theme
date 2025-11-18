@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+
+ui-toggle {
+  display: none;
+}
+
+ui-toggle[open] {
+  display: block;
+}
