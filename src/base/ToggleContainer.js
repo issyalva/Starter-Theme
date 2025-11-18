@@ -136,9 +136,7 @@ export class ToggleContainer extends HTMLElement {
 
   // EXTENSION HOOKS
   onOpen() {
-    if (this) {
-      this._focusTrapCleanup = createFocusTrap(this);
-    }
+    this._focusTrapCleanup = createFocusTrap(this);
   }
 
   onClose() {
