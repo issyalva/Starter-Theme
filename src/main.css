@@ -1,9 +1,11 @@
 @import 'tailwindcss';
 
-ui-toggle {
+ui-toggle,
+ui-drawer {
   display: none;
 }
 
-ui-toggle[open] {
+ui-toggle[open],
+ui-drawer[open] {
   display: block;
 }
