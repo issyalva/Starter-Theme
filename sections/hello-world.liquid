@@ -76,6 +76,9 @@
       set of best practices that you can refer to when developing your theme and
       setting up your toolchains and processes.
     </p>
+    <button aria-controls='demo-modal' class='mt-4 p-2 border rounded'>
+      Open Modal
+    </button>
     <p>
       {{
         'Follow best practices'
@@ -84,6 +87,32 @@
     </p>
   </div>
 </div>
+
+<ui-modal id='demo-modal'>
+  <div class='p-6'>
+    <div class='modal-header'>
+      <h2 id='demo-modal-label'>Modal Dialog Example</h2>
+      <button data-trigger class='modal-close' aria-label='Close modal'>
+        ✕
+      </button>
+    </div>
+    <div class='modal-body'>
+      <p>This is a centered modal dialog! It demonstrates:</p>
+      <ul>
+        <li>Centered positioning</li>
+        <li>Backdrop overlay</li>
+        <li>Focus trap</li>
+        <li>Keyboard support (Esc to close)</li>
+        <li>ARIA accessibility</li>
+      </ul>
+      <p>Click the backdrop, press Escape, or click the close button to dismiss.</p>
+    </div>
+    <div class='modal-footer'>
+      <button data-trigger class='button'>Close</button>
+      <button class='button button--primary'>Take Action</button>
+    </div>
+  </div>
+</ui-modal>
 
 {% stylesheet %}
   .welcome {
@@ -162,6 +191,68 @@
     color: rgb(92, 95, 98);
     padding: 3px 10px 5px;
     text-decoration: none;
+  }
+
+  /* Modal Styles */
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    line-height: 1;
+  }
+
+  .modal-body {
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-body ul {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+  }
+
+  .modal-body li {
+    margin: 0.5rem 0;
+  }
+
+  .modal-footer {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    border: 1px solid currentColor;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .button--primary {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+  }
+
+  .button:hover {
+    opacity: 0.8;
   }
 {% endstylesheet %}
 
