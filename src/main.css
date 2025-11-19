@@ -1,11 +1,52 @@
 @import 'tailwindcss';
 
-ui-toggle,
-ui-drawer {
+ui-toggle {
   display: none;
 }
 
-ui-toggle[open],
-ui-drawer[open] {
+ui-toggle[open] {
   display: block;
+}
+
+/* Drawer Styles */
+ui-drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 400px;
+  background: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+  /* Default to left side */
+  left: 0;
+  transform: translateX(-100%);
+}
+
+ui-drawer[side="right"] {
+  left: auto;
+  right: 0;
+  transform: translateX(100%);
+}
+
+ui-drawer[open] {
+  transform: translateX(0);
+}
+
+/* Backdrop */
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.drawer-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
 }
