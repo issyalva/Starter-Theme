@@ -1,3 +1,8 @@
+/**
+ * Returns a list of focusable elements within the given element
+ * @param {HTMLElement} element - The container element to search within
+ * @returns {NodeList} List of focusable elements
+ */
 const getFocusableElements = (element) => {
   return element.querySelectorAll(
     'a[href]:not([disabled]), ' +
@@ -11,7 +16,13 @@ const getFocusableElements = (element) => {
   )
 }
 
-export function createFocusTrap(element) {
+/**
+ * Sets up a trap focus for specified element
+ *
+ * @param {HTMLElement} element the element to start from
+ * @param {Boolean} preventFirstVisibleOutline prevents the first focusable element from having a visible outline on initial execution
+ */
+export function createFocusTrap(element, preventFirstVisibleOutline = false) {
   const focusableElements = getFocusableElements(element)
   console.log({focusableElements})
   if (!focusableElements.length) return () => {}
@@ -21,14 +32,14 @@ export function createFocusTrap(element) {
 
   if (!element.contains(document.activeElement)) {
     firstFocusableElement.focus()
-    // if (preventFirstVisibleOutline)
-    //   firstFocusableElement.style.outlineWidth = '0'
+    if (preventFirstVisibleOutline)
+      firstFocusableElement.style.outlineWidth = '0'
   }
 
   const handleTabKey = (e) => {
     if (e.key !== 'Tab') return
-    // if (preventFirstVisibleOutline)
-    //   firstFocusableElement.style.outlineWidth = 'initial'
+    if (preventFirstVisibleOutline)
+      firstFocusableElement.style.outlineWidth = 'initial'
 
     const shouldPreventDefault =
       (e.shiftKey && document.activeElement === firstFocusableElement) ||

@@ -37,8 +37,11 @@
       Toggle Drawer
     </button>
     <ui-toggle id='demo-drawer'>
-      <a href='#' data-trigger>Close</a>
-      <p class='p-4 border rounded-2xl'>Hello! This is a drawer that can be toggled from anywhere.</p>
+      <div class='p-4 border rounded-2xl grid gap-y-1'>
+        <button data-trigger>X</button>
+        <p>Hello! This is a drawer that can be toggled from anywhere.</p>
+        <button data-trigger>Another close trigger</button>
+      </div>
     </ui-toggle>
   </div>
 
@@ -53,8 +56,10 @@
       Toggle Drawer
     </button>
     <ui-toggle id='yo-mama'>
-      <a href='#' data-trigger>Close</a>
-      <p class='p-4 border rounded-2xl'>Hello!!!! This is a drawer that can be toggled from anywhere.</p>
+      <div class='p-4 border rounded-2xl grid gap-y-1'>
+        <a href='#' data-trigger>Close</a>
+        <p>Hello!!!! This is a drawer that can be toggled from anywhere.</p>
+      </div>
     </ui-toggle>
     <p>
       {{

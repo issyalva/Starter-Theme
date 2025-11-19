@@ -1,10 +1,29 @@
 import { createFocusTrap } from '../utilities/focusTrap';
 
-export class ToggleContainer extends HTMLElement {
+/**
+ * A custom element that provides toggle/show/hide functionality with focus trap support.
+ * Can be controlled by external triggers using aria-controls or internal triggers with data-trigger.
+ *
+ * @class ToggleElement
+ * @extends {HTMLElement}
+ *
+ * @example
+ * <button aria-controls="my-drawer">Open Drawer</button>
+ * <ui-toggle id="my-drawer">
+ *   <div>
+ *     <button data-trigger>Close</button>
+ *     <p>Drawer content</p>
+ *   </div>
+ * </ui-toggle>
+ */
+export class ToggleElement extends HTMLElement {
   static get observedAttributes() {
     return ['open'];
   }
 
+  /**
+   * Creates an instance of ToggleElement.
+   */
   constructor() {
     super();
     this._focusTrapCleanup = null;
@@ -12,6 +31,10 @@ export class ToggleContainer extends HTMLElement {
     this._handleEscape = null;
   }
 
+  /**
+   * Called when the element is added to the DOM.
+   * Sets up triggers and event listeners.
+   */
   connectedCallback() {
     this._bindTriggers();
     this._applyState();
@@ -24,6 +47,10 @@ export class ToggleContainer extends HTMLElement {
     document.addEventListener('keydown', this._handleEscape);
   }
 
+  /**
+   * Called when the element is removed from the DOM.
+   * Cleans up event listeners and focus trap.
+   */
   disconnectedCallback() {
     this._unbindTriggers();
 
@@ -31,11 +58,26 @@ export class ToggleContainer extends HTMLElement {
       document.removeEventListener('keydown', this._handleEscape);
     }
 
+    this._cleanupFocusTrap();
+  }
+
+  /**
+   * Cleans up the focus trap if it exists.
+   * @private
+   */
+  _cleanupFocusTrap() {
     if (this._focusTrapCleanup) {
       this._focusTrapCleanup();
+      this._focusTrapCleanup = null;
     }
   }
 
+  /**
+   * Binds event listeners to external and internal triggers.
+   * External triggers (with aria-controls) toggle the element.
+   * Internal triggers (with data-trigger) close the element.
+   * @private
+   */
   _bindTriggers() {
     if (!this.id) return;
 
@@ -48,6 +90,12 @@ export class ToggleContainer extends HTMLElement {
     this._setupTriggers(internalTriggers, () => this.hide());
   }
 
+  /**
+   * Sets up click and keyboard event listeners for triggers.
+   * @private
+   * @param {NodeList} triggers - The trigger elements to set up
+   * @param {Function} action - The action to perform when triggered
+   */
   _setupTriggers(triggers, action) {
     const handleClick = () => action();
     const handleKeydown = (e) => {
@@ -61,8 +109,6 @@ export class ToggleContainer extends HTMLElement {
       trigger.addEventListener('click', handleClick);
       trigger.addEventListener('keydown', handleKeydown);
       
-      // Store cleanup info
-      if (!this._cleanupFns) this._cleanupFns = [];
       this._cleanupFns.push(() => {
         trigger.removeEventListener('click', handleClick);
         trigger.removeEventListener('keydown', handleKeydown);
@@ -70,6 +116,10 @@ export class ToggleContainer extends HTMLElement {
     });
   }
 
+  /**
+   * Removes all trigger event listeners.
+   * @private
+   */
   _unbindTriggers() {
     if (this._cleanupFns) {
       this._cleanupFns.forEach(fn => fn());
@@ -77,16 +127,28 @@ export class ToggleContainer extends HTMLElement {
     }
   }
 
+  /**
+   * Called when an observed attribute changes.
+   * @param {string} name - The name of the attribute that changed
+   */
   attributeChangedCallback(name) {
     if (name === 'open') {
       this._applyState();
     }
   }
 
+  /**
+   * Gets the open state of the element.
+   * @returns {boolean} True if the element has the 'open' attribute
+   */
   get open() {
     return this.hasAttribute('open');
   }
 
+  /**
+   * Sets the open state of the element.
+   * @param {boolean} value - Whether the element should be open
+   */
   set open(value) {
     if (value) {
       this.setAttribute('open', '');
@@ -96,32 +158,49 @@ export class ToggleContainer extends HTMLElement {
   }
 
   // PUBLIC API
+  /**
+   * Toggles the open state of the element.
+   */
   toggle() {
     this.open = !this.open;
   }
 
+  /**
+   * Opens the element.
+   */
   show() {
     this.open = true;
   }
 
+  /**
+   * Closes the element.
+   */
   hide() {
     this.open = false;
   }
 
   // STATE UPDATES
+  /**
+   * Applies the current open/closed state to the element.
+   * Updates aria attributes and calls lifecycle hooks.
+   * @private
+   */
   _applyState() {
-    const isOpen = this.open;
-    this.setAttribute('aria-hidden', !isOpen);
+    console.log('Applying state:', this.open);
+    this.setAttribute('aria-hidden', !this.open);
     this._updateTriggerAria();
 
-    // Lifecycle hooks
-    if (isOpen) {
+    if (this.open) {
       this.onOpen();
     } else {
       this.onClose();
     }
   }
 
+  /**
+   * Updates aria-expanded attribute on all triggers that control this element.
+   * @private
+   */
   _updateTriggerAria() {
     const triggerId = this.id;
     if (!triggerId) return;
@@ -135,16 +214,21 @@ export class ToggleContainer extends HTMLElement {
   }
 
   // EXTENSION HOOKS
+  /**
+   * Lifecycle hook called when the element opens.
+   * Sets up focus trap by default. Can be overridden in subclasses.
+   */
   onOpen() {
     this._focusTrapCleanup = createFocusTrap(this);
   }
 
+  /**
+   * Lifecycle hook called when the element closes.
+   * Cleans up focus trap by default. Can be overridden in subclasses.
+   */
   onClose() {
-    if (this._focusTrapCleanup) {
-      this._focusTrapCleanup();
-      this._focusTrapCleanup = null;
-    }
+    this._cleanupFocusTrap();
   }
 }
 
-customElements.define('ui-toggle', ToggleContainer);
+customElements.define('ui-toggle', ToggleElement);
