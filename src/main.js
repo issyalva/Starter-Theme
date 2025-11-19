@@ -2,7 +2,7 @@
 // This file imports all components and utilities to be bundled
 
 // Import base components
-import './base/ToggleContainer.js';
+import './base/ToggleElement.js';
 
 // Add any initialization code here if needed
 console.log('Theme JavaScript loaded');

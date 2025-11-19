@@ -4,16 +4,16 @@
  * @returns {NodeList} List of focusable elements
  */
 const getFocusableElements = (element) => {
-  return element.querySelectorAll(
-    'a[href]:not([disabled]), ' +
-      'button:not([disabled]), ' +
-      'input:not([disabled]), ' +
-      'select:not([disabled]), ' +
-      'textarea:not([disabled]), ' +
-      '[tabindex]:not([tabindex="-1"]), ' +
-      'div[role="button"], ' +
-      'a[role="button"] '
-  )
+  return element.querySelectorAll(`
+    a[href]:not([disabled]),
+    button:not([disabled]),
+    input:not([disabled]),
+    select:not([disabled]),
+    textarea:not([disabled]),
+    [tabindex]:not([tabindex="-1"]),
+    div[role="button"],
+    a[role="button"]
+  `)
 }
 
 /**

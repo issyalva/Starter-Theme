@@ -16,14 +16,12 @@ import { createFocusTrap } from '../utilities/focusTrap';
  *   </div>
  * </ui-toggle>
  */
+
 export class ToggleElement extends HTMLElement {
   static get observedAttributes() {
     return ['open'];
   }
 
-  /**
-   * Creates an instance of ToggleElement.
-   */
   constructor() {
     super();
     this._focusTrapCleanup = null;
@@ -31,10 +29,6 @@ export class ToggleElement extends HTMLElement {
     this._handleEscape = null;
   }
 
-  /**
-   * Called when the element is added to the DOM.
-   * Sets up triggers and event listeners.
-   */
   connectedCallback() {
     this._bindTriggers();
     this._applyState();
@@ -47,10 +41,6 @@ export class ToggleElement extends HTMLElement {
     document.addEventListener('keydown', this._handleEscape);
   }
 
-  /**
-   * Called when the element is removed from the DOM.
-   * Cleans up event listeners and focus trap.
-   */
   disconnectedCallback() {
     this._unbindTriggers();
 
