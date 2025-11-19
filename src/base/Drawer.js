@@ -1,11 +1,11 @@
-import { ToggleElement } from './ToggleElement.js';
+import { DialogElement } from './DialogElement.js';
 
 /**
  * A drawer component that slides in from the left or right side of the screen.
- * Includes a backdrop overlay that closes the drawer when clicked.
+ * Extends DialogElement with slide-in positioning.
  *
  * @class Drawer
- * @extends {ToggleElement}
+ * @extends {DialogElement}
  *
  * @example
  * <!-- Drawer from left (default) -->
@@ -27,73 +27,9 @@ import { ToggleElement } from './ToggleElement.js';
  *   </div>
  * </ui-drawer>
  */
-export class Drawer extends ToggleElement {
-  constructor() {
-    super();
-    this._backdrop = null;
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    this._createBackdrop();
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this._removeBackdrop();
-  }
-
-
-
-  /**
-   * Creates and manages the backdrop overlay.
-   * @private
-   */
-  _createBackdrop() {
-    if (this._backdrop) return;
-
-    this._backdrop = document.createElement('div');
-    this._backdrop.className = 'drawer-backdrop';
-    this._backdrop.addEventListener('click', () => this.hide());
-    document.body.appendChild(this._backdrop);
-  }
-
-  /**
-   * Removes the backdrop from the DOM.
-   * @private
-   */
-  _removeBackdrop() {
-    if (this._backdrop) {
-      this._backdrop.remove();
-      this._backdrop = null;
-    }
-  }
-
-
-
-  /**
-   * Lifecycle hook called when the drawer opens.
-   * Shows the backdrop and prevents body scroll.
-   */
-  onOpen() {
-    super.onOpen();
-    if (this._backdrop) {
-      this._backdrop.classList.add('active');
-    }
-    document.body.style.overflow = 'hidden';
-  }
-
-  /**
-   * Lifecycle hook called when the drawer closes.
-   * Hides the backdrop and restores body scroll.
-   */
-  onClose() {
-    super.onClose();
-    if (this._backdrop) {
-      this._backdrop.classList.remove('active');
-    }
-    document.body.style.overflow = '';
-  }
+export class Drawer extends DialogElement {
+  // Drawer-specific implementation is now minimal
+  // All dialog functionality inherited from DialogElement
 }
 
 customElements.define('ui-drawer', Drawer);
