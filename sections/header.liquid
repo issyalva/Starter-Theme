@@ -18,7 +18,7 @@
       }}
     {% endif %}
 
-    <button aria-controls='cart-drawer' class='header__cart-trigger'>
+    <button aria-controls='cart-drawer'>
       {% if cart.item_count > 0 %}
         <sup>{{ cart.item_count }}</sup>
       {% endif %}
@@ -29,46 +29,42 @@
 </header>
 
 <ui-drawer id='cart-drawer' side='right'>
-  <div class='cart-drawer__content'>
-    <div class='cart-drawer__header'>
-      <h2>{{ 'cart.general.title' | t }}</h2>
-      <button data-trigger aria-label='{{ 'general.accessibility.close' | t }}'>
+  <div class='p-4'>
+    <div class='flex justify-between items-center mb-4'>
+      <h2 id='cart-drawer-label' class='text-lg font-bold'>{{ 'cart.general.title' | t }}</h2>
+      <button data-trigger aria-label='{{ 'general.accessibility.close' | t }}' class='text-2xl leading-none'>
         ✕
       </button>
     </div>
 
-    <div class='cart-drawer__body'>
-      {% if cart.item_count > 0 %}
-        <div class='cart-drawer__items'>
-          {% for item in cart.items %}
-            <div class='cart-item'>
-              <img src='{{ item.image | image_url: width: 80 }}' alt='{{ item.title }}' width='80' height='80'>
-              <div class='cart-item__details'>
-                <h3>{{ item.product.title }}</h3>
-                <p>{{ item.variant.title }}</p>
-                <p>{{ item.quantity }} × {{ item.price | money }}</p>
-              </div>
-            </div>
-          {% endfor %}
-        </div>
-      {% else %}
-        <p class='cart-drawer__empty'>{{ 'cart.general.empty' | t }}</p>
-      {% endif %}
-    </div>
-
     {% if cart.item_count > 0 %}
-      <div class='cart-drawer__footer'>
-        <div class='cart-drawer__total'>
+      <div class='space-y-4 mb-4'>
+        {% for item in cart.items %}
+          <div class='flex gap-4'>
+            <img src='{{ item.image | image_url: width: 80 }}' alt='{{ item.title }}' width='80' height='80' class='rounded'>
+            <div class='flex-1'>
+              <h3 class='font-semibold'>{{ item.product.title }}</h3>
+              <p class='text-sm text-gray-600'>{{ item.variant.title }}</p>
+              <p class='text-sm'>{{ item.quantity }} × {{ item.price | money }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class='border-t pt-4 space-y-2'>
+        <div class='flex justify-between items-center mb-4'>
           <span>{{ 'cart.general.subtotal' | t }}</span>
-          <strong>{{ cart.total_price | money }}</strong>
+          <strong class='text-lg'>{{ cart.total_price | money }}</strong>
         </div>
-        <a href='{{ routes.cart_url }}' class='button'>
+        <a href='{{ routes.cart_url }}' class='block w-full text-center py-2 border rounded'>
           {{ 'cart.general.view_cart' | t }}
         </a>
-        <a href='{{ routes.checkout_url }}' class='button button--primary'>
+        <a href='{{ routes.checkout_url }}' class='block w-full text-center py-2 bg-black text-white rounded'>
           {{ 'cart.general.checkout' | t }}
         </a>
       </div>
+    {% else %}
+      <p class='text-center text-gray-500 py-8'>{{ 'cart.general.empty' | t }}</p>
     {% endif %}
   </div>
 </ui-drawer>

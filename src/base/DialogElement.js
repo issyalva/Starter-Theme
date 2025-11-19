@@ -21,13 +21,7 @@ export class DialogElement extends ToggleElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this._createBackdrop();
     this._setDialogAttributes();
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this._removeBackdrop();
   }
 
   /**
@@ -51,51 +45,55 @@ export class DialogElement extends ToggleElement {
   }
 
   /**
-   * Creates and manages the backdrop overlay.
+   * Creates the backdrop overlay when dialog opens.
    * @private
    */
   _createBackdrop() {
-    if (this._backdrop) return;
-
     this._backdrop = document.createElement('div');
     this._backdrop.className = 'dialog-backdrop';
     this._backdrop.setAttribute('aria-hidden', 'true');
     this._backdrop.addEventListener('click', () => this.hide());
     document.body.appendChild(this._backdrop);
+    
+    // Trigger transition after element is in DOM
+    requestAnimationFrame(() => {
+      this._backdrop.classList.add('active');
+    });
   }
 
   /**
-   * Removes the backdrop from the DOM.
+   * Removes the backdrop overlay when dialog closes.
    * @private
    */
   _removeBackdrop() {
-    if (this._backdrop) {
-      this._backdrop.remove();
+    if (!this._backdrop) return;
+    
+    this._backdrop.classList.remove('active');
+    
+    // Wait for transition to complete before removing from DOM
+    setTimeout(() => {
+      this._backdrop?.remove();
       this._backdrop = null;
-    }
+    }, 300); // Match CSS transition duration
   }
 
   /**
    * Lifecycle hook called when the dialog opens.
-   * Shows the backdrop and prevents body scroll.
+   * Creates backdrop and locks body scroll.
    */
   onOpen() {
     super.onOpen();
-    if (this._backdrop) {
-      this._backdrop.classList.add('active');
-    }
-    document.body.style.overflow = 'hidden';
+    this._createBackdrop();
+    document.body.classList.add('overflow-hidden');
   }
 
   /**
    * Lifecycle hook called when the dialog closes.
-   * Hides the backdrop and restores body scroll.
+   * Removes backdrop and unlocks body scroll.
    */
   onClose() {
     super.onClose();
-    if (this._backdrop) {
-      this._backdrop.classList.remove('active');
-    }
-    document.body.style.overflow = '';
+    this._removeBackdrop();
+    document.body.classList.remove('overflow-hidden');
   }
 }

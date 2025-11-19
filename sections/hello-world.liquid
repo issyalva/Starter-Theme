@@ -38,7 +38,7 @@
     </button>
     <ui-drawer id='demo-drawer'>
       <div class='p-4 border rounded-2xl grid gap-y-1'>
-        <button data-trigger>X</button>
+        <button data-trigger aria-label='{{ "general.accessibility.close" | t }}'>✕</button>
         <p>Hello! This is the UI-DRAWER that can be toggled from anywhere.</p>
         <button data-trigger>Another close trigger</button>
       </div>
@@ -92,7 +92,7 @@
   <div class='p-6'>
     <div class='modal-header'>
       <h2 id='demo-modal-label'>Modal Dialog Example</h2>
-      <button data-trigger class='modal-close' aria-label='Close modal'>
+      <button data-trigger class='modal-close' aria-label='{{ "general.accessibility.close" | t }}'>
         ✕
       </button>
     </div>

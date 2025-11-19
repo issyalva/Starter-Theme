@@ -20,6 +20,7 @@ ui-drawer {
   z-index: 1000;
   transition: transform 0.3s ease;
   overflow-y: auto;
+  pointer-events: none;
   /* Default to left side */
   left: 0;
   transform: translateX(-100%);
@@ -33,6 +34,7 @@ ui-drawer[side="right"] {
 
 ui-drawer[open] {
   transform: translateX(0);
+  pointer-events: auto;
 }
 
 /* Modal Styles */
