@@ -36,13 +36,18 @@
     <button aria-controls='demo-drawer' class='mt-4 p-2 border rounded'>
       Toggle Drawer
     </button>
-    <ui-toggle id='demo-drawer'>
+    <dialog is='ui-drawer' id='demo-drawer' focus-trap aria-label='Demo drawer'>
       <div class='p-4 border rounded-2xl grid gap-y-1'>
-        <button data-trigger>X</button>
-        <p>Hello! This is a drawer that can be toggled from anywhere.</p>
-        <button data-trigger>Another close trigger</button>
+        <button
+          data-close-dialog
+          aria-label='{{ "general.accessibility.close" | t }}'
+        >
+          ✕
+        </button>
+        <p>Hello! This is the drawer that can be toggled from anywhere.</p>
+        <button data-close-dialog>Another close trigger</button>
       </div>
-    </ui-toggle>
+    </dialog>
   </div>
 
   <div class='highlight'>
@@ -57,8 +62,11 @@
     </button>
     <ui-toggle id='yo-mama'>
       <div class='p-4 border rounded-2xl grid gap-y-1'>
-        <a href='#' data-trigger>Close</a>
-        <p>Hello!!!! This is a drawer that can be toggled from anywhere.</p>
+        <a href='#' data-close>Close</a>
+        <p>
+          Hello!!!! This is the generic ui-toggle element that can be toggled
+          from anywhere.
+        </p>
       </div>
     </ui-toggle>
     <p>
@@ -76,6 +84,9 @@
       set of best practices that you can refer to when developing your theme and
       setting up your toolchains and processes.
     </p>
+    <button aria-controls='demo-modal' class='mt-4 p-2 border rounded'>
+      Open Modal
+    </button>
     <p>
       {{
         'Follow best practices'
@@ -84,6 +95,43 @@
     </p>
   </div>
 </div>
+
+<dialog
+  is='ui-modal'
+  id='demo-modal'
+  focus-trap
+  aria-labelledby='demo-modal-label'
+>
+  <div class='p-6'>
+    <div class='modal-header'>
+      <h2 id='demo-modal-label'>Modal Dialog Example</h2>
+      <button
+        data-close-dialog
+        class='modal-close'
+        aria-label='{{ "general.accessibility.close" | t }}'
+      >
+        ✕
+      </button>
+    </div>
+    <div class='modal-body'>
+      <p>This is a centered modal dialog! It demonstrates:</p>
+      <ul>
+        <li>Centered positioning</li>
+        <li>Backdrop overlay</li>
+        <li>Focus trap</li>
+        <li>Keyboard support (Esc to close)</li>
+        <li>ARIA accessibility</li>
+      </ul>
+      <p>
+        Click the backdrop, press Escape, or click the close button to dismiss.
+      </p>
+    </div>
+    <div class='modal-footer'>
+      <button data-close-dialog class='button'>Close</button>
+      <button class='button button--primary'>Take Action</button>
+    </div>
+  </div>
+</dialog>
 
 {% stylesheet %}
   .welcome {

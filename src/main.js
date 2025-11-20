@@ -3,6 +3,8 @@
 
 // Import base components
 import './base/ToggleElement.js';
+import './base/Drawer.js';
+import './base/Modal.js';
 
 // Add any initialization code here if needed
 console.log('Theme JavaScript loaded');

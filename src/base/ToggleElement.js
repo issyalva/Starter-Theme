@@ -178,6 +178,14 @@ export class ToggleElement extends HTMLElement {
   _applyState() {
     console.log('Applying state:', this.open);
     this.setAttribute('aria-hidden', !this.open);
+    
+    // Use inert to remove from tab order when closed
+    if (this.open) {
+      this.removeAttribute('inert');
+    } else {
+      this.setAttribute('inert', '');
+    }
+    
     this._updateTriggerAria();
 
     if (this.open) {

@@ -1,4 +1,9 @@
 {
+  "general": {
+    "accessibility": {
+      "close": "Close"
+    }
+  },
   "404": {
     "title": "404",
     "not_found": "Page not found.",
@@ -17,7 +22,14 @@
     "checkout": "Checkout",
     "title": "Cart",
     "update": "Update",
-    "remove": "Remove"
+    "remove": "Remove",
+    "general": {
+      "title": "Your Cart",
+      "empty": "Your cart is empty",
+      "subtotal": "Subtotal",
+      "view_cart": "View Cart",
+      "checkout": "Checkout"
+    }
   },
   "customers": {
     "login": {
