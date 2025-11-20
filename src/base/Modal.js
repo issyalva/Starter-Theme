@@ -2,20 +2,18 @@ import { DialogElement } from './DialogElement.js';
 
 /**
  * A modal component that appears centered on the screen.
- * Extends DialogElement with centered positioning.
+ * Extends the native HTMLDialogElement with centered positioning.
  *
  * @class Modal
  * @extends {DialogElement}
  *
  * @example
- * <button aria-controls="example-modal">Open Modal</button>
- * <ui-modal id="example-modal">
- *   <div>
- *     <h2 id="example-modal-label">Modal Title</h2>
- *     <button data-trigger>Close</button>
- *     <p>Modal content goes here</p>
- *   </div>
- * </ui-modal>
+ * <button onclick="document.getElementById('example-modal').show()">Open Modal</button>
+ * <dialog is="ui-modal" id="example-modal">
+ *   <h2 id="example-modal-label">Modal Title</h2>
+ *   <button data-trigger>Close</button>
+ *   <p>Modal content goes here</p>
+ * </dialog>
  */
 export class Modal extends DialogElement {
   // Modal-specific implementation is minimal
@@ -23,4 +21,4 @@ export class Modal extends DialogElement {
   // Positioning handled by CSS
 }
 
-customElements.define('ui-modal', Modal);
+customElements.define('ui-modal', Modal, { extends: 'dialog' });

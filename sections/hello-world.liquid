@@ -36,13 +36,18 @@
     <button aria-controls='demo-drawer' class='mt-4 p-2 border rounded'>
       Toggle Drawer
     </button>
-    <ui-drawer id='demo-drawer'>
+    <dialog is='ui-drawer' id='demo-drawer' focus-trap>
       <div class='p-4 border rounded-2xl grid gap-y-1'>
-        <button data-trigger aria-label='{{ "general.accessibility.close" | t }}'>✕</button>
-        <p>Hello! This is the UI-DRAWER that can be toggled from anywhere.</p>
+        <button
+          data-trigger
+          aria-label='{{ "general.accessibility.close" | t }}'
+        >
+          ✕
+        </button>
+        <p>Hello! This is the drawer that can be toggled from anywhere.</p>
         <button data-trigger>Another close trigger</button>
       </div>
-    </ui-drawer>
+    </dialog>
   </div>
 
   <div class='highlight'>
@@ -58,7 +63,10 @@
     <ui-toggle id='yo-mama'>
       <div class='p-4 border rounded-2xl grid gap-y-1'>
         <a href='#' data-trigger>Close</a>
-        <p>Hello!!!! This is the generic ui-toggle element that can be toggled from anywhere.</p>
+        <p>
+          Hello!!!! This is the generic ui-toggle element that can be toggled
+          from anywhere.
+        </p>
       </div>
     </ui-toggle>
     <p>
@@ -88,11 +96,15 @@
   </div>
 </div>
 
-<ui-modal id='demo-modal'>
+<dialog is='ui-modal' id='demo-modal' focus-trap>
   <div class='p-6'>
     <div class='modal-header'>
       <h2 id='demo-modal-label'>Modal Dialog Example</h2>
-      <button data-trigger class='modal-close' aria-label='{{ "general.accessibility.close" | t }}'>
+      <button
+        data-trigger
+        class='modal-close'
+        aria-label='{{ "general.accessibility.close" | t }}'
+      >
         ✕
       </button>
     </div>
@@ -105,14 +117,16 @@
         <li>Keyboard support (Esc to close)</li>
         <li>ARIA accessibility</li>
       </ul>
-      <p>Click the backdrop, press Escape, or click the close button to dismiss.</p>
+      <p>
+        Click the backdrop, press Escape, or click the close button to dismiss.
+      </p>
     </div>
     <div class='modal-footer'>
       <button data-trigger class='button'>Close</button>
       <button class='button button--primary'>Take Action</button>
     </div>
   </div>
-</ui-modal>
+</dialog>
 
 {% stylesheet %}
   .welcome {

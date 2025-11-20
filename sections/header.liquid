@@ -18,7 +18,10 @@
       }}
     {% endif %}
 
-    <button aria-controls='cart-drawer'>
+    <button
+      aria-controls='cart-drawer'
+      aria-label='{{ 'cart.general.title' | t }}'
+    >
       {% if cart.item_count > 0 %}
         <sup>{{ cart.item_count }}</sup>
       {% endif %}
@@ -28,11 +31,17 @@
   </div>
 </header>
 
-<ui-drawer id='cart-drawer' side='right'>
+<dialog is='ui-drawer' id='cart-drawer' side='right' focus-trap>
   <div class='p-4'>
     <div class='flex justify-between items-center mb-4'>
-      <h2 id='cart-drawer-label' class='text-lg font-bold'>{{ 'cart.general.title' | t }}</h2>
-      <button data-trigger aria-label='{{ 'general.accessibility.close' | t }}' class='text-2xl leading-none'>
+      <h2 id='cart-drawer-label' class='text-lg font-bold'>
+        {{ 'cart.general.title' | t }}
+      </h2>
+      <button
+        data-trigger
+        aria-label='{{ 'general.accessibility.close' | t }}'
+        class='text-2xl leading-none'
+      >
         ✕
       </button>
     </div>
@@ -41,11 +50,19 @@
       <div class='space-y-4 mb-4'>
         {% for item in cart.items %}
           <div class='flex gap-4'>
-            <img src='{{ item.image | image_url: width: 80 }}' alt='{{ item.title }}' width='80' height='80' class='rounded'>
+            <img
+              src='{{ item.image | image_url: width: 80 }}'
+              alt='{{ item.title }}'
+              width='80'
+              height='80'
+              class='rounded'
+            >
             <div class='flex-1'>
               <h3 class='font-semibold'>{{ item.product.title }}</h3>
               <p class='text-sm text-gray-600'>{{ item.variant.title }}</p>
-              <p class='text-sm'>{{ item.quantity }} × {{ item.price | money }}</p>
+              <p class='text-sm'>
+                {{ item.quantity }} × {{ item.price | money }}
+              </p>
             </div>
           </div>
         {% endfor %}
@@ -56,18 +73,26 @@
           <span>{{ 'cart.general.subtotal' | t }}</span>
           <strong class='text-lg'>{{ cart.total_price | money }}</strong>
         </div>
-        <a href='{{ routes.cart_url }}' class='block w-full text-center py-2 border rounded'>
+        <a
+          href='{{ routes.cart_url }}'
+          class='block w-full text-center py-2 border rounded'
+        >
           {{ 'cart.general.view_cart' | t }}
         </a>
-        <a href='{{ routes.checkout_url }}' class='block w-full text-center py-2 bg-black text-white rounded'>
+        <a
+          href='{{ routes.checkout_url }}'
+          class='block w-full text-center py-2 bg-black text-white rounded'
+        >
           {{ 'cart.general.checkout' | t }}
         </a>
       </div>
     {% else %}
-      <p class='text-center text-gray-500 py-8'>{{ 'cart.general.empty' | t }}</p>
+      <p class='text-center text-gray-500 py-8'>
+        {{ 'cart.general.empty' | t }}
+      </p>
     {% endif %}
   </div>
-</ui-drawer>
+</dialog>
 
 {% stylesheet %}
   header {
