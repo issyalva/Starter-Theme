@@ -36,7 +36,7 @@
     <button aria-controls='demo-drawer' class='mt-4 p-2 border rounded'>
       Toggle Drawer
     </button>
-    <dialog is='ui-drawer' id='demo-drawer' focus-trap>
+    <dialog is='ui-drawer' id='demo-drawer' focus-trap aria-label='Demo drawer'>
       <div class='p-4 border rounded-2xl grid gap-y-1'>
         <button
           data-close-dialog
@@ -96,7 +96,12 @@
   </div>
 </div>
 
-<dialog is='ui-modal' id='demo-modal' focus-trap>
+<dialog
+  is='ui-modal'
+  id='demo-modal'
+  focus-trap
+  aria-labelledby='demo-modal-label'
+>
   <div class='p-6'>
     <div class='modal-header'>
       <h2 id='demo-modal-label'>Modal Dialog Example</h2>

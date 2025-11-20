@@ -27,23 +27,34 @@ export class DialogElement extends HTMLDialogElement {
   constructor() {
     super();
     this._cleanupFocusTrap = null;
+
+    // Bind event handlers to store references for cleanup
+    this._handleClose = () => {
+      this._unlockBodyScroll();
+
+      // Clean up focus trap if it was set up
+      if (this._cleanupFocusTrap) {
+        this._cleanupFocusTrap();
+        this._cleanupFocusTrap = null;
+      }
+    };
+
+    this._handleBackdropClick = (e) => {
+      if (e.target === this) {
+        this.hide();
+      }
+    };
   }
 
   connectedCallback() {
     this._setupCloseButtons();
     this._setupExternalTriggers();
 
-    // Listen for native close event (ESC key)
-    this.addEventListener('close', () => {
-      this._unlockBodyScroll();
-    });
+    // Listen for native close event (ESC key, hide(), or programmatic close)
+    this.addEventListener('close', this._handleClose);
 
     // Handle backdrop clicks
-    this.addEventListener('click', (e) => {
-      if (e.target === this) {
-        this.hide();
-      }
-    });
+    this.addEventListener('click', this._handleBackdropClick);
   }
 
   /**
@@ -99,14 +110,6 @@ export class DialogElement extends HTMLDialogElement {
    */
   hide() {
     if (this.open) {
-      this._unlockBodyScroll();
-
-      // Clean up focus trap if it was set up
-      if (this._cleanupFocusTrap) {
-        this._cleanupFocusTrap();
-        this._cleanupFocusTrap = null;
-      }
-
       this.close();
     }
   }
@@ -116,7 +119,7 @@ export class DialogElement extends HTMLDialogElement {
    * @private
    */
   _lockBodyScroll() {
-    document.body.classList.add('overflow-hidden');
+    document.body.style.overflow = 'hidden';
   }
 
   /**
@@ -124,10 +127,14 @@ export class DialogElement extends HTMLDialogElement {
    * @private
    */
   _unlockBodyScroll() {
-    document.body.classList.remove('overflow-hidden');
+    document.body.style.overflow = '';
   }
 
   disconnectedCallback() {
+    // Remove event listeners
+    this.removeEventListener('close', this._handleClose);
+    this.removeEventListener('click', this._handleBackdropClick);
+
     // Clean up focus trap if element is removed
     if (this._cleanupFocusTrap) {
       this._cleanupFocusTrap();
