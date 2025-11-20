@@ -18,24 +18,17 @@ dialog[is='ui-drawer'] {
   max-width: 400px;
   background: white;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
   overflow-y: auto;
   border: none;
   padding: 0;
   margin: 0;
   /* Default to left side */
   left: 0;
-  transform: translateX(-100%);
 }
 
 dialog[is='ui-drawer'][side='right'] {
   left: auto;
   right: 0;
-  transform: translateX(100%);
-}
-
-dialog[is='ui-drawer'][open][data-open] {
-  transform: translateX(0);
 }
 
 /* Modal Styles */
@@ -43,26 +36,17 @@ dialog[is='ui-modal'] {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.9);
+  transform: translate(-50%, -50%);
   width: 90%;
   max-width: 600px;
   max-height: 90vh;
   background: white;
   border-radius: 8px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
   overflow-y: auto;
   border: none;
   padding: 0;
   margin: 0;
-}
-
-dialog[is='ui-modal'][open][data-open] {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
 }
 
 /* Native dialog backdrop styling */

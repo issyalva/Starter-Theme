@@ -39,13 +39,13 @@
     <dialog is='ui-drawer' id='demo-drawer' focus-trap>
       <div class='p-4 border rounded-2xl grid gap-y-1'>
         <button
-          data-trigger
+          data-close-dialog
           aria-label='{{ "general.accessibility.close" | t }}'
         >
           ✕
         </button>
         <p>Hello! This is the drawer that can be toggled from anywhere.</p>
-        <button data-trigger>Another close trigger</button>
+        <button data-close-dialog>Another close trigger</button>
       </div>
     </dialog>
   </div>
@@ -62,7 +62,7 @@
     </button>
     <ui-toggle id='yo-mama'>
       <div class='p-4 border rounded-2xl grid gap-y-1'>
-        <a href='#' data-trigger>Close</a>
+        <a href='#' data-close>Close</a>
         <p>
           Hello!!!! This is the generic ui-toggle element that can be toggled
           from anywhere.
@@ -101,7 +101,7 @@
     <div class='modal-header'>
       <h2 id='demo-modal-label'>Modal Dialog Example</h2>
       <button
-        data-trigger
+        data-close-dialog
         class='modal-close'
         aria-label='{{ "general.accessibility.close" | t }}'
       >
@@ -122,7 +122,7 @@
       </p>
     </div>
     <div class='modal-footer'>
-      <button data-trigger class='button'>Close</button>
+      <button data-close-dialog class='button'>Close</button>
       <button class='button button--primary'>Take Action</button>
     </div>
   </div>

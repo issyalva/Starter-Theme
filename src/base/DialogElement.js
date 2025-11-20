@@ -12,16 +12,17 @@ import { createFocusTrap } from '../utilities/focusTrap.js';
  * // Use with 'is' attribute to extend native dialog
  * <dialog is="ui-modal" id="example-modal">
  *   <h2>Modal Title</h2>
- *   <button data-trigger>Close</button>
+ *   <button data-close-dialog>Close</button>
  * </dialog>
  *
  * @example
  * // With opt-in strict focus trapping
  * <dialog is="ui-modal" id="example-modal" focus-trap>
  *   <h2>Modal Title</h2>
- *   <button data-trigger>Close</button>
+ *   <button data-close-dialog>Close</button>
  * </dialog>
  */
+
 export class DialogElement extends HTMLDialogElement {
   constructor() {
     super();
@@ -29,13 +30,12 @@ export class DialogElement extends HTMLDialogElement {
   }
 
   connectedCallback() {
-    this._setupTriggers();
-    this._setupAccessibility();
+    this._setupCloseButtons();
     this._setupExternalTriggers();
 
     // Listen for native close event (ESC key)
     this.addEventListener('close', () => {
-      this._onClose();
+      this._unlockBodyScroll();
     });
 
     // Handle backdrop clicks
@@ -47,13 +47,13 @@ export class DialogElement extends HTMLDialogElement {
   }
 
   /**
-   * Sets up click handlers for internal trigger elements.
+   * Sets up click handlers for internal close button elements.
    * @private
    */
-  _setupTriggers() {
-    const triggers = this.querySelectorAll('[data-trigger]');
-    triggers.forEach((trigger) => {
-      trigger.addEventListener('click', () => this.hide());
+  _setupCloseButtons() {
+    const closeButtons = this.querySelectorAll('[data-close-dialog]');
+    closeButtons.forEach((button) => {
+      button.addEventListener('click', () => this.hide());
     });
   }
 
@@ -74,31 +74,13 @@ export class DialogElement extends HTMLDialogElement {
   }
 
   /**
-   * Sets up ARIA attributes for accessibility.
-   * @private
-   */
-  _setupAccessibility() {
-    const labelId = `${this.id}-label`;
-    const labelElement = this.querySelector(`#${labelId}`);
-
-    if (labelElement) {
-      this.setAttribute('aria-labelledby', labelId);
-    } else if (!this.hasAttribute('aria-label')) {
-      this.setAttribute('aria-label', 'Dialog');
-    }
-  }
-
-  /**
    * Shows the dialog as a modal.
    */
   show() {
     if (!this.open) {
       this.showModal();
-      // Trigger reflow to ensure transition happens
-      requestAnimationFrame(() => {
-        this._onOpen();
-        this._setupOptionalFocusTrap();
-      });
+      this._lockBodyScroll();
+      this._setupOptionalFocusTrap();
     }
   }
 
@@ -117,7 +99,7 @@ export class DialogElement extends HTMLDialogElement {
    */
   hide() {
     if (this.open) {
-      this._onClose();
+      this._unlockBodyScroll();
 
       // Clean up focus trap if it was set up
       if (this._cleanupFocusTrap) {
@@ -125,43 +107,24 @@ export class DialogElement extends HTMLDialogElement {
         this._cleanupFocusTrap = null;
       }
 
-      // Wait for close animation before actually closing
-      // Use transitionend event to know when animation completes
-      const handleTransitionEnd = (e) => {
-        // Only close if the transition was on this element
-        if (e.target === this) {
-          this.close();
-          this.removeEventListener('transitionend', handleTransitionEnd);
-        }
-      };
-      this.addEventListener('transitionend', handleTransitionEnd);
-
-      // Fallback timeout in case transitionend doesn't fire
-      setTimeout(() => {
-        if (this.open) {
-          this.close();
-          this.removeEventListener('transitionend', handleTransitionEnd);
-        }
-      }, 350);
+      this.close();
     }
   }
 
   /**
-   * Called when dialog opens.
+   * Locks body scroll when dialog is open.
    * @private
    */
-  _onOpen() {
+  _lockBodyScroll() {
     document.body.classList.add('overflow-hidden');
-    this.setAttribute('data-open', '');
   }
 
   /**
-   * Called when dialog closes.
+   * Unlocks body scroll when dialog closes.
    * @private
    */
-  _onClose() {
+  _unlockBodyScroll() {
     document.body.classList.remove('overflow-hidden');
-    this.removeAttribute('data-open');
   }
 
   disconnectedCallback() {
