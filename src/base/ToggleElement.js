@@ -2,7 +2,7 @@ import { createFocusTrap } from '../utilities/focusTrap';
 
 /**
  * A custom element that provides toggle/show/hide functionality with focus trap support.
- * Can be controlled by external triggers using aria-controls or internal triggers with data-trigger.
+ * Can be controlled by external triggers using aria-controls or internal triggers with data-close.
  *
  * @class ToggleElement
  * @extends {HTMLElement}
@@ -11,7 +11,7 @@ import { createFocusTrap } from '../utilities/focusTrap';
  * <button aria-controls="my-drawer">Open Drawer</button>
  * <ui-toggle id="my-drawer">
  *   <div>
- *     <button data-trigger>Close</button>
+ *     <button data-close>Close</button>
  *     <p>Drawer content</p>
  *   </div>
  * </ui-toggle>
@@ -65,18 +65,20 @@ export class ToggleElement extends HTMLElement {
   /**
    * Binds event listeners to external and internal triggers.
    * External triggers (with aria-controls) toggle the element.
-   * Internal triggers (with data-trigger) close the element.
+   * Internal triggers (with data-close) close the element.
    * @private
    */
   _bindTriggers() {
     if (!this.id) return;
 
     // External triggers that toggle
-    const externalTriggers = document.querySelectorAll(`[aria-controls="${this.id}"]`);
+    const externalTriggers = document.querySelectorAll(
+      `[aria-controls="${this.id}"]`
+    );
     this._setupTriggers(externalTriggers, () => this.toggle());
 
     // Internal triggers that close
-    const internalTriggers = this.querySelectorAll('[data-trigger]');
+    const internalTriggers = this.querySelectorAll('[data-close]');
     this._setupTriggers(internalTriggers, () => this.hide());
   }
 
@@ -98,7 +100,7 @@ export class ToggleElement extends HTMLElement {
     triggers.forEach((trigger) => {
       trigger.addEventListener('click', handleClick);
       trigger.addEventListener('keydown', handleKeydown);
-      
+
       this._cleanupFns.push(() => {
         trigger.removeEventListener('click', handleClick);
         trigger.removeEventListener('keydown', handleKeydown);
@@ -112,7 +114,7 @@ export class ToggleElement extends HTMLElement {
    */
   _unbindTriggers() {
     if (this._cleanupFns) {
-      this._cleanupFns.forEach(fn => fn());
+      this._cleanupFns.forEach((fn) => fn());
       this._cleanupFns = [];
     }
   }
@@ -178,14 +180,14 @@ export class ToggleElement extends HTMLElement {
   _applyState() {
     console.log('Applying state:', this.open);
     this.setAttribute('aria-hidden', !this.open);
-    
+
     // Use inert to remove from tab order when closed
     if (this.open) {
       this.removeAttribute('inert');
     } else {
       this.setAttribute('inert', '');
     }
-    
+
     this._updateTriggerAria();
 
     if (this.open) {
@@ -218,6 +220,7 @@ export class ToggleElement extends HTMLElement {
    */
   onOpen() {
     this._focusTrapCleanup = createFocusTrap(this);
+    this.dispatchEvent(new CustomEvent('toggle:open', { bubbles: true }));
   }
 
   /**
@@ -226,6 +229,7 @@ export class ToggleElement extends HTMLElement {
    */
   onClose() {
     this._cleanupFocusTrap();
+    this.dispatchEvent(new CustomEvent('toggle:close', { bubbles: true }));
   }
 }
 
