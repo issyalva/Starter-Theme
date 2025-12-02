@@ -99,9 +99,8 @@
     <h3>Accordions</h3>
     <p class='highlight-description'>
       Accordion components let you organize content into collapsible sections.
-      Use standalone items or groups with exclusive mode.
+      Use standalone items or groups with single mode.
     </p>
-
     <ui-accordion-item>
       <button
         aria-controls='faq-shipping'
@@ -118,39 +117,97 @@
         </p>
       </ui-toggle>
     </ui-accordion-item>
+    <ui-accordion-group>
+      <ui-accordion-item>
+        <button
+          aria-controls='faq-returns'
+          class='flex w-full justify-between items-center'
+        >
+          What is your return policy?
+          <span slot='icon-closed'>+</span>
+          <span slot='icon-open'>−</span>
+        </button>
+        <ui-toggle id='faq-returns'>
+          <p>
+            We accept returns within 30 days of purchase. Items must be unused
+            and in original packaging.
+          </p>
+        </ui-toggle>
+      </ui-accordion-item>
 
-    <ui-accordion-item>
-      <button
-        aria-controls='faq-returns'
-        class='flex w-full justify-between items-center'
-      >
-        What is your return policy?
-        <span slot='icon-closed'>+</span>
-        <span slot='icon-open'>−</span>
-      </button>
-      <ui-toggle id='faq-returns'>
-        <p>
-          We accept returns within 30 days of purchase. Items must be unused and
-          in original packaging.
-        </p>
-      </ui-toggle>
-    </ui-accordion-item>
+      <ui-accordion-item>
+        <button
+          aria-controls='faq-payment'
+          class='flex w-full justify-between items-center'
+        >
+          What payment methods do you accept?
+          <span slot='icon-closed'>+</span>
+          <span slot='icon-open'>−</span>
+        </button>
+        <ui-toggle id='faq-payment'>
+          <p>
+            We accept all major credit cards, PayPal, Apple Pay, and Google Pay.
+          </p>
+        </ui-toggle>
+      </ui-accordion-item>
+    </ui-accordion-group>
+  </div>
 
-    <ui-accordion-item>
-      <button
-        aria-controls='faq-payment'
-        class='flex w-full justify-between items-center'
-      >
-        What payment methods do you accept?
-        <span slot='icon-closed'>+</span>
-        <span slot='icon-open'>−</span>
-      </button>
-      <ui-toggle id='faq-payment'>
-        <p>
-          We accept all major credit cards, PayPal, Apple Pay, and Google Pay.
-        </p>
-      </ui-toggle>
-    </ui-accordion-item>
+  <div class='highlight'>
+    <h3>Accordion Group</h3>
+    <p class='highlight-description'>
+      Accordion components let you organize content into collapsible sections.
+      Use standalone items or groups with single mode.
+    </p>
+    <ui-accordion-group single>
+      <ui-accordion-item>
+        <button
+          aria-controls='group-shipping'
+          class='flex w-full justify-between items-center'
+        >
+          <h3>How long does shipping take?</h3>
+          <span slot='icon-closed'>+</span>
+          <span slot='icon-open'>−</span>
+        </button>
+        <ui-toggle id='group-shipping'>
+          <p>
+            Standard shipping takes 5-7 business days. Express shipping is
+            available for 2-3 business days.
+          </p>
+        </ui-toggle>
+      </ui-accordion-item>
+      <ui-accordion-item>
+        <button
+          aria-controls='group-returns'
+          class='flex w-full justify-between items-center'
+        >
+          What is your return policy?
+          <span slot='icon-closed'>+</span>
+          <span slot='icon-open'>−</span>
+        </button>
+        <ui-toggle id='group-returns' open>
+          <p>
+            We accept returns within 30 days of purchase. Items must be unused
+            and in original packaging.
+          </p>
+        </ui-toggle>
+      </ui-accordion-item>
+      <ui-accordion-item>
+        <button
+          aria-controls='group-payment'
+          class='flex w-full justify-between items-center'
+        >
+          What payment methods do you accept?
+          <span slot='icon-closed'>+</span>
+          <span slot='icon-open'>−</span>
+        </button>
+        <ui-toggle id='group-payment'>
+          <p>
+            We accept all major credit cards, PayPal, Apple Pay, and Google Pay.
+          </p>
+        </ui-toggle>
+      </ui-accordion-item>
+    </ui-accordion-group>
   </div>
 </div>
 
