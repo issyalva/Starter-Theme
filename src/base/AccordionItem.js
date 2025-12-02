@@ -43,32 +43,37 @@ export class AccordionItem extends HTMLElement {
 
     if (!iconClosed && !iconOpen) return;
 
-    // Update icon visibility
-    const showClosed = () => {
-      if (iconClosed) iconClosed.style.display = '';
-      if (iconOpen) iconOpen.style.display = 'none';
-    };
-
-    const showOpen = () => {
+    // Store handlers for cleanup
+    this._showOpen = () => {
       if (iconClosed) iconClosed.style.display = 'none';
       if (iconOpen) iconOpen.style.display = '';
     };
 
+    this._showClosed = () => {
+      if (iconClosed) iconClosed.style.display = '';
+      if (iconOpen) iconOpen.style.display = 'none';
+    };
+
     // Listen for toggle events
-    this.addEventListener('toggle:open', showOpen);
-    this.addEventListener('toggle:close', showClosed);
+    this.addEventListener('toggle:open', this._showOpen);
+    this.addEventListener('toggle:close', this._showClosed);
 
     // Set initial state
     const toggle = this.querySelector('ui-toggle');
     if (toggle && toggle.hasAttribute('open')) {
-      showOpen();
+      this._showOpen();
     } else {
-      showClosed();
+      this._showClosed();
     }
   }
 
   disconnectedCallback() {
-    // Event listeners are automatically cleaned up when element is removed
+    if (this._showOpen) {
+      this.removeEventListener('toggle:open', this._showOpen);
+    }
+    if (this._showClosed) {
+      this.removeEventListener('toggle:close', this._showClosed);
+    }
   }
 }
 
