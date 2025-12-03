@@ -12,9 +12,9 @@
  *     <span slot="icon-closed">+</span>
  *     <span slot="icon-open">−</span>
  *   </button>
- *   <ui-toggle id="faq-1">
+ *   <ui-disclosure id="faq-1">
  *     <p>We accept returns within 30 days...</p>
- *   </ui-toggle>
+ *   </ui-disclosure>
  * </ui-accordion-item>
  *
  * @example
@@ -25,7 +25,7 @@
  *     <svg slot="icon-closed">...</svg>
  *     <svg slot="icon-open">...</svg>
  *   </button>
- *   <ui-toggle id="faq-2">Answer</ui-toggle>
+ *   <ui-disclosure id="faq-2">Answer</ui-disclosure>
  * </ui-accordion-item>
  */
 export class AccordionItem extends HTMLElement {
@@ -59,8 +59,8 @@ export class AccordionItem extends HTMLElement {
     this.addEventListener('toggle:close', this._showClosed);
 
     // Set initial state
-    const toggle = this.querySelector('ui-toggle');
-    if (toggle && toggle.hasAttribute('open')) {
+    const disclosure = this.querySelector('ui-disclosure');
+    if (disclosure && disclosure.hasAttribute('open')) {
       this._showOpen();
     } else {
       this._showClosed();

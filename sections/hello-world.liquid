@@ -60,15 +60,15 @@
     <button aria-controls='yo-mama' class='mt-4 p-2 border rounded'>
       Toggle Drawer
     </button>
-    <ui-toggle id='yo-mama'>
+    <ui-disclosure id='yo-mama'>
       <div class='p-4 border rounded-2xl grid gap-y-1'>
         <a href='#' data-close>Close</a>
         <p>
-          Hello!!!! This is the generic ui-toggle element that can be toggled
-          from anywhere.
+          Hello!!!! This is the generic ui-disclosure element that can be
+          toggled from anywhere.
         </p>
       </div>
-    </ui-toggle>
+    </ui-disclosure>
     <p>
       {{
         'View the Liquid reference'
@@ -110,12 +110,12 @@
         <span slot='icon-closed'>+</span>
         <span slot='icon-open'>−</span>
       </button>
-      <ui-toggle id='faq-shipping'>
+      <ui-disclosure id='faq-shipping'>
         <p>
           Standard shipping takes 5-7 business days. Express shipping is
           available for 2-3 business days.
         </p>
-      </ui-toggle>
+      </ui-disclosure>
     </ui-accordion-item>
     <ui-accordion-group>
       <ui-accordion-item>
@@ -127,12 +127,12 @@
           <span slot='icon-closed'>+</span>
           <span slot='icon-open'>−</span>
         </button>
-        <ui-toggle id='faq-returns'>
+        <ui-disclosure id='faq-returns'>
           <p>
             We accept returns within 30 days of purchase. Items must be unused
             and in original packaging.
           </p>
-        </ui-toggle>
+        </ui-disclosure>
       </ui-accordion-item>
 
       <ui-accordion-item>
@@ -144,11 +144,11 @@
           <span slot='icon-closed'>+</span>
           <span slot='icon-open'>−</span>
         </button>
-        <ui-toggle id='faq-payment'>
+        <ui-disclosure id='faq-payment'>
           <p>
             We accept all major credit cards, PayPal, Apple Pay, and Google Pay.
           </p>
-        </ui-toggle>
+        </ui-disclosure>
       </ui-accordion-item>
     </ui-accordion-group>
   </div>
@@ -157,7 +157,8 @@
     <h3>Accordion Group</h3>
     <p class='highlight-description'>
       Accordion components let you organize content into collapsible sections.
-      Groups enforce single-item mode by default. Add 'multiple' to allow many open.
+      Groups enforce single-item mode by default. Add 'multiple' to allow many
+      open.
     </p>
     <ui-accordion-group>
       <ui-accordion-item>
@@ -169,12 +170,12 @@
           <span slot='icon-closed'>+</span>
           <span slot='icon-open'>−</span>
         </button>
-        <ui-toggle id='group-shipping'>
+        <ui-disclosure id='group-shipping'>
           <p>
             Standard shipping takes 5-7 business days. Express shipping is
             available for 2-3 business days.
           </p>
-        </ui-toggle>
+        </ui-disclosure>
       </ui-accordion-item>
       <ui-accordion-item>
         <button
@@ -185,12 +186,12 @@
           <span slot='icon-closed'>+</span>
           <span slot='icon-open'>−</span>
         </button>
-        <ui-toggle id='group-returns' open>
+        <ui-disclosure id='group-returns' open>
           <p>
             We accept returns within 30 days of purchase. Items must be unused
             and in original packaging.
           </p>
-        </ui-toggle>
+        </ui-disclosure>
       </ui-accordion-item>
       <ui-accordion-item>
         <button
@@ -201,11 +202,11 @@
           <span slot='icon-closed'>+</span>
           <span slot='icon-open'>−</span>
         </button>
-        <ui-toggle id='group-payment'>
+        <ui-disclosure id='group-payment'>
           <p>
             We accept all major credit cards, PayPal, Apple Pay, and Google Pay.
           </p>
-        </ui-toggle>
+        </ui-disclosure>
       </ui-accordion-item>
     </ui-accordion-group>
   </div>

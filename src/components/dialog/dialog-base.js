@@ -1,11 +1,11 @@
-import { createFocusTrap } from '../utilities/focusTrap.js';
+import { createFocusTrap } from '../../utilities/focus-trap.js';
 
 /**
  * A dialog base class that extends the native HTMLDialogElement.
- * Provides body scroll locking and integrates with the ToggleElement API pattern.
+ * Provides body scroll locking and integrates with the Disclosure API pattern.
  * Inherits all native dialog benefits: backdrop, focus trap, ESC handling, top layer.
  *
- * @class DialogElement
+ * @class DialogBase
  * @extends {HTMLDialogElement}
  *
  * @example
@@ -23,7 +23,7 @@ import { createFocusTrap } from '../utilities/focusTrap.js';
  * </dialog>
  */
 
-export class DialogElement extends HTMLDialogElement {
+export class DialogBase extends HTMLDialogElement {
   constructor() {
     super();
     this._cleanupFocusTrap = null;
