@@ -9,7 +9,7 @@ import { DialogBase } from './dialog-base.js';
  *
  * @example
  * <button onclick="document.getElementById('example-modal').show()">Open Modal</button>
- * <dialog is="ui-modal" id="example-modal">
+ * <dialog is="modal" id="example-modal">
  *   <h2 id="example-modal-label">Modal Title</h2>
  *   <button data-trigger>Close</button>
  *   <p>Modal content goes here</p>
@@ -21,4 +21,4 @@ export class Modal extends DialogBase {
   // Positioning handled by CSS
 }
 
-customElements.define('ui-modal', Modal, { extends: 'dialog' });
+customElements.define('modal', Modal, { extends: 'dialog' });

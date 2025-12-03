@@ -10,7 +10,7 @@ import { DialogBase } from './dialog-base.js';
  * @example
  * <!-- Drawer from left (default) -->
  * <button onclick="document.getElementById('menu-drawer').show()">Open Menu</button>
- * <dialog is="ui-drawer" id="menu-drawer">
+ * <dialog is="drawer" id="menu-drawer">
  *   <button data-trigger>Close</button>
  *   <nav>Navigation items</nav>
  * </dialog>
@@ -18,7 +18,7 @@ import { DialogBase } from './dialog-base.js';
  * @example
  * <!-- Drawer from right (for cart) -->
  * <button onclick="document.getElementById('cart-drawer').show()">Open Cart</button>
- * <dialog is="ui-drawer" id="cart-drawer" side="right">
+ * <dialog is="drawer" id="cart-drawer" side="right">
  *   <button data-trigger>Close</button>
  *   <div>Cart items</div>
  * </dialog>
@@ -28,4 +28,4 @@ export class Drawer extends DialogBase {
   // All dialog functionality inherited from DialogBase
 }
 
-customElements.define('ui-drawer', Drawer, { extends: 'dialog' });
+customElements.define('drawer', Drawer, { extends: 'dialog' });
