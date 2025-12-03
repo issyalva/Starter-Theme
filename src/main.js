@@ -1,16 +1,29 @@
 // Main entry point for theme JavaScript
-// This file imports all components and utilities to be bundled
+// Uses code splitting to load only components that exist on the page
 
-// Import disclosure component
-import './components/disclosure/disclosure.js';
+const componentMap = {
+  'ui-disclosure': () => import('./components/disclosure/disclosure.js'),
+  'ui-accordion-group, ui-accordion-item': () =>
+    Promise.all([
+      import('./components/accordion/accordion-group.js'),
+      import('./components/accordion/accordion-item.js'),
+    ]),
+  'dialog[is="ui-drawer"]': () => import('./components/dialog/drawer.js'),
+  'dialog[is="ui-modal"]': () => import('./components/dialog/modal.js'),
+};
 
-// Import dialog components
-import './components/dialog/drawer.js';
-import './components/dialog/modal.js';
+// Load components that exist on the page
+function loadComponents() {
+  const promises = Object.entries(componentMap)
+    .filter(([selector]) => document.querySelector(selector))
+    .map(([, loader]) => loader());
 
-// Import accordion components
-import './components/accordion/accordion-item.js';
-import './components/accordion/accordion-group.js';
+  return Promise.all(promises);
+}
 
-// Add any initialization code here if needed
-console.log('Theme JavaScript loaded');
+// Load when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadComponents);
+} else {
+  loadComponents();
+}
