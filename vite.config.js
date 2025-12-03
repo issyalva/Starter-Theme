@@ -3,6 +3,9 @@ import { resolve } from 'path';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
+  // Set base path for chunk imports in Shopify
+  base: '/assets/',
+
   build: {
     // Output to assets folder for Shopify theme
     outDir: 'assets',
