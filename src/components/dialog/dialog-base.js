@@ -1,4 +1,5 @@
 import { createFocusTrap } from '../../utilities/focus-trap.js';
+import { setupExternalTriggers } from '../../utilities/trigger-manager.js';
 
 /**
  * A dialog base class that extends the native HTMLDialogElement.
@@ -27,6 +28,8 @@ export class DialogBase extends HTMLDialogElement {
   constructor() {
     super();
     this._cleanupFocusTrap = null;
+    this._cleanupExternalTriggers = null;
+    this._cleanupCloseButtons = [];
 
     // Bind event handlers to store references for cleanup
     this._handleClose = () => {
@@ -59,29 +62,32 @@ export class DialogBase extends HTMLDialogElement {
 
   /**
    * Sets up click handlers for internal close button elements.
+   * Caches buttons to avoid re-querying on every connection.
    * @private
    */
   _setupCloseButtons() {
     const closeButtons = this.querySelectorAll('[data-close-dialog]');
+    const handleClick = () => this.hide();
+
     closeButtons.forEach((button) => {
-      button.addEventListener('click', () => this.hide());
+      button.addEventListener('click', handleClick);
+      // Store cleanup function
+      this._cleanupCloseButtons.push(() => {
+        button.removeEventListener('click', handleClick);
+      });
     });
   }
 
   /**
    * Sets up click handlers for external elements that control this dialog.
+   * Uses trigger manager utility for proper cleanup.
    * @private
    */
   _setupExternalTriggers() {
-    if (!this.id) return;
-
-    // Find all elements with aria-controls pointing to this dialog
-    const externalTriggers = document.querySelectorAll(
-      `[aria-controls="${this.id}"]`
+    // Use trigger manager utility for automatic cleanup
+    this._cleanupExternalTriggers = setupExternalTriggers(this.id, () =>
+      this.show()
     );
-    externalTriggers.forEach((trigger) => {
-      trigger.addEventListener('click', () => this.show());
-    });
   }
 
   /**
@@ -134,6 +140,16 @@ export class DialogBase extends HTMLDialogElement {
     // Remove event listeners
     this.removeEventListener('close', this._handleClose);
     this.removeEventListener('click', this._handleBackdropClick);
+
+    // Clean up close button listeners
+    this._cleanupCloseButtons.forEach((fn) => fn());
+    this._cleanupCloseButtons = [];
+
+    // Clean up external trigger listeners (fixes memory leak)
+    if (this._cleanupExternalTriggers) {
+      this._cleanupExternalTriggers();
+      this._cleanupExternalTriggers = null;
+    }
 
     // Clean up focus trap if element is removed
     if (this._cleanupFocusTrap) {
