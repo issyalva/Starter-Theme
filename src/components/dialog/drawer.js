@@ -1,11 +1,11 @@
-import { DialogElement } from './DialogElement.js';
+import { DialogBase } from './dialog-base.js';
 
 /**
  * A drawer component that slides in from the left or right side of the screen.
  * Extends the native HTMLDialogElement with slide-in positioning.
  *
  * @class Drawer
- * @extends {DialogElement}
+ * @extends {DialogBase}
  *
  * @example
  * <!-- Drawer from left (default) -->
@@ -23,9 +23,9 @@ import { DialogElement } from './DialogElement.js';
  *   <div>Cart items</div>
  * </dialog>
  */
-export class Drawer extends DialogElement {
+export class Drawer extends DialogBase {
   // Drawer-specific implementation is minimal
-  // All dialog functionality inherited from DialogElement
+  // All dialog functionality inherited from DialogBase
 }
 
 customElements.define('ui-drawer', Drawer, { extends: 'dialog' });

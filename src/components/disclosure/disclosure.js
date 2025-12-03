@@ -2,20 +2,20 @@
  * A custom element that provides toggle/show/hide functionality.
  * Can be controlled by external triggers using aria-controls or internal triggers with data-close.
  *
- * @class ToggleElement
+ * @class Disclosure
  * @extends {HTMLElement}
  *
  * @example
  * <button aria-controls="my-drawer">Open Drawer</button>
- * <ui-toggle id="my-drawer">
+ * <ui-disclosure id="my-drawer">
  *   <div>
  *     <button data-close>Close</button>
  *     <p>Drawer content</p>
  *   </div>
- * </ui-toggle>
+ * </ui-disclosure>
  */
 
-export class ToggleElement extends HTMLElement {
+export class Disclosure extends HTMLElement {
   static get observedAttributes() {
     return ['open'];
   }
@@ -200,4 +200,4 @@ export class ToggleElement extends HTMLElement {
   }
 }
 
-customElements.define('ui-toggle', ToggleElement);
+customElements.define('ui-disclosure', Disclosure);

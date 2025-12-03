@@ -1,11 +1,11 @@
-import { DialogElement } from './DialogElement.js';
+import { DialogBase } from './dialog-base.js';
 
 /**
  * A modal component that appears centered on the screen.
  * Extends the native HTMLDialogElement with centered positioning.
  *
  * @class Modal
- * @extends {DialogElement}
+ * @extends {DialogBase}
  *
  * @example
  * <button onclick="document.getElementById('example-modal').show()">Open Modal</button>
@@ -15,9 +15,9 @@ import { DialogElement } from './DialogElement.js';
  *   <p>Modal content goes here</p>
  * </dialog>
  */
-export class Modal extends DialogElement {
+export class Modal extends DialogBase {
   // Modal-specific implementation is minimal
-  // All dialog functionality inherited from DialogElement
+  // All dialog functionality inherited from DialogBase
   // Positioning handled by CSS
 }
 

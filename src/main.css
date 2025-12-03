@@ -1,10 +1,10 @@
 @import 'tailwindcss';
 
-ui-toggle {
+ui-disclosure {
   display: none;
 }
 
-ui-toggle[open] {
+ui-disclosure[open] {
   display: block;
 }
 

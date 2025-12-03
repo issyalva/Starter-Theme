@@ -14,9 +14,9 @@
  * <ui-accordion-group>
  *   <ui-accordion-item>
  *     <button aria-controls="faq-1">Question 1</button>
- *     <ui-toggle id="faq-1">
+ *     <ui-disclosure id="faq-1">
  *       <div>Answer 1</div>
- *     </ui-toggle>
+ *     </ui-disclosure>
  *   </ui-accordion-item>
  * </ui-accordion-group>
  *
@@ -25,9 +25,9 @@
  * <ui-accordion-group aria-label="Frequently Asked Questions">
  *   <ui-accordion-item>
  *     <button aria-controls="faq-1">Question 1</button>
- *     <ui-toggle id="faq-1">
+ *     <ui-disclosure id="faq-1">
  *       <div>Answer 1</div>
- *     </ui-toggle>
+ *     </ui-disclosure>
  *   </ui-accordion-item>
  * </ui-accordion-group>
  *
@@ -36,9 +36,9 @@
  * <ui-accordion-group multiple aria-label="Product Features">
  *   <ui-accordion-item>
  *     <button aria-controls="faq-1">Question 1</button>
- *     <ui-toggle id="faq-1">
+ *     <ui-disclosure id="faq-1">
  *       <div>Answer 1</div>
- *     </ui-toggle>
+ *     </ui-disclosure>
  *   </ui-accordion-item>
  * </ui-accordion-group>
  */
@@ -58,10 +58,10 @@ export class AccordionGroup extends HTMLElement {
     // Single mode is the default (unless 'multiple' attribute is present)
     if (!this.hasAttribute('multiple')) {
       this._handleToggleOpen = (e) => {
-        // Close all other toggles in this group
-        this.querySelectorAll('ui-toggle').forEach((toggle) => {
-          if (toggle !== e.target && toggle.hasAttribute('open')) {
-            toggle.hide();
+        // Close all other disclosures in this group
+        this.querySelectorAll('ui-disclosure').forEach((disclosure) => {
+          if (disclosure !== e.target && disclosure.hasAttribute('open')) {
+            disclosure.hide();
           }
         });
       };
@@ -69,12 +69,12 @@ export class AccordionGroup extends HTMLElement {
       this.addEventListener('toggle:open', this._handleToggleOpen);
 
       // Enforce single mode on initialization - close all but the first open item
-      const openToggles = Array.from(this.querySelectorAll('ui-toggle')).filter(
-        (toggle) => toggle.hasAttribute('open')
-      );
+      const openDisclosures = Array.from(
+        this.querySelectorAll('ui-disclosure')
+      ).filter((disclosure) => disclosure.hasAttribute('open'));
 
-      if (openToggles.length > 1) {
-        openToggles.slice(1).forEach((toggle) => toggle.hide());
+      if (openDisclosures.length > 1) {
+        openDisclosures.slice(1).forEach((disclosure) => disclosure.hide());
       }
     }
   }
