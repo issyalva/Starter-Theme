@@ -10,14 +10,14 @@ import { createFocusTrap } from '../../utilities/focus-trap.js';
  *
  * @example
  * // Use with 'is' attribute to extend native dialog
- * <dialog is="modal" id="example-modal">
+ * <dialog is="ui-modal" id="example-modal">
  *   <h2>Modal Title</h2>
  *   <button data-close-dialog>Close</button>
  * </dialog>
  *
  * @example
  * // With opt-in strict focus trapping
- * <dialog is="modal" id="example-modal" focus-trap>
+ * <dialog is="ui-modal" id="example-modal" focus-trap>
  *   <h2>Modal Title</h2>
  *   <button data-close-dialog>Close</button>
  * </dialog>

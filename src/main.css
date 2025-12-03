@@ -9,7 +9,7 @@ ui-disclosure[open] {
 }
 
 /* Drawer Styles */
-dialog[is='drawer'] {
+dialog[is='ui-drawer'] {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -26,13 +26,13 @@ dialog[is='drawer'] {
   left: 0;
 }
 
-dialog[is='drawer'][side='right'] {
+dialog[is='ui-drawer'][side='right'] {
   left: auto;
   right: 0;
 }
 
 /* Modal Styles */
-dialog[is='modal'] {
+dialog[is='ui-modal'] {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -50,7 +50,7 @@ dialog[is='modal'] {
 }
 
 /* Native dialog backdrop styling */
-dialog[is='drawer']::backdrop,
-dialog[is='modal']::backdrop {
+dialog[is='ui-drawer']::backdrop,
+dialog[is='ui-modal']::backdrop {
   background: rgba(0, 0, 0, 0.5);
 }
