@@ -1,37 +1,65 @@
 /**
  * An accordion group component that manages multiple AccordionItem children.
- * Supports single mode where only one item can be open at a time.
+ * By default, only one item can be open at a time (single mode).
+ * Add the 'multiple' attribute to allow multiple items to be open simultaneously.
+ *
+ * Automatically adds role="region" and aria-label for accessibility.
+ * You can provide a custom label via aria-label or aria-labelledby.
  *
  * @class AccordionGroup
  * @extends {HTMLElement}
  *
  * @example
- * // Standard accordion group (multiple items can be open)
+ * // Default: single mode with default label
  * <ui-accordion-group>
- *   <ui-accordion-item id="faq-1">
+ *   <ui-accordion-item>
  *     <button aria-controls="faq-1">Question 1</button>
- *     <div>Answer 1</div>
- *   </ui-accordion-item>
- *   <ui-accordion-item id="faq-2">
- *     <button aria-controls="faq-2">Question 2</button>
- *     <div>Answer 2</div>
+ *     <ui-toggle id="faq-1">
+ *       <div>Answer 1</div>
+ *     </ui-toggle>
  *   </ui-accordion-item>
  * </ui-accordion-group>
  *
  * @example
- * // Single mode (only one item open at a time)
- * <ui-accordion-group single>
- *   <ui-accordion-item id="faq-1">...</ui-accordion-item>
- *   <ui-accordion-item id="faq-2">...</ui-accordion-item>
+ * // With custom accessible label
+ * <ui-accordion-group aria-label="Frequently Asked Questions">
+ *   <ui-accordion-item>
+ *     <button aria-controls="faq-1">Question 1</button>
+ *     <ui-toggle id="faq-1">
+ *       <div>Answer 1</div>
+ *     </ui-toggle>
+ *   </ui-accordion-item>
+ * </ui-accordion-group>
+ *
+ * @example
+ * // Multiple mode (multiple items can be open)
+ * <ui-accordion-group multiple aria-label="Product Features">
+ *   <ui-accordion-item>
+ *     <button aria-controls="faq-1">Question 1</button>
+ *     <ui-toggle id="faq-1">
+ *       <div>Answer 1</div>
+ *     </ui-toggle>
+ *   </ui-accordion-item>
  * </ui-accordion-group>
  */
 export class AccordionGroup extends HTMLElement {
   connectedCallback() {
-    if (this.hasAttribute('single')) {
+    // Set ARIA role for the accordion group
+    this.setAttribute('role', 'region');
+
+    // Provide accessible label if aria-label or aria-labelledby is not present
+    if (
+      !this.hasAttribute('aria-label') &&
+      !this.hasAttribute('aria-labelledby')
+    ) {
+      this.setAttribute('aria-label', 'Accordion group');
+    }
+
+    // Single mode is the default (unless 'multiple' attribute is present)
+    if (!this.hasAttribute('multiple')) {
       this._handleToggleOpen = (e) => {
         // Close all other toggles in this group
-        const allToggles = this.querySelectorAll('ui-toggle');
-        allToggles.forEach((toggle) => {
+        this.querySelectorAll('ui-toggle').forEach((toggle) => {
           if (toggle !== e.target && toggle.hasAttribute('open')) {
             toggle.hide();
           }
@@ -39,6 +67,15 @@ export class AccordionGroup extends HTMLElement {
       };
 
       this.addEventListener('toggle:open', this._handleToggleOpen);
+
+      // Enforce single mode on initialization - close all but the first open item
+      const openToggles = Array.from(this.querySelectorAll('ui-toggle')).filter(
+        (toggle) => toggle.hasAttribute('open')
+      );
+
+      if (openToggles.length > 1) {
+        openToggles.slice(1).forEach((toggle) => toggle.hide());
+      }
     }
   }
 
