@@ -57,9 +57,12 @@ export class AccordionGroup extends HTMLElement {
 
     // Single mode is the default (unless 'multiple' attribute is present)
     if (!this.hasAttribute('multiple')) {
+      // Cache disclosures array to avoid re-querying on every event
+      this._disclosures = Array.from(this.querySelectorAll('ui-disclosure'));
+
       this._handleToggleOpen = (e) => {
-        // Close all other disclosures in this group
-        this.querySelectorAll('ui-disclosure').forEach((disclosure) => {
+        // Use cached array instead of re-querying DOM
+        this._disclosures.forEach((disclosure) => {
           if (disclosure !== e.target && disclosure.hasAttribute('open')) {
             disclosure.hide();
           }
@@ -69,9 +72,9 @@ export class AccordionGroup extends HTMLElement {
       this.addEventListener('toggle:open', this._handleToggleOpen);
 
       // Enforce single mode on initialization - close all but the first open item
-      const openDisclosures = Array.from(
-        this.querySelectorAll('ui-disclosure')
-      ).filter((disclosure) => disclosure.hasAttribute('open'));
+      const openDisclosures = this._disclosures.filter((disclosure) =>
+        disclosure.hasAttribute('open')
+      );
 
       if (openDisclosures.length > 1) {
         openDisclosures.slice(1).forEach((disclosure) => disclosure.hide());

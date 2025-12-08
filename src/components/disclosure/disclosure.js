@@ -1,3 +1,8 @@
+import {
+  setupExternalTriggers,
+  updateTriggerAria,
+} from '../../utilities/trigger-manager.js';
+
 /**
  * A custom element that provides toggle/show/hide functionality.
  * Can be controlled by external triggers using aria-controls or internal triggers with data-close.
@@ -13,6 +18,9 @@
  *     <p>Drawer content</p>
  *   </div>
  * </ui-disclosure>
+ *
+ * @note External triggers (aria-controls) are cached for performance. If triggers are
+ * dynamically added/removed after initial render, call refreshTriggers() to update the cache.
  */
 
 export class Disclosure extends HTMLElement {
@@ -23,6 +31,8 @@ export class Disclosure extends HTMLElement {
   constructor() {
     super();
     this._cleanupFns = [];
+    this._cleanupExternalTriggers = null;
+    this._cachedTriggers = null;
   }
 
   connectedCallback() {
@@ -32,6 +42,9 @@ export class Disclosure extends HTMLElement {
 
   disconnectedCallback() {
     this._unbindTriggers();
+    if (this._cleanupExternalTriggers) {
+      this._cleanupExternalTriggers();
+    }
   }
 
   /**
@@ -41,13 +54,10 @@ export class Disclosure extends HTMLElement {
    * @private
    */
   _bindTriggers() {
-    if (!this.id) return;
-
-    // External triggers that toggle
-    const externalTriggers = document.querySelectorAll(
-      `[aria-controls="${this.id}"]`
+    // External triggers that toggle (cached)
+    this._cleanupExternalTriggers = setupExternalTriggers(this.id, () =>
+      this.toggle()
     );
-    this._setupTriggers(externalTriggers, () => this.toggle());
 
     // Internal triggers that close
     const internalTriggers = this.querySelectorAll('[data-close]');
@@ -168,18 +178,29 @@ export class Disclosure extends HTMLElement {
 
   /**
    * Updates aria-expanded attribute on all triggers that control this element.
+   * Uses cached triggers to avoid re-querying DOM on every state change.
    * @private
    */
   _updateTriggerAria() {
-    const triggerId = this.id;
-    if (!triggerId) return;
-
-    const triggers = document.querySelectorAll(
-      `[aria-controls="${triggerId}"]`
+    // Cache triggers on first call, reuse on subsequent calls
+    this._cachedTriggers = updateTriggerAria(
+      this.id,
+      this.open,
+      this._cachedTriggers
     );
-    triggers.forEach((trigger) => {
-      trigger.setAttribute('aria-expanded', this.open);
-    });
+  }
+
+  /**
+   * Invalidates the cached triggers and forces a fresh DOM query.
+   * Useful when triggers are dynamically added or removed from the DOM.
+   *
+   * @example
+   * // After dynamically adding new triggers
+   * disclosure.refreshTriggers();
+   */
+  refreshTriggers() {
+    this._cachedTriggers = null;
+    this._updateTriggerAria();
   }
 
   // EXTENSION HOOKS

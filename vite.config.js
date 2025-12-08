@@ -3,6 +3,9 @@ import { resolve } from 'path';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
+  // Set base path for chunk imports in Shopify
+  base: '/assets/',
+
   build: {
     // Output to assets folder for Shopify theme
     outDir: 'assets',
@@ -17,8 +20,12 @@ export default defineConfig({
         css: resolve(__dirname, 'src/main.css'),
       },
       output: {
-        // Output JS file
+        // Output main JS file
         entryFileNames: 'theme.min.js',
+
+        // Output dynamic import chunks with prefix for easy .gitignore
+        chunkFileNames: 'chunk.[name].js',
+
         // Output CSS file
         assetFileNames: (assetInfo) => {
           if (assetInfo.name && assetInfo.name.endsWith('.css')) {
@@ -26,8 +33,6 @@ export default defineConfig({
           }
           return assetInfo.name || 'assets/[name][extname]';
         },
-        // Don't create separate chunk files
-        manualChunks: undefined,
       },
     },
 
