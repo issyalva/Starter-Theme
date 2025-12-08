@@ -44,8 +44,8 @@ export function setupExternalTriggers(targetId, action) {
  *
  * @param {string} targetId - The ID of the element being controlled
  * @param {boolean} isExpanded - Whether the controlled element is expanded
- * @param {NodeList|Array} [cachedTriggers] - Optional cached triggers to update
- * @returns {NodeList} The triggers that were updated (for caching)
+ * @param {Array} [cachedTriggers] - Optional cached triggers to update
+ * @returns {Array|null} Array of triggers that were updated (for caching), or null if none found
  *
  * @example
  * // First call - returns triggers for caching
@@ -57,9 +57,20 @@ export function setupExternalTriggers(targetId, action) {
 export function updateTriggerAria(targetId, isExpanded, cachedTriggers = null) {
   if (!targetId) return null;
 
-  const triggers =
-    cachedTriggers ||
-    document.querySelectorAll(`[aria-controls="${targetId}"]`);
+  let triggers;
+
+  if (cachedTriggers) {
+    // Validate that cached triggers are still in the document
+    triggers = cachedTriggers.filter((trigger) => document.contains(trigger));
+  } else {
+    // Convert NodeList to Array for consistency
+    triggers = Array.from(
+      document.querySelectorAll(`[aria-controls="${targetId}"]`)
+    );
+  }
+
+  // Return null if no triggers found (consistent return behavior)
+  if (triggers.length === 0) return null;
 
   triggers.forEach((trigger) => {
     trigger.setAttribute('aria-expanded', isExpanded);

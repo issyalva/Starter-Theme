@@ -3,11 +3,9 @@
 
 const componentMap = {
   'ui-disclosure': () => import('./components/disclosure/disclosure.js'),
-  'ui-accordion-group, ui-accordion-item': () =>
-    Promise.all([
-      import('./components/accordion/accordion-group.js'),
-      import('./components/accordion/accordion-item.js'),
-    ]),
+  'ui-accordion-group': () =>
+    import('./components/accordion/accordion-group.js'),
+  'ui-accordion-item': () => import('./components/accordion/accordion-item.js'),
   'dialog[is="ui-drawer"]': () => import('./components/dialog/drawer.js'),
   'dialog[is="ui-modal"]': () => import('./components/dialog/modal.js'),
 };
@@ -18,12 +16,20 @@ function loadComponents() {
     .filter(([selector]) => document.querySelector(selector))
     .map(([, loader]) => loader());
 
-  return Promise.all(promises);
+  return Promise.all(promises).catch((error) => {
+    console.error('Failed to load components:', error);
+  });
 }
 
 // Load when DOM is ready
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', loadComponents);
+  document.addEventListener('DOMContentLoaded', () => {
+    loadComponents().catch((error) => {
+      console.error('Component initialization failed:', error);
+    });
+  });
 } else {
-  loadComponents();
+  loadComponents().catch((error) => {
+    console.error('Component initialization failed:', error);
+  });
 }

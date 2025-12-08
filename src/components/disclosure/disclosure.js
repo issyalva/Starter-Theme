@@ -18,6 +18,9 @@ import {
  *     <p>Drawer content</p>
  *   </div>
  * </ui-disclosure>
+ *
+ * @note External triggers (aria-controls) are cached for performance. If triggers are
+ * dynamically added/removed after initial render, call refreshTriggers() to update the cache.
  */
 
 export class Disclosure extends HTMLElement {
@@ -185,6 +188,19 @@ export class Disclosure extends HTMLElement {
       this.open,
       this._cachedTriggers
     );
+  }
+
+  /**
+   * Invalidates the cached triggers and forces a fresh DOM query.
+   * Useful when triggers are dynamically added or removed from the DOM.
+   *
+   * @example
+   * // After dynamically adding new triggers
+   * disclosure.refreshTriggers();
+   */
+  refreshTriggers() {
+    this._cachedTriggers = null;
+    this._updateTriggerAria();
   }
 
   // EXTENSION HOOKS
