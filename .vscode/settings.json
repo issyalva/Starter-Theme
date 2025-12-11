@@ -1,0 +1,27 @@
+{
+  // Tailwind CSS IntelliSense
+  "tailwindCSS.includeLanguages": {
+    "liquid": "html",
+    "plaintext": "html"
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["class:\\s*['\"`]([^'\"`]*)['\"`]", "([a-zA-Z0-9\\-:./]+)"],
+    ["class=['\"`]([^'\"`]*)['\"`]", "([a-zA-Z0-9\\-:./]+)"]
+  ],
+  "tailwindCSS.files.exclude": [
+    "**/.git/**",
+    "**/node_modules/**",
+    "**/.hg/**",
+    "**/.svn/**"
+  ],
+  
+  // Liquid language support
+  "files.associations": {
+    "*.liquid": "liquid"
+  },
+  
+  // Emmet for Liquid
+  "emmet.includeLanguages": {
+    "liquid": "html"
+  }
+}
