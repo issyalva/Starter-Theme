@@ -2,159 +2,182 @@
   <br>
     <img src="./assets/shoppy-x-ray.svg" alt="logo" width="200">
   <br>
-  Shopify Skeleton Theme
+  Shopify Starter Theme
 </h1>
 
-A minimal, carefully structured Shopify theme designed to help you quickly get started. Designed with modularity, maintainability, and Shopify's best practices in mind.
+A Shopify theme built with a modern design token system and component architecture. Features Tailwind CSS v4 integration with Figma design tokens, modular JavaScript components, and a flexible styling system.
 
-<p align="center">
-  <a href="./LICENSE.md"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
-  <a href="./actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Shopify/skeleton-theme/actions/workflows/ci.yml/badge.svg"></a>
-</p>
+> Based on [Shopify Skeleton Theme](https://github.com/Shopify/skeleton-theme) – a minimal, carefully structured foundation designed with modularity and best practices in mind.
 
-## Getting started
+## Features
+
+- 🎨 **Design Token System** – Figma tokens synced via Style Dictionary to Tailwind CSS
+- ⚡ **Tailwind CSS v4** – CSS-first architecture with `@theme` directive for on-demand class generation
+- 🧩 **Component Library** – Modular JavaScript components (accordion, dialog, drawer, modal)
+- 🔧 **Vite Build System** – Fast builds with watch mode and hot reload
+- 📱 **Responsive Typography** – Automatic mobile/desktop variants from design tokens
+- 🌍 **i18n Ready** – Translation system with locale files
+
+## Getting Started
 
 ### Prerequisites
 
-Before starting, ensure you have the latest Shopify CLI installed:
+- [Node.js](https://nodejs.org/) (v18+)
+- [Shopify CLI](https://shopify.dev/docs/api/shopify-cli)
+- [VS Code](https://code.visualstudio.com/) (recommended)
 
-- [Shopify CLI](https://shopify.dev/docs/api/shopify-cli) – helps you download, upload, preview themes, and streamline your workflows
+### Installation
 
-If you use VS Code:
+1. **Clone and install dependencies**
 
-- [Shopify Liquid VS Code Extension](https://shopify.dev/docs/storefronts/themes/tools/shopify-liquid-vscode) – provides syntax highlighting, linting, inline documentation, and auto-completion specifically designed for Liquid templates
+   ```bash
+   git clone <your-repo-url>
+   cd alva-co
+   npm install
+   ```
 
-### Clone
+2. **Start development**
 
-Clone this repository using Git or Shopify CLI:
+   ```bash
+   npm run dev
+   ```
 
-```bash
-git clone git@github.com:Shopify/skeleton-theme.git
-# or
-shopify theme init
+   This runs Shopify theme preview and Vite in watch mode.
+
+3. **Build for production**
+   ```bash
+   npm run build
+   ```
+
+## Design Token System
+
+This theme uses a **Figma → Style Dictionary → Tailwind CSS** pipeline for design tokens.
+
+### Quick Usage
+
+Use semantic token classes in your Liquid templates:
+
+```liquid
+<!-- Colors -->
+<div class='bg-primary text-on-primary'>Primary button</div>
+<div class='bg-surface text-on-surface border-outline'>Card</div>
+
+<!-- Typography -->
+<h1 class='text-display-large font-display-large'>Heading</h1>
+<p class='text-body-medium leading-body-medium'>Body text</p>
 ```
 
-### Preview
+### Update Tokens
 
-Preview this theme using Shopify CLI:
+1. Export design tokens from Figma (Tokens Studio) to `tokens/figma-tokens.json`
+2. Run `npm run tokens:build`
+3. Tailwind automatically generates classes for tokens you use
+
+📖 **See [DESIGN-TOKENS.md](./DESIGN-TOKENS.md) for complete documentation**
+
+## Component System
+
+### JavaScript Components
+
+Located in `src/components/`:
+
+- **Accordion** (`accordion-group.js`, `accordion-item.js`)
+- **Dialog** (`dialog-base.js`, `drawer.js`, `modal.js`)
+- **Disclosure** (`disclosure.js`)
+
+All components are bundled via Vite and output to `assets/`.
+
+### Liquid Components
+
+**Blocks** (`blocks/`) – Small, reusable UI components:
+
+- `text.liquid` – Text block with styling options
+- `group.liquid` – Layout container (horizontal/vertical)
+
+**Sections** (`sections/`) – Full-width page modules:
+
+- `custom-section.liquid` – Example section with background image
+- Template sections: `product.liquid`, `collection.liquid`, `cart.liquid`, etc.
+
+**Snippets** (`snippets/`) – Reusable code fragments:
+
+- `image.liquid` – Responsive image component
+- `css-variables.liquid` – Global CSS variables from settings
+- `meta-tags.liquid` – SEO and social meta tags
+
+## Development
+
+### Available Scripts
 
 ```bash
-shopify theme dev
+npm run dev              # Start Shopify dev + Vite watch
+npm run build            # Build tokens + Vite production bundle
+npm run tokens:build     # Generate tokens from Figma export
+npm run lint             # Run ESLint
+npm run format           # Format code with Prettier
 ```
 
-## Theme architecture
+### File Structure
 
-```bash
+```
 .
-├── assets          # Stores static assets (CSS, JS, images, fonts, etc.)
-├── blocks          # Reusable, nestable, customizable UI components
-├── config          # Global theme settings and customization options
-├── layout          # Top-level wrappers for pages (layout templates)
-├── locales         # Translation files for theme internationalization
-├── sections        # Modular full-width page components
-├── snippets        # Reusable Liquid code or HTML fragments
-└── templates       # Templates combining sections to define page structures
+├── assets/              # Compiled CSS/JS + static files
+├── blocks/              # Reusable UI components
+├── config/              # Theme settings
+├── layout/              # Page layouts
+├── locales/             # Translation files
+├── sections/            # Full-width page components
+├── snippets/            # Reusable Liquid fragments
+├── src/                 # Source files (CSS, JS)
+│   ├── components/      # JavaScript components
+│   └── main.css         # Main CSS entry (imports Tailwind + tokens)
+├── templates/           # JSON page templates
+├── tokens/              # Design token files
+│   ├── figma-tokens.json       # Source tokens from Figma
+│   └── build/                  # Generated CSS (git ignored)
+├── style-dictionary.config.js  # Token transformation config
+└── vite.config.js              # Vite build configuration
 ```
 
-To learn more, refer to the [theme architecture documentation](https://shopify.dev/docs/storefronts/themes/architecture).
+## VS Code Setup
 
-### Templates
+Recommended extensions:
 
-[Templates](https://shopify.dev/docs/storefronts/themes/architecture/templates#template-types) control what's rendered on each type of page in a theme.
+- [Shopify Liquid](https://marketplace.visualstudio.com/items?itemName=Shopify.theme-check-vscode)
+- [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
 
-The Skeleton Theme scaffolds [JSON templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/json-templates) to make it easy for merchants to customize their store.
+See [.vscode/INTELLISENSE.md](./.vscode/INTELLISENSE.md) for configuration details.
 
-None of the template types are required, and not all of them are included in the Skeleton Theme. Refer to the [template types reference](https://shopify.dev/docs/storefronts/themes/architecture/templates#template-types) for a full list.
+## Architecture
 
-### Sections
+### Styling Approach
 
-[Sections](https://shopify.dev/docs/storefronts/themes/architecture/sections) are Liquid files that allow you to create reusable modules of content that can be customized by merchants. They can also include blocks which allow merchants to add, remove, and reorder content within a section.
+**Design tokens** define your visual language (colors, typography, spacing) in Figma. **Style Dictionary** transforms these into Tailwind theme extensions. **Tailwind** generates utility classes on-demand based on what you use in templates.
 
-Sections are made customizable by including a `{% schema %}` in the body. For more information, refer to the [section schema documentation](https://shopify.dev/docs/storefronts/themes/architecture/sections/section-schema).
+Benefits:
 
-### Blocks
+- Single source of truth (Figma)
+- Only ships CSS for classes you use
+- Full IntelliSense support
+- Easy to update entire design system
 
-[Blocks](https://shopify.dev/docs/storefronts/themes/architecture/blocks) let developers create flexible layouts by breaking down sections into smaller, reusable pieces of Liquid. Each block has its own set of settings, and can be added, removed, and reordered within a section.
+### Component Architecture
 
-Blocks are made customizable by including a `{% schema %}` in the body. For more information, refer to the [block schema documentation](https://shopify.dev/docs/storefronts/themes/architecture/blocks/theme-blocks/schema).
+Follow Shopify's component model:
 
-## Schemas
+- **Blocks** for small, nestable pieces (buttons, text, images)
+- **Sections** for full-width layouts (hero, product grid)
+- **Snippets** for non-editable reusable code
 
-When developing components defined by schema settings, we recommend these guidelines to simplify your code:
+Use `{% schema %}` to make blocks/sections customizable in the theme editor.
 
-- **Single property settings**: For settings that correspond to a single CSS property, use CSS variables:
+## Documentation
 
-  ```liquid
-  <div class='collection' style='--gap: {{ block.settings.gap }}px'>...</div>
-
-  {% stylesheet %}
-    .collection {
-      gap: var(--gap);
-    }
-  {% endstylesheet %}
-
-  {% schema %}
-  {
-    "settings": [
-      {
-        "type": "range",
-        "label": "gap",
-        "id": "gap",
-        "min": 0,
-        "max": 100,
-        "unit": "px",
-        "default": 0
-      }
-    ]
-  }
-  {% endschema %}
-  ```
-
-- **Multiple property settings**: For settings that control multiple CSS properties, use CSS classes:
-
-  ```liquid
-  <div class='collection {{ block.settings.layout }}'>...</div>
-
-  {% stylesheet %}
-    .collection--full-width {
-      /* multiple styles */
-    }
-    .collection--narrow {
-      /* multiple styles */
-    }
-  {% endstylesheet %}
-
-  {% schema %}
-  {
-    "settings": [
-      {
-        "type": "select",
-        "id": "layout",
-        "label": "layout",
-        "values": [
-          { "value": "collection--full-width", "label": "t:options.full" },
-          { "value": "collection--narrow", "label": "t:options.narrow" }
-        ]
-      }
-    ]
-  }
-  {% endschema %}
-  ```
-
-## CSS & JavaScript
-
-For CSS and JavaScript, we recommend using the [`{% stylesheet %}`](https://shopify.dev/docs/api/liquid/tags#stylesheet) and [`{% javascript %}`](https://shopify.dev/docs/api/liquid/tags/javascript) tags. They can be included multiple times, but the code will only appear once.
-
-### `critical.css`
-
-The Skeleton Theme explicitly separates essential CSS necessary for every page into a dedicated `critical.css` file.
-
-## Contributing
-
-We're excited for your contributions to the Skeleton Theme! This repository aims to remain as lean, lightweight, and fundamental as possible, and we kindly ask your contributions to align with this intention.
-
-Visit our [CONTRIBUTING.md](./CONTRIBUTING.md) for a detailed overview of our process, guidelines, and recommendations.
+- [Design Token System](./DESIGN-TOKENS.md)
+- [VS Code IntelliSense Setup](./.vscode/INTELLISENSE.md)
+- [Shopify Theme Architecture](https://shopify.dev/docs/storefronts/themes/architecture)
+- [Tailwind CSS v4](https://tailwindcss.com/docs)
 
 ## License
 
-Skeleton Theme is open-sourced under the [MIT](./LICENSE.md) License.
+[MIT](./LICENSE.md)
