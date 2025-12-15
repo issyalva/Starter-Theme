@@ -32,7 +32,7 @@ A Shopify theme built with a modern design token system and component architectu
 
    ```bash
    git clone <your-repo-url>
-   cd alva-co
+   cd your-theme-name
    npm install
    ```
 
