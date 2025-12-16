@@ -1,5 +1,11 @@
 @import 'tailwindcss';
 
+/* Extend Tailwind theme with design tokens */
+@import '../tokens/build/tailwind.theme.css';
+
+/* Import design token CSS variables (optional, for direct var() usage) */
+@import '../tokens/build/tokens.css';
+
 ui-disclosure {
   display: none;
 }
