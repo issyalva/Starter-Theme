@@ -1,5 +1,8 @@
 import StyleDictionary from 'style-dictionary';
 
+// Constants
+const BASE_FONT_SIZE_PX = 16;
+
 // Custom transform to handle Figma color format (remove alpha channel if FF)
 StyleDictionary.registerTransform({
   name: 'color/removeAlpha',
@@ -25,8 +28,8 @@ StyleDictionary.registerTransform({
   },
   transform: (token) => {
     const val = token.value;
-    // Convert px to rem (assuming 16px base)
-    return `${val / 16}rem`;
+    // Convert px to rem based on BASE_FONT_SIZE_PX
+    return `${val / BASE_FONT_SIZE_PX}rem`;
   },
 });
 
