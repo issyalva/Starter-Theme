@@ -1,9 +1,7 @@
 /**
- * Returns a list of focusable elements within the given element
- * @param {HTMLElement} element - The container element to search within
- * @returns {NodeList} List of focusable elements
+ * Returns a list of focusable elements within the given element.
  */
-const getFocusableElements = (element) => {
+const getFocusableElements = (element: HTMLElement): NodeListOf<Element> => {
   return element.querySelectorAll(`
     a[href]:not([disabled]),
     button:not([disabled]),
@@ -17,21 +15,27 @@ const getFocusableElements = (element) => {
 };
 
 /**
- * Sets up a focus trap for specified element
- *
- * @param {HTMLElement} element - The element to trap focus within
- * @param {boolean} [preventFirstVisibleOutline=false] - Prevents the first focusable element from having a visible outline on initial execution
- * @returns {Function} Cleanup function that removes the focus trap and restores focus to trigger
+ * Sets up a focus trap for the specified element.
+ * 
+ * Automatically focuses the first focusable element and traps Tab/Shift+Tab navigation
+ * within the element boundaries. Returns focus to the original trigger element on cleanup.
+ * 
+ * @param element - The element to trap focus within
+ * @param preventFirstVisibleOutline - Prevents the first focusable element from having a visible outline on initial focus
+ * @returns Cleanup function that removes the focus trap and restores focus to trigger
  */
-export function createFocusTrap(element, preventFirstVisibleOutline = false) {
+export function createFocusTrap(
+  element: HTMLElement,
+  preventFirstVisibleOutline: boolean = false
+): () => void {
   const focusableElements = getFocusableElements(element);
   if (!focusableElements.length) return () => {};
 
-  const firstFocusableElement = focusableElements[0];
-  const lastFocusableElement = focusableElements[focusableElements.length - 1];
+  const firstFocusableElement = focusableElements[0] as HTMLElement;
+  const lastFocusableElement = focusableElements[focusableElements.length - 1] as HTMLElement;
 
   // Store the element that had focus before the trap was created
-  const triggerElement = document.activeElement;
+  const triggerElement = document.activeElement as HTMLElement | null;
 
   if (!element.contains(document.activeElement)) {
     firstFocusableElement.focus();
@@ -39,7 +43,7 @@ export function createFocusTrap(element, preventFirstVisibleOutline = false) {
       firstFocusableElement.style.outlineWidth = '0';
   }
 
-  const handleTabKey = (e) => {
+  const handleTabKey = (e: KeyboardEvent): void => {
     if (e.key !== 'Tab') return;
     if (preventFirstVisibleOutline)
       firstFocusableElement.style.outlineWidth = 'initial';
