@@ -2,7 +2,7 @@
 // Uses code splitting to load only components that exist on the page
 
 const componentMap = {
-  'ui-disclosure': () => import('./components/disclosure/disclosure.js'),
+  'ui-disclosure': () => import('./components/disclosure/disclosure.ts'),
   'ui-accordion-group': () =>
     import('./components/accordion/accordion-group.js'),
   'ui-accordion-item': () => import('./components/accordion/accordion-item.js'),
