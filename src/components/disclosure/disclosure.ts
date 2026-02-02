@@ -7,40 +7,38 @@ import {
  * A custom element that provides toggle/show/hide functionality.
  * Can be controlled by external triggers using aria-controls or internal triggers with data-close.
  *
- * @class Disclosure
- * @extends {HTMLElement}
- *
  * @example
- * <button aria-controls="my-drawer">Open Drawer</button>
- * <ui-disclosure id="my-drawer">
+ * <button aria-controls="filters-panel">Show filters</button>
+ * <ui-disclosure id="filters-panel">
  *   <div>
+ *     <h3>Filter options</h3>
  *     <button data-close>Close</button>
- *     <p>Drawer content</p>
+ *     <!-- Filter content here -->
  *   </div>
  * </ui-disclosure>
  *
  * @note External triggers (aria-controls) are cached for performance. If triggers are
  * dynamically added/removed after initial render, call refreshTriggers() to update the cache.
  */
-
 export class Disclosure extends HTMLElement {
-  static get observedAttributes() {
+  private _cleanupFns: (() => void)[] = [];
+  private _cleanupExternalTriggers: (() => void) | null = null;
+  private _cachedTriggers: Element[] | null = null;
+
+  static get observedAttributes(): string[] {
     return ['open'];
   }
 
   constructor() {
     super();
-    this._cleanupFns = [];
-    this._cleanupExternalTriggers = null;
-    this._cachedTriggers = null;
   }
 
-  connectedCallback() {
+  connectedCallback(): void {
     this._bindTriggers();
     this._applyState();
   }
 
-  disconnectedCallback() {
+  disconnectedCallback(): void {
     this._unbindTriggers();
     if (this._cleanupExternalTriggers) {
       this._cleanupExternalTriggers();
@@ -49,33 +47,26 @@ export class Disclosure extends HTMLElement {
 
   /**
    * Binds event listeners to external and internal triggers.
-   * External triggers (with aria-controls) toggle the element.
-   * Internal triggers (with data-close) close the element.
-   * @private
+   * External triggers (aria-controls) allow other elements to control this disclosure.
+
+   * Internal triggers (data-close) provide a way to close from within the disclosure content
    */
-  _bindTriggers() {
-    // External triggers that toggle (cached)
+  private _bindTriggers(): void {
     this._cleanupExternalTriggers = setupExternalTriggers(this.id, () =>
       this.toggle()
     );
 
-    // Internal triggers that close
     const internalTriggers = this.querySelectorAll('[data-close]');
     this._setupTriggers(internalTriggers, () => this.hide());
   }
 
-  /**
-   * Sets up click and keyboard event listeners for triggers.
-   * @private
-   * @param {NodeList} triggers - The trigger elements to set up
-   * @param {Function} action - The action to perform when triggered
-   */
-  _setupTriggers(triggers, action) {
-    const handleClick = () => action();
-    const handleKeydown = (e) => {
+  private _setupTriggers(triggers: NodeListOf<Element>, callback: () => void): void {
+    const handleClick = (): void => callback();
+    const handleKeydown = (e: Event): void => {
+      if (!(e instanceof KeyboardEvent)) return;
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        action();
+        callback();
       }
     };
 
@@ -90,40 +81,20 @@ export class Disclosure extends HTMLElement {
     });
   }
 
-  /**
-   * Removes all trigger event listeners.
-   * @private
-   */
-  _unbindTriggers() {
-    if (this._cleanupFns) {
-      this._cleanupFns.forEach((fn) => fn());
-      this._cleanupFns = [];
-    }
+  private _unbindTriggers(): void {
+    this._cleanupFns.forEach((fn) => fn());
+    this._cleanupFns = [];
   }
 
-  /**
-   * Called when an observed attribute changes.
-   * @param {string} name - The name of the attribute that changed
-   */
-  attributeChangedCallback(name) {
-    if (name === 'open') {
-      this._applyState();
-    }
+  attributeChangedCallback(): void {
+    this._applyState();
   }
 
-  /**
-   * Gets the open state of the element.
-   * @returns {boolean} True if the element has the 'open' attribute
-   */
-  get open() {
+  get open(): boolean {
     return this.hasAttribute('open');
   }
 
-  /**
-   * Sets the open state of the element.
-   * @param {boolean} value - Whether the element should be open
-   */
-  set open(value) {
+  set open(value: boolean) {
     if (value) {
       this.setAttribute('open', '');
     } else {
@@ -131,35 +102,24 @@ export class Disclosure extends HTMLElement {
     }
   }
 
-  // PUBLIC API
-  /**
-   * Toggles the open state of the element.
-   */
-  toggle() {
+  toggle(): void {
     this.open = !this.open;
   }
 
-  /**
-   * Opens the element.
-   */
-  show() {
+  show(): void {
     this.open = true;
   }
 
-  /**
-   * Closes the element.
-   */
-  hide() {
+  hide(): void {
     this.open = false;
   }
 
-  // STATE UPDATES
   /**
    * Applies the current open/closed state to the element.
-   * Updates inert attribute and calls lifecycle hooks.
-   * @private
+   * Manages accessibility (inert attribute), trigger states (aria-expanded),
+   * and fires lifecycle hooks to notify other components of state changes.
    */
-  _applyState() {
+  private _applyState(): void {
     // Use inert to remove from tab order and accessibility tree when closed
     if (this.open) {
       this.removeAttribute('inert');
@@ -178,11 +138,10 @@ export class Disclosure extends HTMLElement {
 
   /**
    * Updates aria-expanded attribute on all triggers that control this element.
+   * This keeps trigger buttons in sync with the disclosure state for accessibility.
    * Uses cached triggers to avoid re-querying DOM on every state change.
-   * @private
    */
-  _updateTriggerAria() {
-    // Cache triggers on first call, reuse on subsequent calls
+  private _updateTriggerAria(): void {
     this._cachedTriggers = updateTriggerAria(
       this.id,
       this.open,
@@ -198,25 +157,29 @@ export class Disclosure extends HTMLElement {
    * // After dynamically adding new triggers
    * disclosure.refreshTriggers();
    */
-  refreshTriggers() {
+  refreshTriggers(): void {
     this._cachedTriggers = null;
     this._updateTriggerAria();
   }
 
-  // EXTENSION HOOKS
   /**
    * Lifecycle hook called when the element opens.
-   * Can be overridden in subclasses.
+   * Dispatches a 'toggle:open' custom event that bubbles, allowing parent components
+   * to coordinate behavior (e.g., accordion-group closing other items) and child
+   * components to update visual state (e.g., accordion-item toggling icons).
+   * Can be overridden in subclasses to add custom open behavior.
    */
-  onOpen() {
+  onOpen(): void {
     this.dispatchEvent(new CustomEvent('toggle:open', { bubbles: true }));
   }
 
   /**
    * Lifecycle hook called when the element closes.
-   * Can be overridden in subclasses.
+   * Dispatches a 'toggle:close' custom event that bubbles, allowing parent components
+   * to coordinate behavior and child components to update visual state.
+   * Can be overridden in subclasses to add custom close behavior.
    */
-  onClose() {
+  onClose(): void {
     this.dispatchEvent(new CustomEvent('toggle:close', { bubbles: true }));
   }
 }
