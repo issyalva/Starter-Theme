@@ -13,7 +13,7 @@
  */
 export function setupExternalTriggers(
   targetId: string,
-  action: () => void
+  callback: () => void
 ): () => void {
   if (!targetId) return () => {};
 
@@ -21,23 +21,19 @@ export function setupExternalTriggers(
   const triggers = document.querySelectorAll(`[aria-controls="${targetId}"]`);
   if (!triggers.length) return () => {};
 
-  const cleanupFunctions: (() => void)[] = [];
-
   const handleClick = (e: Event): void => {
     e.preventDefault();
-    action();
+    callback();
   };
 
   triggers.forEach((trigger) => {
     trigger.addEventListener('click', handleClick);
-    cleanupFunctions.push(() => {
-      trigger.removeEventListener('click', handleClick);
-    });
   });
 
-  // Return cleanup function
   return () => {
-    cleanupFunctions.forEach((fn) => fn());
+    triggers.forEach((trigger) => {
+      trigger.removeEventListener('click', handleClick);
+    });
   };
 }
 
