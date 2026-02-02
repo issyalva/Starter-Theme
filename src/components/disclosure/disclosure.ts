@@ -47,7 +47,7 @@ export class Disclosure extends HTMLElement {
 
   /**
    * Binds event listeners to external and internal triggers.
-   * External triggers (aria-controls) allow other elements to control this disclosure,
+   * External triggers (aria-controls) allow other elements to control this disclosure.
 
    * Internal triggers (data-close) provide a way to close from within the disclosure content
    */
@@ -62,7 +62,8 @@ export class Disclosure extends HTMLElement {
 
   private _setupTriggers(triggers: NodeListOf<Element>, callback: () => void): void {
     const handleClick = (): void => callback();
-    const handleKeydown = (e: KeyboardEvent): void => {
+    const handleKeydown = (e: Event): void => {
+      if (!(e instanceof KeyboardEvent)) return;
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         callback();
@@ -71,11 +72,11 @@ export class Disclosure extends HTMLElement {
 
     triggers.forEach((trigger) => {
       trigger.addEventListener('click', handleClick);
-      trigger.addEventListener('keydown', handleKeydown as EventListener);
+      trigger.addEventListener('keydown', handleKeydown);
 
       this._cleanupFns.push(() => {
         trigger.removeEventListener('click', handleClick);
-        trigger.removeEventListener('keydown', handleKeydown as EventListener);
+        trigger.removeEventListener('keydown', handleKeydown);
       });
     });
   }
