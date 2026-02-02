@@ -20,8 +20,7 @@ const getFocusableElements = (element: HTMLElement): NodeListOf<Element> => {
  * Automatically focuses the first focusable element and traps Tab/Shift+Tab navigation
  * within the element boundaries. Returns focus to the original trigger element on cleanup.
  * 
- * @param element - The element to trap focus within
- * @param preventFirstVisibleOutline - Prevents the first focusable element from having a visible outline on initial focus
+ * @param [preventFirstVisibleOutline=false] - Optional. Prevents the first focusable element from having a visible outline on initial focus
  * @returns Cleanup function that removes the focus trap and restores focus to trigger
  */
 export function createFocusTrap(

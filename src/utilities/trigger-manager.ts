@@ -2,11 +2,8 @@
  * Manages external trigger elements that control a component via aria-controls.
  * 
  * Automatically finds all elements with aria-controls matching the targetId,
- * caches them for performance, and sets up click handlers. Returns a cleanup
- * function to remove all listeners.
+ * caches them for performance, and sets up click handlers.
  * 
- * @param targetId - The ID of the element being controlled
- * @param action - The action to perform when triggers are activated
  * @returns Cleanup function that removes all event listeners
  * 
  * @example
@@ -50,9 +47,7 @@ export function setupExternalTriggers(
  * More efficient than querying DOM on every state change when using cached triggers.
  * Validates cached triggers are still in the document before updating.
  * 
- * @param targetId - The ID of the element being controlled
- * @param isExpanded - Whether the controlled element is expanded
- * @param cachedTriggers - Optional cached triggers to update (validates they're still in DOM)
+ * @param [cachedTriggers=null] - Optional cached triggers to update (validates they're still in DOM)
  * @returns Array of triggers that were updated (for caching), or null if none found
  * 
  * @example
