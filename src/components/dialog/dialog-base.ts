@@ -6,9 +6,6 @@ import { setupExternalTriggers } from '../../utilities/trigger-manager.js';
  * Provides body scroll locking and integrates with the Disclosure API pattern.
  * Inherits all native dialog benefits: backdrop, focus trap, ESC handling, top layer.
  *
- * @class DialogBase
- * @extends {HTMLDialogElement}
- *
  * @example
  * // Use with 'is' attribute to extend native dialog
  * <dialog is="ui-modal" id="example-modal">
@@ -23,55 +20,51 @@ import { setupExternalTriggers } from '../../utilities/trigger-manager.js';
  *   <button data-close-dialog>Close</button>
  * </dialog>
  */
-
 export class DialogBase extends HTMLDialogElement {
+  private _cleanupFocusTrap: (() => void) | null = null;
+  private _cleanupExternalTriggers: (() => void) | null = null;
+  private _cleanupCloseButtons: (() => void)[] = [];
+  private _handleClose: () => void;
+  private _handleBackdropClick: (e: Event) => void;
+
   constructor() {
     super();
-    this._cleanupFocusTrap = null;
-    this._cleanupExternalTriggers = null;
-    this._cleanupCloseButtons = [];
 
-    // Bind event handlers to store references for cleanup
-    this._handleClose = () => {
+    this._handleClose = (): void => {
       this._unlockBodyScroll();
 
-      // Clean up focus trap if it was set up
       if (this._cleanupFocusTrap) {
         this._cleanupFocusTrap();
         this._cleanupFocusTrap = null;
       }
     };
 
-    this._handleBackdropClick = (e) => {
+    this._handleBackdropClick = (e: Event): void => {
       if (e.target === this) {
         this.hide();
       }
     };
   }
 
-  connectedCallback() {
+  connectedCallback(): void {
     this._setupCloseButtons();
     this._setupExternalTriggers();
 
-    // Listen for native close event (ESC key, hide(), or programmatic close)
     this.addEventListener('close', this._handleClose);
-
-    // Handle backdrop clicks
     this.addEventListener('click', this._handleBackdropClick);
   }
 
   /**
-   * Sets up click handlers for internal close button elements.
-   * Caches buttons to avoid re-querying on every connection.
-   * @private
+   * Binds event listeners to internal close buttons.
+   * Internal close buttons (data-close-dialog) provide a way to close the dialog
+   * from within its content, independent of native ESC key or backdrop click handling.
    */
-  _setupCloseButtons() {
+  private _setupCloseButtons(): void {
     const closeButtons = this.querySelectorAll('[data-close-dialog]');
-    const handleClick = () => this.hide();
+    const handleClick = (): void => this.hide();
 
     closeButtons.forEach((button) => {
       button.addEventListener('click', handleClick);
-      // Store cleanup function
       this._cleanupCloseButtons.push(() => {
         button.removeEventListener('click', handleClick);
       });
@@ -79,12 +72,11 @@ export class DialogBase extends HTMLDialogElement {
   }
 
   /**
-   * Sets up click handlers for external elements that control this dialog.
-   * Uses trigger manager utility for proper cleanup.
-   * @private
+   * Binds event listeners to external trigger elements.
+   * External triggers (aria-controls) allow other elements to open this dialog,
+   * enabling declarative control without JavaScript.
    */
-  _setupExternalTriggers() {
-    // Use trigger manager utility for automatic cleanup
+  private _setupExternalTriggers(): void {
     this._cleanupExternalTriggers = setupExternalTriggers(this.id, () =>
       this.show()
     );
@@ -93,7 +85,7 @@ export class DialogBase extends HTMLDialogElement {
   /**
    * Shows the dialog as a modal.
    */
-  show() {
+  show(): void {
     if (!this.open) {
       this.showModal();
       this._lockBodyScroll();
@@ -102,10 +94,11 @@ export class DialogBase extends HTMLDialogElement {
   }
 
   /**
-   * Sets up strict focus trapping if the focus-trap attribute is present.
-   * @private
+   * Enables strict focus trapping when the focus-trap attribute is present.
+   * Native dialogs already trap focus, but this enforces stricter boundaries
+   * by preventing focus from escaping even through programmatic means.
    */
-  _setupOptionalFocusTrap() {
+  private _setupOptionalFocusTrap(): void {
     if (this.hasAttribute('focus-trap')) {
       this._cleanupFocusTrap = createFocusTrap(this, true);
     }
@@ -114,44 +107,32 @@ export class DialogBase extends HTMLDialogElement {
   /**
    * Hides the dialog.
    */
-  hide() {
+  hide(): void {
     if (this.open) {
       this.close();
     }
   }
 
-  /**
-   * Locks body scroll when dialog is open.
-   * @private
-   */
-  _lockBodyScroll() {
+  private _lockBodyScroll(): void {
     document.body.style.overflow = 'hidden';
   }
 
-  /**
-   * Unlocks body scroll when dialog closes.
-   * @private
-   */
-  _unlockBodyScroll() {
+  private _unlockBodyScroll(): void {
     document.body.style.overflow = '';
   }
 
-  disconnectedCallback() {
-    // Remove event listeners
+  disconnectedCallback(): void {
     this.removeEventListener('close', this._handleClose);
     this.removeEventListener('click', this._handleBackdropClick);
 
-    // Clean up close button listeners
     this._cleanupCloseButtons.forEach((fn) => fn());
     this._cleanupCloseButtons = [];
 
-    // Clean up external trigger listeners (fixes memory leak)
     if (this._cleanupExternalTriggers) {
       this._cleanupExternalTriggers();
       this._cleanupExternalTriggers = null;
     }
 
-    // Clean up focus trap if element is removed
     if (this._cleanupFocusTrap) {
       this._cleanupFocusTrap();
       this._cleanupFocusTrap = null;
