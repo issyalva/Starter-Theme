@@ -41,7 +41,7 @@ export class DialogBase extends HTMLDialogElement {
 
     this._handleBackdropClick = (e: Event): void => {
       if (e.target === this) {
-        this.hide();
+        this.close();
       }
     };
   }
@@ -56,12 +56,11 @@ export class DialogBase extends HTMLDialogElement {
 
   /**
    * Binds event listeners to internal close buttons.
-   * Internal close buttons (data-close-dialog) provide a way to close the dialog
-   * from within its content, independent of native ESC key or backdrop click handling.
+   * Provides a way to close from within the dialog content, independent of native ESC/backdrop handling.
    */
   private _setupCloseButtons(): void {
     const closeButtons = this.querySelectorAll('[data-close-dialog]');
-    const handleClick = (): void => this.hide();
+    const handleClick = (): void => this.close();
 
     closeButtons.forEach((button) => {
       button.addEventListener('click', handleClick);
@@ -73,8 +72,7 @@ export class DialogBase extends HTMLDialogElement {
 
   /**
    * Binds event listeners to external trigger elements.
-   * External triggers (aria-controls) allow other elements to open this dialog,
-   * enabling declarative control without JavaScript.
+   * Enables declarative control via aria-controls without requiring JavaScript.
    */
   private _setupExternalTriggers(): void {
     this._cleanupExternalTriggers = setupExternalTriggers(this.id, () =>
@@ -82,34 +80,19 @@ export class DialogBase extends HTMLDialogElement {
     );
   }
 
-  /**
-   * Shows the dialog as a modal.
-   */
   show(): void {
-    if (!this.open) {
-      this.showModal();
-      this._lockBodyScroll();
-      this._setupOptionalFocusTrap();
-    }
+    this.showModal();
+    this._lockBodyScroll();
+    this._setupOptionalFocusTrap();
   }
 
   /**
    * Enables strict focus trapping when the focus-trap attribute is present.
-   * Native dialogs already trap focus, but this enforces stricter boundaries
-   * by preventing focus from escaping even through programmatic means.
+   * Enforces stricter boundaries than native focus trapping, preventing programmatic escape.
    */
   private _setupOptionalFocusTrap(): void {
     if (this.hasAttribute('focus-trap')) {
       this._cleanupFocusTrap = createFocusTrap(this, true);
-    }
-  }
-
-  /**
-   * Hides the dialog.
-   */
-  hide(): void {
-    if (this.open) {
-      this.close();
     }
   }
 
@@ -138,8 +121,6 @@ export class DialogBase extends HTMLDialogElement {
       this._cleanupFocusTrap = null;
     }
 
-    if (this.open) {
-      this.close();
-    }
+    this.close();
   }
 }
