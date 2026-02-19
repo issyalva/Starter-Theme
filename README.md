@@ -1,9 +1,4 @@
-<h1 align="center" style="position: relative;">
-  <br>
-    <img src="./assets/shoppy-x-ray.svg" alt="logo" width="200">
-  <br>
-  Shopify Starter Theme
-</h1>
+# Shopify Starter Theme
 
 A Shopify theme built with a modern design token system and component architecture. Features Tailwind CSS v4 integration with Figma design tokens, modular JavaScript components, and a flexible styling system.
 
@@ -13,7 +8,7 @@ A Shopify theme built with a modern design token system and component architectu
 
 - 🎨 **Design Token System** – Figma tokens synced via Style Dictionary to Tailwind CSS
 - ⚡ **Tailwind CSS v4** – CSS-first architecture with `@theme` directive for on-demand class generation
-- 🧩 **Component Library** – Modular JavaScript components (accordion, dialog, drawer, modal)
+- 🧩 **Component Library** – Modular TypeScript components (accordion, dialog, drawer, modal, disclosure)
 - 🔧 **Vite Build System** – Fast builds with watch mode and hot reload
 - 📱 **Responsive Typography** – Automatic mobile/desktop variants from design tokens
 - 🌍 **i18n Ready** – Translation system with locale files
@@ -77,15 +72,15 @@ Use semantic token classes in your Liquid templates:
 
 ## Component System
 
-### JavaScript Components
+### TypeScript Components
 
 Located in `src/components/`:
 
-- **Accordion** (`accordion-group.js`, `accordion-item.js`)
+- **Accordion** (`accordion-group.js`, `accordion-item.js`) - Converting to TypeScript
 - **Dialog** (`dialog-base.ts`, `drawer.ts`, `modal.ts`)
 - **Disclosure** (`disclosure.ts`)
 
-All components are bundled via Vite and output to `assets/`.
+Components use TypeScript for type safety and are bundled via Vite to `assets/`.
 
 ### Liquid Components
 
