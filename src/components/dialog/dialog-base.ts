@@ -24,27 +24,21 @@ export class DialogBase extends HTMLDialogElement {
   private _cleanupFocusTrap: (() => void) | null = null;
   private _cleanupExternalTriggers: (() => void) | null = null;
   private _cleanupCloseButtons: (() => void)[] = [];
-  private _handleClose: () => void;
-  private _handleBackdropClick: (e: Event) => void;
+  
+  private _handleClose = (): void => {
+    this._unlockBodyScroll();
 
-  constructor() {
-    super();
+    if (this._cleanupFocusTrap) {
+      this._cleanupFocusTrap();
+      this._cleanupFocusTrap = null;
+    }
+  };
 
-    this._handleClose = (): void => {
-      this._unlockBodyScroll();
-
-      if (this._cleanupFocusTrap) {
-        this._cleanupFocusTrap();
-        this._cleanupFocusTrap = null;
-      }
-    };
-
-    this._handleBackdropClick = (e: Event): void => {
-      if (e.target === this) {
-        this.close();
-      }
-    };
-  }
+  private _handleBackdropClick = (e: Event): void => {
+    if (e.target === this) {
+      this.close();
+    }
+  };
 
   connectedCallback(): void {
     this._setupCloseButtons();
@@ -81,9 +75,11 @@ export class DialogBase extends HTMLDialogElement {
   }
 
   show(): void {
-    this.showModal();
-    this._lockBodyScroll();
-    this._setupOptionalFocusTrap();
+    if (!this.open) {
+      this.showModal();
+      this._lockBodyScroll();
+      this._setupOptionalFocusTrap();
+    }
   }
 
   /**
