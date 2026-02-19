@@ -1,6 +1,6 @@
 # Shopify Starter Theme
 
-A Shopify theme built with a modern design token system and component architecture. Features Tailwind CSS v4 integration with Figma design tokens, modular JavaScript components, and a flexible styling system.
+A Shopify theme built with a modern design token system and component architecture. Features Tailwind CSS v4 integration with Figma design tokens, modular TypeScript components, and a flexible styling system.
 
 > Based on [Shopify Skeleton Theme](https://github.com/Shopify/skeleton-theme) – a minimal, carefully structured foundation designed with modularity and best practices in mind.
 
@@ -124,7 +124,7 @@ npm run format           # Format code with Prettier
 ├── sections/            # Full-width page components
 ├── snippets/            # Reusable Liquid fragments
 ├── src/                 # Source files (CSS, JS)
-│   ├── components/      # JavaScript components
+│   ├── components/      # TypeScript components
 │   └── main.css         # Main CSS entry (imports Tailwind + tokens)
 ├── templates/           # JSON page templates
 ├── tokens/              # Design token files
