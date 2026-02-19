@@ -1,15 +1,6 @@
 /**
- * Manages external trigger elements that control a component via aria-controls.
- * 
- * Automatically finds all elements with aria-controls matching the targetId,
- * caches them for performance, and sets up click handlers.
- * 
- * @returns Cleanup function that removes all event listeners
- * 
- * @example
- * const cleanup = setupExternalTriggers('my-disclosure', () => this.toggle());
- * // Later, in disconnectedCallback:
- * cleanup();
+ * Sets up click handlers for external elements that control a component via aria-controls.
+ * Enables declarative control without requiring JavaScript references to the component.
  */
 export function setupExternalTriggers(
   targetId: string,
@@ -17,7 +8,6 @@ export function setupExternalTriggers(
 ): () => void {
   if (!targetId) return () => {};
 
-  // Cache the trigger query
   const triggers = document.querySelectorAll(`[aria-controls="${targetId}"]`);
   if (!triggers.length) return () => {};
 
@@ -38,20 +28,8 @@ export function setupExternalTriggers(
 }
 
 /**
- * Updates aria-expanded attribute on all triggers controlling the target element.
- * 
- * More efficient than querying DOM on every state change when using cached triggers.
- * Validates cached triggers are still in the document before updating.
- * 
- * @param [cachedTriggers=null] - Optional cached triggers to update (validates they're still in DOM)
- * @returns Array of triggers that were updated (for caching), or null if none found
- * 
- * @example
- * // First call - returns triggers for caching
- * this._triggers = updateTriggerAria(this.id, this.open);
- *
- * // Subsequent calls - use cached triggers
- * updateTriggerAria(this.id, this.open, this._triggers);
+ * Updates aria-expanded on all triggers controlling the target element.
+ * Accepts cached triggers for performance, avoiding repeated DOM queries on every state change.
  */
 export function updateTriggerAria(
   targetId: string,
@@ -63,16 +41,13 @@ export function updateTriggerAria(
   let triggers: Element[];
 
   if (cachedTriggers) {
-    // Validate that cached triggers are still in the document
     triggers = cachedTriggers.filter((trigger) => document.contains(trigger));
   } else {
-    // Convert NodeList to Array for consistency
     triggers = Array.from(
       document.querySelectorAll(`[aria-controls="${targetId}"]`)
     );
   }
 
-  // Return null if no triggers found (consistent return behavior)
   if (triggers.length === 0) return null;
 
   triggers.forEach((trigger) => {
