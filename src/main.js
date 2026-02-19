@@ -4,8 +4,8 @@
 const componentMap = {
   'ui-disclosure': () => import('./components/disclosure/disclosure.ts'),
   'ui-accordion-group': () =>
-    import('./components/accordion/accordion-group.js'),
-  'ui-accordion-item': () => import('./components/accordion/accordion-item.js'),
+    import('./components/accordion/accordion-group.ts'),
+  'ui-accordion-item': () => import('./components/accordion/accordion-item.ts'),
   'dialog[is="ui-drawer"]': () => import('./components/dialog/drawer.js'),
   'dialog[is="ui-modal"]': () => import('./components/dialog/modal.js'),
 };

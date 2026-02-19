@@ -76,7 +76,7 @@ Use semantic token classes in your Liquid templates:
 
 Located in `src/components/`:
 
-- **Accordion** (`accordion-group.js`, `accordion-item.js`) - Converting to TypeScript
+- **Accordion** (`accordion-group.ts`, `accordion-item.ts`)
 - **Dialog** (`dialog-base.ts`, `drawer.ts`, `modal.ts`)
 - **Disclosure** (`disclosure.ts`)
 

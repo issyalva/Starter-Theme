@@ -1,9 +1,6 @@
 /**
- * An accordion item component - a simple wrapper for semantic grouping.
- * Supports slotted icons for open/close states.
- *
- * @class AccordionItem
- * @extends {HTMLElement}
+ * A wrapper component for semantic grouping of accordion content.
+ * Toggles slotted icon visibility based on disclosure state for visual feedback.
  *
  * @example
  * <ui-accordion-item>
@@ -13,52 +10,41 @@
  *     <span slot="icon-open">−</span>
  *   </button>
  *   <ui-disclosure id="faq-1">
- *     <p>We accept returns within 30 days...</p>
+ *     <p>Answer content</p>
  *   </ui-disclosure>
- * </ui-accordion-item>
- *
- * @example
- * // With SVG icons
- * <ui-accordion-item>
- *   <button aria-controls="faq-2">
- *     Question
- *     <svg slot="icon-closed">...</svg>
- *     <svg slot="icon-open">...</svg>
- *   </button>
- *   <ui-disclosure id="faq-2">Answer</ui-disclosure>
  * </ui-accordion-item>
  */
 export class AccordionItem extends HTMLElement {
-  connectedCallback() {
+  private _showOpen?: () => void;
+  private _showClosed?: () => void;
+
+  connectedCallback(): void {
     this._setupIconToggle();
   }
 
   /**
-   * Sets up icon visibility based on toggle state.
-   * @private
+   * Toggles icon visibility based on disclosure state.
+   * Listens to bubbling toggle events from child disclosure elements.
    */
-  _setupIconToggle() {
-    const iconClosed = this.querySelector('[slot="icon-closed"]');
-    const iconOpen = this.querySelector('[slot="icon-open"]');
+  private _setupIconToggle(): void {
+    const iconClosed = this.querySelector('[slot="icon-closed"]') as HTMLElement | null;
+    const iconOpen = this.querySelector('[slot="icon-open"]') as HTMLElement | null;
 
     if (!iconClosed && !iconOpen) return;
 
-    // Store handlers for cleanup
-    this._showOpen = () => {
+    this._showOpen = (): void => {
       if (iconClosed) iconClosed.style.display = 'none';
       if (iconOpen) iconOpen.style.display = '';
     };
 
-    this._showClosed = () => {
+    this._showClosed = (): void => {
       if (iconClosed) iconClosed.style.display = '';
       if (iconOpen) iconOpen.style.display = 'none';
     };
 
-    // Listen for toggle events
     this.addEventListener('toggle:open', this._showOpen);
     this.addEventListener('toggle:close', this._showClosed);
 
-    // Set initial state
     const disclosure = this.querySelector('ui-disclosure');
     if (disclosure && disclosure.hasAttribute('open')) {
       this._showOpen();
@@ -67,7 +53,7 @@ export class AccordionItem extends HTMLElement {
     }
   }
 
-  disconnectedCallback() {
+  disconnectedCallback(): void {
     if (this._showOpen) {
       this.removeEventListener('toggle:open', this._showOpen);
     }
