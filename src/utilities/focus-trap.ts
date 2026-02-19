@@ -1,6 +1,3 @@
-/**
- * Returns a list of focusable elements within the given element.
- */
 const getFocusableElements = (element: HTMLElement): NodeListOf<Element> => {
   return element.querySelectorAll(`
     a[href]:not([disabled]),
@@ -15,13 +12,8 @@ const getFocusableElements = (element: HTMLElement): NodeListOf<Element> => {
 };
 
 /**
- * Sets up a focus trap for the specified element.
- * 
- * Automatically focuses the first focusable element and traps Tab/Shift+Tab navigation
- * within the element boundaries. Returns focus to the original trigger element on cleanup.
- * 
- * @param [preventFirstVisibleOutline=false] - Optional. Prevents the first focusable element from having a visible outline on initial focus
- * @returns Cleanup function that removes the focus trap and restores focus to trigger
+ * Creates a focus trap that keeps Tab/Shift+Tab navigation within element boundaries.
+ * Returns focus to the original trigger element on cleanup.
  */
 export function createFocusTrap(
   element: HTMLElement,
@@ -32,8 +24,6 @@ export function createFocusTrap(
 
   const firstFocusableElement = focusableElements[0] as HTMLElement;
   const lastFocusableElement = focusableElements[focusableElements.length - 1] as HTMLElement;
-
-  // Store the element that had focus before the trap was created
   const triggerElement = document.activeElement as HTMLElement | null;
 
   if (!element.contains(document.activeElement)) {
@@ -61,8 +51,6 @@ export function createFocusTrap(
 
   return () => {
     element.removeEventListener('keydown', handleTabKey);
-
-    // Return focus to trigger element
     if (triggerElement && typeof triggerElement.focus === 'function') {
       triggerElement.focus();
     }
