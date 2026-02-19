@@ -47,9 +47,7 @@ export class Disclosure extends HTMLElement {
 
   /**
    * Binds event listeners to external and internal triggers.
-   * External triggers (aria-controls) allow other elements to control this disclosure.
-
-   * Internal triggers (data-close) provide a way to close from within the disclosure content
+   * External triggers enable declarative control, internal triggers provide close functionality.
    */
   private _bindTriggers(): void {
     this._cleanupExternalTriggers = setupExternalTriggers(this.id, () =>
@@ -116,8 +114,7 @@ export class Disclosure extends HTMLElement {
 
   /**
    * Applies the current open/closed state to the element.
-   * Manages accessibility (inert attribute), trigger states (aria-expanded),
-   * and fires lifecycle hooks to notify other components of state changes.
+   * Manages accessibility attributes, syncs trigger states, and fires lifecycle hooks for child/parent components.
    */
   private _applyState(): void {
     // Use inert to remove from tab order and accessibility tree when closed
@@ -137,8 +134,7 @@ export class Disclosure extends HTMLElement {
   }
 
   /**
-   * Updates aria-expanded attribute on all triggers that control this element.
-   * This keeps trigger buttons in sync with the disclosure state for accessibility.
+   * Updates aria-expanded on all triggers that control this element.
    * Uses cached triggers to avoid re-querying DOM on every state change.
    */
   private _updateTriggerAria(): void {
@@ -151,11 +147,7 @@ export class Disclosure extends HTMLElement {
 
   /**
    * Invalidates the cached triggers and forces a fresh DOM query.
-   * Useful when triggers are dynamically added or removed from the DOM.
-   *
-   * @example
-   * // After dynamically adding new triggers
-   * disclosure.refreshTriggers();
+   * Use when triggers are dynamically added or removed from the DOM.
    */
   refreshTriggers(): void {
     this._cachedTriggers = null;
@@ -164,10 +156,7 @@ export class Disclosure extends HTMLElement {
 
   /**
    * Lifecycle hook called when the element opens.
-   * Dispatches a 'toggle:open' custom event that bubbles, allowing parent components
-   * to coordinate behavior (e.g., accordion-group closing other items) and child
-   * components to update visual state (e.g., accordion-item toggling icons).
-   * Can be overridden in subclasses to add custom open behavior.
+   * Dispatches bubbling event for parent coordination (e.g., accordion exclusivity) and child state updates.
    */
   onOpen(): void {
     this.dispatchEvent(new CustomEvent('toggle:open', { bubbles: true }));
@@ -175,9 +164,7 @@ export class Disclosure extends HTMLElement {
 
   /**
    * Lifecycle hook called when the element closes.
-   * Dispatches a 'toggle:close' custom event that bubbles, allowing parent components
-   * to coordinate behavior and child components to update visual state.
-   * Can be overridden in subclasses to add custom close behavior.
+   * Dispatches bubbling event for parent coordination and child state updates.
    */
   onClose(): void {
     this.dispatchEvent(new CustomEvent('toggle:close', { bubbles: true }));
