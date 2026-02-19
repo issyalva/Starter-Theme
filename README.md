@@ -82,8 +82,8 @@ Use semantic token classes in your Liquid templates:
 Located in `src/components/`:
 
 - **Accordion** (`accordion-group.js`, `accordion-item.js`)
-- **Dialog** (`dialog-base.js`, `drawer.js`, `modal.js`)
-- **Disclosure** (`disclosure.js`)
+- **Dialog** (`dialog-base.ts`, `drawer.ts`, `modal.ts`)
+- **Disclosure** (`disclosure.ts`)
 
 All components are bundled via Vite and output to `assets/`.
 
