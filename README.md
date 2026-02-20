@@ -76,11 +76,19 @@ Use semantic token classes in your Liquid templates:
 
 Located in `src/components/`:
 
-- **Accordion** (`accordion-group.js`, `accordion-item.js`) - Converting to TypeScript
+- **Accordion** (`accordion-group.ts`, `accordion-item.ts`)
 - **Dialog** (`dialog-base.ts`, `drawer.ts`, `modal.ts`)
 - **Disclosure** (`disclosure.ts`)
 
 Components use TypeScript for type safety and are bundled via Vite to `assets/`.
+
+### Custom element typing (TypeScript)
+
+When adding a new autonomous custom element (for example, `ui-tabs`), register its tag in `src/types/custom-elements.d.ts` via `HTMLElementTagNameMap`.
+
+This gives strong type inference for DOM queries like `querySelector('ui-tabs')` and `querySelectorAll('ui-tabs')`, reducing the need for `as` casts in component code.
+
+Rule of thumb: if a new `ui-*` element is queried from TypeScript, add it to `HTMLElementTagNameMap` in the same PR as `customElements.define(...)`.
 
 ### Liquid Components
 
