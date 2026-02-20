@@ -15,8 +15,7 @@
  * </ui-accordion-item>
  */
 export class AccordionItem extends HTMLElement {
-  private _showOpen?: () => void;
-  private _showClosed?: () => void;
+  private _cleanupFns: (() => void)[] = [];
 
   connectedCallback(): void {
     this._setupIconToggle();
@@ -32,34 +31,35 @@ export class AccordionItem extends HTMLElement {
 
     if (!iconClosed && !iconOpen) return;
 
-    this._showOpen = (): void => {
+    const showOpen = (): void => {
       if (iconClosed) iconClosed.style.display = 'none';
       if (iconOpen) iconOpen.style.display = '';
     };
 
-    this._showClosed = (): void => {
+    const showClosed = (): void => {
       if (iconClosed) iconClosed.style.display = '';
       if (iconOpen) iconOpen.style.display = 'none';
     };
 
-    this.addEventListener('toggle:open', this._showOpen);
-    this.addEventListener('toggle:close', this._showClosed);
+    this.addEventListener('toggle:open', showOpen);
+    this._cleanupFns.push(() => this.removeEventListener('toggle:open', showOpen));
+
+    this.addEventListener('toggle:close', showClosed);
+    this._cleanupFns.push(() =>
+      this.removeEventListener('toggle:close', showClosed)
+    );
 
     const disclosure = this.querySelector('ui-disclosure');
     if (disclosure && disclosure.hasAttribute('open')) {
-      this._showOpen();
+      showOpen();
     } else {
-      this._showClosed();
+      showClosed();
     }
   }
 
   disconnectedCallback(): void {
-    if (this._showOpen) {
-      this.removeEventListener('toggle:open', this._showOpen);
-    }
-    if (this._showClosed) {
-      this.removeEventListener('toggle:close', this._showClosed);
-    }
+    this._cleanupFns.forEach((cleanup) => cleanup());
+    this._cleanupFns = [];
   }
 }
 

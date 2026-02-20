@@ -21,11 +21,10 @@ import { setupExternalTriggers } from '../../utilities/trigger-manager.js';
  * </dialog>
  */
 export class DialogBase extends HTMLDialogElement {
+  private _cleanupFns: (() => void)[] = [];
   private _cleanupFocusTrap: (() => void) | null = null;
-  private _cleanupExternalTriggers: (() => void) | null = null;
-  private _cleanupCloseButtons: (() => void)[] = [];
-  
-  private _handleClose = (): void => {
+
+  private readonly _handleClose = (): void => {
     this._unlockBodyScroll();
 
     if (this._cleanupFocusTrap) {
@@ -34,7 +33,7 @@ export class DialogBase extends HTMLDialogElement {
     }
   };
 
-  private _handleBackdropClick = (e: Event): void => {
+  private readonly _handleBackdropClick = (e: Event): void => {
     if (e.target === this) {
       this.close();
     }
@@ -45,7 +44,12 @@ export class DialogBase extends HTMLDialogElement {
     this._setupExternalTriggers();
 
     this.addEventListener('close', this._handleClose);
+    this._cleanupFns.push(() => this.removeEventListener('close', this._handleClose));
+
     this.addEventListener('click', this._handleBackdropClick);
+    this._cleanupFns.push(() =>
+      this.removeEventListener('click', this._handleBackdropClick)
+    );
   }
 
   /**
@@ -58,7 +62,7 @@ export class DialogBase extends HTMLDialogElement {
 
     closeButtons.forEach((button) => {
       button.addEventListener('click', handleClick);
-      this._cleanupCloseButtons.push(() => {
+      this._cleanupFns.push(() => {
         button.removeEventListener('click', handleClick);
       });
     });
@@ -69,9 +73,7 @@ export class DialogBase extends HTMLDialogElement {
    * Enables declarative control via aria-controls without requiring JavaScript.
    */
   private _setupExternalTriggers(): void {
-    this._cleanupExternalTriggers = setupExternalTriggers(this.id, () =>
-      this.show()
-    );
+    this._cleanupFns.push(setupExternalTriggers(this.id, () => this.show()));
   }
 
   show(): void {
@@ -101,16 +103,8 @@ export class DialogBase extends HTMLDialogElement {
   }
 
   disconnectedCallback(): void {
-    this.removeEventListener('close', this._handleClose);
-    this.removeEventListener('click', this._handleBackdropClick);
-
-    this._cleanupCloseButtons.forEach((fn) => fn());
-    this._cleanupCloseButtons = [];
-
-    if (this._cleanupExternalTriggers) {
-      this._cleanupExternalTriggers();
-      this._cleanupExternalTriggers = null;
-    }
+    this._cleanupFns.forEach((cleanup) => cleanup());
+    this._cleanupFns = [];
 
     if (this._cleanupFocusTrap) {
       this._cleanupFocusTrap();

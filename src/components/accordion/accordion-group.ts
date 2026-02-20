@@ -26,7 +26,7 @@ import { Disclosure } from '../disclosure/disclosure.js';
  */
 export class AccordionGroup extends HTMLElement {
   private _disclosures: Disclosure[] = [];
-  private _handleToggleOpen?: (e: Event) => void;
+  private _cleanupFns: (() => void)[] = [];
 
   connectedCallback(): void {
     this.setAttribute('role', 'region');
@@ -41,15 +41,20 @@ export class AccordionGroup extends HTMLElement {
     if (!this.hasAttribute('multiple')) {
       this._disclosures = Array.from(this.querySelectorAll('ui-disclosure'));
 
-      this._handleToggleOpen = (e: Event): void => {
+      const handleToggleOpen = (e: Event): void => {
+        const targetDisclosure = e.target instanceof Disclosure ? e.target : null;
+
         this._disclosures.forEach((disclosure) => {
-          if (disclosure !== e.target && disclosure.hasAttribute('open')) {
+          if (disclosure !== targetDisclosure && disclosure.hasAttribute('open')) {
             disclosure.hide();
           }
         });
       };
 
-      this.addEventListener('toggle:open', this._handleToggleOpen);
+      this.addEventListener('toggle:open', handleToggleOpen);
+      this._cleanupFns.push(() =>
+        this.removeEventListener('toggle:open', handleToggleOpen)
+      );
 
       const openDisclosures = this._disclosures.filter((disclosure) =>
         disclosure.hasAttribute('open')
@@ -62,9 +67,9 @@ export class AccordionGroup extends HTMLElement {
   }
 
   disconnectedCallback(): void {
-    if (this._handleToggleOpen) {
-      this.removeEventListener('toggle:open', this._handleToggleOpen);
-    }
+    this._cleanupFns.forEach((cleanup) => cleanup());
+    this._cleanupFns = [];
+    this._disclosures = [];
   }
 }
 
