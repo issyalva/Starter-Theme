@@ -1,3 +1,5 @@
+import { Disclosure } from '../disclosure/disclosure.js';
+
 /**
  * A wrapper component for semantic grouping of accordion content.
  * Toggles slotted icon visibility based on disclosure state for visual feedback.
@@ -45,7 +47,7 @@ export class AccordionItem extends HTMLElement {
     this.addEventListener('toggle:open', this._showOpen);
     this.addEventListener('toggle:close', this._showClosed);
 
-    const disclosure = this.querySelector('ui-disclosure');
+    const disclosure = this.querySelector('ui-disclosure') as Disclosure | null;
     if (disclosure && disclosure.hasAttribute('open')) {
       this._showOpen();
     } else {

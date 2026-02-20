@@ -1,3 +1,5 @@
+import { Disclosure } from '../disclosure/disclosure.js';
+
 /**
  * Manages multiple AccordionItem children with single or multiple open modes.
  * Single mode (default) ensures only one item is open at a time for focused content.
@@ -23,7 +25,7 @@
  * </ui-accordion-group>
  */
 export class AccordionGroup extends HTMLElement {
-  private _disclosures?: Element[];
+  private _disclosures?: Disclosure[];
   private _handleToggleOpen?: (e: Event) => void;
 
   connectedCallback(): void {
@@ -40,9 +42,9 @@ export class AccordionGroup extends HTMLElement {
       this._disclosures = Array.from(this.querySelectorAll('ui-disclosure'));
 
       this._handleToggleOpen = (e: Event): void => {
-        this._disclosures!.forEach((disclosure: Element) => {
+        this._disclosures!.forEach((disclosure) => {
           if (disclosure !== e.target && disclosure.hasAttribute('open')) {
-            (disclosure as any).hide();
+            disclosure.hide();
           }
         });
       };
@@ -54,7 +56,7 @@ export class AccordionGroup extends HTMLElement {
       );
 
       if (openDisclosures.length > 1) {
-        openDisclosures.slice(1).forEach((disclosure) => (disclosure as any).hide());
+        openDisclosures.slice(1).forEach((disclosure) => disclosure.hide());
       }
     }
   }
