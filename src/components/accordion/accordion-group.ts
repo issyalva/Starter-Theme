@@ -25,7 +25,7 @@ import { Disclosure } from '../disclosure/disclosure.js';
  * </ui-accordion-group>
  */
 export class AccordionGroup extends HTMLElement {
-  private _disclosures?: Disclosure[];
+  private _disclosures: Disclosure[] = [];
   private _handleToggleOpen?: (e: Event) => void;
 
   connectedCallback(): void {
@@ -42,7 +42,7 @@ export class AccordionGroup extends HTMLElement {
       this._disclosures = Array.from(this.querySelectorAll('ui-disclosure'));
 
       this._handleToggleOpen = (e: Event): void => {
-        this._disclosures!.forEach((disclosure) => {
+        this._disclosures.forEach((disclosure) => {
           if (disclosure !== e.target && disclosure.hasAttribute('open')) {
             disclosure.hide();
           }

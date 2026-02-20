@@ -82,6 +82,14 @@ Located in `src/components/`:
 
 Components use TypeScript for type safety and are bundled via Vite to `assets/`.
 
+### Custom element typing (TypeScript)
+
+When adding a new autonomous custom element (for example, `ui-tabs`), register its tag in `src/types/custom-elements.d.ts` via `HTMLElementTagNameMap`.
+
+This gives strong type inference for DOM queries like `querySelector('ui-tabs')` and `querySelectorAll('ui-tabs')`, reducing the need for `as` casts in component code.
+
+Rule of thumb: if a new `ui-*` element is queried from TypeScript, add it to `HTMLElementTagNameMap` in the same PR as `customElements.define(...)`.
+
 ### Liquid Components
 
 **Blocks** (`blocks/`) – Small, reusable UI components:
