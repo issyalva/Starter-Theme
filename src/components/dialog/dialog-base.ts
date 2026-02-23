@@ -56,6 +56,28 @@ export class DialogBase extends HTMLDialogElement {
     );
   }
 
+  disconnectedCallback(): void {
+    if (!this._isMounted) return;
+    this._isMounted = false;
+
+    this._runCleanup();
+
+    if (this._cleanupFocusTrap) {
+      this._cleanupFocusTrap();
+      this._cleanupFocusTrap = null;
+    }
+
+    this.close();
+  }
+
+  show(): void {
+    if (!this.open) {
+      this.showModal();
+      this._lockBodyScroll();
+      this._setupOptionalFocusTrap();
+    }
+  }
+
   /**
    * Binds event listeners to internal close buttons.
    * Provides a way to close from within the dialog content, independent of native ESC/backdrop handling.
@@ -80,14 +102,6 @@ export class DialogBase extends HTMLDialogElement {
     this._addCleanup(setupExternalTriggers(this.id, () => this.show()));
   }
 
-  show(): void {
-    if (!this.open) {
-      this.showModal();
-      this._lockBodyScroll();
-      this._setupOptionalFocusTrap();
-    }
-  }
-
   /**
    * Enables strict focus trapping when the focus-trap attribute is present.
    * Enforces stricter boundaries than native focus trapping, preventing programmatic escape.
@@ -104,20 +118,6 @@ export class DialogBase extends HTMLDialogElement {
 
   private _unlockBodyScroll(): void {
     document.body.style.overflow = '';
-  }
-
-  disconnectedCallback(): void {
-    if (!this._isMounted) return;
-    this._isMounted = false;
-
-    this._runCleanup();
-
-    if (this._cleanupFocusTrap) {
-      this._cleanupFocusTrap();
-      this._cleanupFocusTrap = null;
-    }
-
-    this.close();
   }
 
   private _addCleanup(cleanup: () => void): void {

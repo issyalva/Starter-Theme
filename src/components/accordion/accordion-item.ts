@@ -25,6 +25,13 @@ export class AccordionItem extends HTMLElement {
     this._setupIconToggle();
   }
 
+  disconnectedCallback(): void {
+    if (!this._isMounted) return;
+    this._isMounted = false;
+
+    this._runCleanup();
+  }
+
   /**
    * Toggles icon visibility based on disclosure state.
    * Listens to bubbling toggle events from child disclosure elements.
@@ -61,13 +68,6 @@ export class AccordionItem extends HTMLElement {
     } else {
       onToggleClose();
     }
-  }
-
-  disconnectedCallback(): void {
-    if (!this._isMounted) return;
-    this._isMounted = false;
-
-    this._runCleanup();
   }
 
   private _addCleanup(cleanup: () => void): void {

@@ -49,6 +49,59 @@ export class Disclosure extends HTMLElement {
     this._cachedTriggers = null;
   }
 
+  attributeChangedCallback(): void {
+    this._applyState();
+  }
+
+  get open(): boolean {
+    return this.hasAttribute('open');
+  }
+
+  set open(value: boolean) {
+    if (value) {
+      this.setAttribute('open', '');
+    } else {
+      this.removeAttribute('open');
+    }
+  }
+
+  toggle(): void {
+    this.open = !this.open;
+  }
+
+  show(): void {
+    this.open = true;
+  }
+
+  hide(): void {
+    this.open = false;
+  }
+
+  /**
+   * Invalidates the cached triggers and forces a fresh DOM query.
+   * Use when triggers are dynamically added or removed from the DOM.
+   */
+  refreshTriggers(): void {
+    this._cachedTriggers = null;
+    this._updateTriggerAria();
+  }
+
+  /**
+   * Lifecycle hook called when the element opens.
+   * Dispatches bubbling event for parent coordination (e.g., accordion exclusivity) and child state updates.
+   */
+  onOpen(): void {
+    this.dispatchEvent(new CustomEvent('toggle:open', { bubbles: true }));
+  }
+
+  /**
+   * Lifecycle hook called when the element closes.
+   * Dispatches bubbling event for parent coordination and child state updates.
+   */
+  onClose(): void {
+    this.dispatchEvent(new CustomEvent('toggle:close', { bubbles: true }));
+  }
+
   /**
    * Binds event listeners to external and internal triggers.
    * External triggers enable declarative control, internal triggers provide close functionality.
@@ -90,34 +143,6 @@ export class Disclosure extends HTMLElement {
     this._cleanupFns = [];
   }
 
-  attributeChangedCallback(): void {
-    this._applyState();
-  }
-
-  get open(): boolean {
-    return this.hasAttribute('open');
-  }
-
-  set open(value: boolean) {
-    if (value) {
-      this.setAttribute('open', '');
-    } else {
-      this.removeAttribute('open');
-    }
-  }
-
-  toggle(): void {
-    this.open = !this.open;
-  }
-
-  show(): void {
-    this.open = true;
-  }
-
-  hide(): void {
-    this.open = false;
-  }
-
   /**
    * Applies the current open/closed state to the element.
    * Manages accessibility attributes, syncs trigger states, and fires lifecycle hooks for child/parent components.
@@ -151,30 +176,6 @@ export class Disclosure extends HTMLElement {
     );
   }
 
-  /**
-   * Invalidates the cached triggers and forces a fresh DOM query.
-   * Use when triggers are dynamically added or removed from the DOM.
-   */
-  refreshTriggers(): void {
-    this._cachedTriggers = null;
-    this._updateTriggerAria();
-  }
-
-  /**
-   * Lifecycle hook called when the element opens.
-   * Dispatches bubbling event for parent coordination (e.g., accordion exclusivity) and child state updates.
-   */
-  onOpen(): void {
-    this.dispatchEvent(new CustomEvent('toggle:open', { bubbles: true }));
-  }
-
-  /**
-   * Lifecycle hook called when the element closes.
-   * Dispatches bubbling event for parent coordination and child state updates.
-   */
-  onClose(): void {
-    this.dispatchEvent(new CustomEvent('toggle:close', { bubbles: true }));
-  }
 }
 
 customElements.define('ui-disclosure', Disclosure);

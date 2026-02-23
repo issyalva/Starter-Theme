@@ -96,8 +96,10 @@ Use these conventions for predictable, maintainable components:
 
 - **Class layout order**
   - Private fields (`state`, caches, cleanup arrays)
+  - Optional static/class hooks (`observedAttributes`) and optional `constructor()`
   - `connectedCallback()`
   - `disconnectedCallback()`
+  - Other lifecycle hooks (`attributeChangedCallback()`) when applicable
   - Public API (`show`, `hide`, `toggle`) when applicable
   - Private setup/helpers (`_setupX`, `_applyState`, etc.)
   - `customElements.define(...)` at file bottom
