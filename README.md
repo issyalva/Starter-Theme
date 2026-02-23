@@ -102,7 +102,8 @@ Use these conventions for predictable, maintainable components:
   - Other lifecycle hooks (`attributeChangedCallback()`) when applicable
   - Public API (`show`, `hide`, `toggle`) when applicable
   - Private setup/helpers (`_setupX`, `_applyState`, etc.)
-  - `customElements.define(...)` at file bottom
+  - Guarded registration at file bottom:
+    - `if (!customElements.get('ui-component-name')) { customElements.define('ui-component-name', ComponentClass); }`
 - **Handler naming**
   - Use `onX` names for event callbacks (for example, `onToggleOpen`, `onBackdropClick`)
 - **Cleanup pattern**

@@ -88,4 +88,6 @@ export class AccordionGroup extends HTMLElement {
   }
 }
 
-customElements.define('ui-accordion-group', AccordionGroup);
+if (!customElements.get('ui-accordion-group')) {
+  customElements.define('ui-accordion-group', AccordionGroup);
+}

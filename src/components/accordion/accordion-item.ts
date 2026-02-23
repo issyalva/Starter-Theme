@@ -80,4 +80,6 @@ export class AccordionItem extends HTMLElement {
   }
 }
 
-customElements.define('ui-accordion-item', AccordionItem);
+if (!customElements.get('ui-accordion-item')) {
+  customElements.define('ui-accordion-item', AccordionItem);
+}

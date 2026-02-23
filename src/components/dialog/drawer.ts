@@ -20,4 +20,6 @@ import { DialogBase } from './dialog-base.js';
  */
 export class Drawer extends DialogBase {}
 
-customElements.define('ui-drawer', Drawer, { extends: 'dialog' });
+if (!customElements.get('ui-drawer')) {
+	customElements.define('ui-drawer', Drawer, { extends: 'dialog' });
+}
