@@ -15,11 +15,21 @@
  * </ui-accordion-item>
  */
 export class AccordionItem extends HTMLElement {
-  private _showOpen?: () => void;
-  private _showClosed?: () => void;
+  private _isMounted = false;
+  private _cleanupFns: (() => void)[] = [];
 
   connectedCallback(): void {
+    if (this._isMounted) return;
+    this._isMounted = true;
+
     this._setupIconToggle();
+  }
+
+  disconnectedCallback(): void {
+    if (!this._isMounted) return;
+    this._isMounted = false;
+
+    this._runCleanup();
   }
 
   /**
@@ -32,34 +42,41 @@ export class AccordionItem extends HTMLElement {
 
     if (!iconClosed && !iconOpen) return;
 
-    this._showOpen = (): void => {
+    const onToggleOpen = (): void => {
       if (iconClosed) iconClosed.style.display = 'none';
       if (iconOpen) iconOpen.style.display = '';
     };
 
-    this._showClosed = (): void => {
+    const onToggleClose = (): void => {
       if (iconClosed) iconClosed.style.display = '';
       if (iconOpen) iconOpen.style.display = 'none';
     };
 
-    this.addEventListener('toggle:open', this._showOpen);
-    this.addEventListener('toggle:close', this._showClosed);
+    this.addEventListener('toggle:open', onToggleOpen);
+    this._addCleanup(() =>
+      this.removeEventListener('toggle:open', onToggleOpen)
+    );
+
+    this.addEventListener('toggle:close', onToggleClose);
+    this._addCleanup(() =>
+      this.removeEventListener('toggle:close', onToggleClose)
+    );
 
     const disclosure = this.querySelector('ui-disclosure');
     if (disclosure && disclosure.hasAttribute('open')) {
-      this._showOpen();
+      onToggleOpen();
     } else {
-      this._showClosed();
+      onToggleClose();
     }
   }
 
-  disconnectedCallback(): void {
-    if (this._showOpen) {
-      this.removeEventListener('toggle:open', this._showOpen);
-    }
-    if (this._showClosed) {
-      this.removeEventListener('toggle:close', this._showClosed);
-    }
+  private _addCleanup(cleanup: () => void): void {
+    this._cleanupFns.push(cleanup);
+  }
+
+  private _runCleanup(): void {
+    this._cleanupFns.forEach((cleanup) => cleanup());
+    this._cleanupFns = [];
   }
 }
 

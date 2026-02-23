@@ -21,11 +21,11 @@ import { setupExternalTriggers } from '../../utilities/trigger-manager.js';
  * </dialog>
  */
 export class DialogBase extends HTMLDialogElement {
+  private _isMounted = false;
+  private _cleanupFns: (() => void)[] = [];
   private _cleanupFocusTrap: (() => void) | null = null;
-  private _cleanupExternalTriggers: (() => void) | null = null;
-  private _cleanupCloseButtons: (() => void)[] = [];
-  
-  private _handleClose = (): void => {
+
+  private readonly _onClose = (): void => {
     this._unlockBodyScroll();
 
     if (this._cleanupFocusTrap) {
@@ -34,18 +34,48 @@ export class DialogBase extends HTMLDialogElement {
     }
   };
 
-  private _handleBackdropClick = (e: Event): void => {
+  private readonly _onBackdropClick = (e: Event): void => {
     if (e.target === this) {
       this.close();
     }
   };
 
   connectedCallback(): void {
+    if (this._isMounted) return;
+    this._isMounted = true;
+
     this._setupCloseButtons();
     this._setupExternalTriggers();
 
-    this.addEventListener('close', this._handleClose);
-    this.addEventListener('click', this._handleBackdropClick);
+    this.addEventListener('close', this._onClose);
+    this._addCleanup(() => this.removeEventListener('close', this._onClose));
+
+    this.addEventListener('click', this._onBackdropClick);
+    this._addCleanup(() =>
+      this.removeEventListener('click', this._onBackdropClick)
+    );
+  }
+
+  disconnectedCallback(): void {
+    if (!this._isMounted) return;
+    this._isMounted = false;
+
+    this._runCleanup();
+
+    if (this._cleanupFocusTrap) {
+      this._cleanupFocusTrap();
+      this._cleanupFocusTrap = null;
+    }
+
+    this.close();
+  }
+
+  show(): void {
+    if (!this.open) {
+      this.showModal();
+      this._lockBodyScroll();
+      this._setupOptionalFocusTrap();
+    }
   }
 
   /**
@@ -54,12 +84,12 @@ export class DialogBase extends HTMLDialogElement {
    */
   private _setupCloseButtons(): void {
     const closeButtons = this.querySelectorAll('[data-close-dialog]');
-    const handleClick = (): void => this.close();
+    const onClick = (): void => this.close();
 
     closeButtons.forEach((button) => {
-      button.addEventListener('click', handleClick);
-      this._cleanupCloseButtons.push(() => {
-        button.removeEventListener('click', handleClick);
+      button.addEventListener('click', onClick);
+      this._addCleanup(() => {
+        button.removeEventListener('click', onClick);
       });
     });
   }
@@ -69,17 +99,7 @@ export class DialogBase extends HTMLDialogElement {
    * Enables declarative control via aria-controls without requiring JavaScript.
    */
   private _setupExternalTriggers(): void {
-    this._cleanupExternalTriggers = setupExternalTriggers(this.id, () =>
-      this.show()
-    );
-  }
-
-  show(): void {
-    if (!this.open) {
-      this.showModal();
-      this._lockBodyScroll();
-      this._setupOptionalFocusTrap();
-    }
+    this._addCleanup(setupExternalTriggers(this.id, () => this.show()));
   }
 
   /**
@@ -100,23 +120,12 @@ export class DialogBase extends HTMLDialogElement {
     document.body.style.overflow = '';
   }
 
-  disconnectedCallback(): void {
-    this.removeEventListener('close', this._handleClose);
-    this.removeEventListener('click', this._handleBackdropClick);
+  private _addCleanup(cleanup: () => void): void {
+    this._cleanupFns.push(cleanup);
+  }
 
-    this._cleanupCloseButtons.forEach((fn) => fn());
-    this._cleanupCloseButtons = [];
-
-    if (this._cleanupExternalTriggers) {
-      this._cleanupExternalTriggers();
-      this._cleanupExternalTriggers = null;
-    }
-
-    if (this._cleanupFocusTrap) {
-      this._cleanupFocusTrap();
-      this._cleanupFocusTrap = null;
-    }
-
-    this.close();
+  private _runCleanup(): void {
+    this._cleanupFns.forEach((cleanup) => cleanup());
+    this._cleanupFns = [];
   }
 }

@@ -21,8 +21,8 @@ import {
  * dynamically added/removed after initial render, call refreshTriggers() to update the cache.
  */
 export class Disclosure extends HTMLElement {
+  private _isMounted = false;
   private _cleanupFns: (() => void)[] = [];
-  private _cleanupExternalTriggers: (() => void) | null = null;
   private _cachedTriggers: Element[] | null = null;
 
   static get observedAttributes(): string[] {
@@ -34,54 +34,19 @@ export class Disclosure extends HTMLElement {
   }
 
   connectedCallback(): void {
+    if (this._isMounted) return;
+    this._isMounted = true;
+
     this._bindTriggers();
     this._applyState();
   }
 
   disconnectedCallback(): void {
-    this._unbindTriggers();
-    if (this._cleanupExternalTriggers) {
-      this._cleanupExternalTriggers();
-    }
-  }
+    if (!this._isMounted) return;
+    this._isMounted = false;
 
-  /**
-   * Binds event listeners to external and internal triggers.
-   * External triggers enable declarative control, internal triggers provide close functionality.
-   */
-  private _bindTriggers(): void {
-    this._cleanupExternalTriggers = setupExternalTriggers(this.id, () =>
-      this.toggle()
-    );
-
-    const internalTriggers = this.querySelectorAll('[data-close]');
-    this._setupTriggers(internalTriggers, () => this.hide());
-  }
-
-  private _setupTriggers(triggers: NodeListOf<Element>, callback: () => void): void {
-    const handleClick = (): void => callback();
-    const handleKeydown = (e: Event): void => {
-      if (!(e instanceof KeyboardEvent)) return;
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        callback();
-      }
-    };
-
-    triggers.forEach((trigger) => {
-      trigger.addEventListener('click', handleClick);
-      trigger.addEventListener('keydown', handleKeydown);
-
-      this._cleanupFns.push(() => {
-        trigger.removeEventListener('click', handleClick);
-        trigger.removeEventListener('keydown', handleKeydown);
-      });
-    });
-  }
-
-  private _unbindTriggers(): void {
-    this._cleanupFns.forEach((fn) => fn());
-    this._cleanupFns = [];
+    this._runCleanup();
+    this._cachedTriggers = null;
   }
 
   attributeChangedCallback(): void {
@@ -110,6 +75,72 @@ export class Disclosure extends HTMLElement {
 
   hide(): void {
     this.open = false;
+  }
+
+  /**
+   * Invalidates the cached triggers and forces a fresh DOM query.
+   * Use when triggers are dynamically added or removed from the DOM.
+   */
+  refreshTriggers(): void {
+    this._cachedTriggers = null;
+    this._updateTriggerAria();
+  }
+
+  /**
+   * Lifecycle hook called when the element opens.
+   * Dispatches bubbling event for parent coordination (e.g., accordion exclusivity) and child state updates.
+   */
+  onOpen(): void {
+    this.dispatchEvent(new CustomEvent('toggle:open', { bubbles: true }));
+  }
+
+  /**
+   * Lifecycle hook called when the element closes.
+   * Dispatches bubbling event for parent coordination and child state updates.
+   */
+  onClose(): void {
+    this.dispatchEvent(new CustomEvent('toggle:close', { bubbles: true }));
+  }
+
+  /**
+   * Binds event listeners to external and internal triggers.
+   * External triggers enable declarative control, internal triggers provide close functionality.
+   */
+  private _bindTriggers(): void {
+    this._addCleanup(setupExternalTriggers(this.id, () => this.toggle()));
+
+    const internalTriggers = this.querySelectorAll('[data-close]');
+    this._setupTriggers(internalTriggers, () => this.hide());
+  }
+
+  private _setupTriggers(triggers: NodeListOf<Element>, callback: () => void): void {
+    const onClick = (): void => callback();
+    const onKeydown = (e: Event): void => {
+      if (!(e instanceof KeyboardEvent)) return;
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        callback();
+      }
+    };
+
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('click', onClick);
+      trigger.addEventListener('keydown', onKeydown);
+
+      this._addCleanup(() => {
+        trigger.removeEventListener('click', onClick);
+        trigger.removeEventListener('keydown', onKeydown);
+      });
+    });
+  }
+
+  private _addCleanup(cleanup: () => void): void {
+    this._cleanupFns.push(cleanup);
+  }
+
+  private _runCleanup(): void {
+    this._cleanupFns.forEach((fn) => fn());
+    this._cleanupFns = [];
   }
 
   /**
@@ -145,30 +176,6 @@ export class Disclosure extends HTMLElement {
     );
   }
 
-  /**
-   * Invalidates the cached triggers and forces a fresh DOM query.
-   * Use when triggers are dynamically added or removed from the DOM.
-   */
-  refreshTriggers(): void {
-    this._cachedTriggers = null;
-    this._updateTriggerAria();
-  }
-
-  /**
-   * Lifecycle hook called when the element opens.
-   * Dispatches bubbling event for parent coordination (e.g., accordion exclusivity) and child state updates.
-   */
-  onOpen(): void {
-    this.dispatchEvent(new CustomEvent('toggle:open', { bubbles: true }));
-  }
-
-  /**
-   * Lifecycle hook called when the element closes.
-   * Dispatches bubbling event for parent coordination and child state updates.
-   */
-  onClose(): void {
-    this.dispatchEvent(new CustomEvent('toggle:close', { bubbles: true }));
-  }
 }
 
 customElements.define('ui-disclosure', Disclosure);

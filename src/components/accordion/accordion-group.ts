@@ -25,10 +25,14 @@ import { Disclosure } from '../disclosure/disclosure.js';
  * </ui-accordion-group>
  */
 export class AccordionGroup extends HTMLElement {
+  private _isMounted = false;
   private _disclosures: Disclosure[] = [];
-  private _handleToggleOpen?: (e: Event) => void;
+  private _cleanupFns: (() => void)[] = [];
 
   connectedCallback(): void {
+    if (this._isMounted) return;
+    this._isMounted = true;
+
     this.setAttribute('role', 'region');
 
     if (
@@ -41,15 +45,20 @@ export class AccordionGroup extends HTMLElement {
     if (!this.hasAttribute('multiple')) {
       this._disclosures = Array.from(this.querySelectorAll('ui-disclosure'));
 
-      this._handleToggleOpen = (e: Event): void => {
+      const onToggleOpen = (e: Event): void => {
+        const targetDisclosure = e.target instanceof Disclosure ? e.target : null;
+
         this._disclosures.forEach((disclosure) => {
-          if (disclosure !== e.target && disclosure.hasAttribute('open')) {
+          if (disclosure !== targetDisclosure && disclosure.hasAttribute('open')) {
             disclosure.hide();
           }
         });
       };
 
-      this.addEventListener('toggle:open', this._handleToggleOpen);
+      this.addEventListener('toggle:open', onToggleOpen);
+      this._addCleanup(() =>
+        this.removeEventListener('toggle:open', onToggleOpen)
+      );
 
       const openDisclosures = this._disclosures.filter((disclosure) =>
         disclosure.hasAttribute('open')
@@ -62,9 +71,20 @@ export class AccordionGroup extends HTMLElement {
   }
 
   disconnectedCallback(): void {
-    if (this._handleToggleOpen) {
-      this.removeEventListener('toggle:open', this._handleToggleOpen);
-    }
+    if (!this._isMounted) return;
+    this._isMounted = false;
+
+    this._runCleanup();
+    this._disclosures = [];
+  }
+
+  private _addCleanup(cleanup: () => void): void {
+    this._cleanupFns.push(cleanup);
+  }
+
+  private _runCleanup(): void {
+    this._cleanupFns.forEach((cleanup) => cleanup());
+    this._cleanupFns = [];
   }
 }
 
