@@ -46,6 +46,7 @@ export class Disclosure extends HTMLElement {
     this._isMounted = false;
 
     this._runCleanup();
+    this._cachedTriggers = null;
   }
 
   /**
