@@ -90,6 +90,31 @@ This gives strong type inference for DOM queries like `querySelector('ui-tabs')`
 
 Rule of thumb: if a new `ui-*` element is queried from TypeScript, add it to `HTMLElementTagNameMap` in the same PR as `customElements.define(...)`.
 
+### Component conventions (TypeScript)
+
+Use these conventions for predictable, maintainable components:
+
+- **Class layout order**
+  - Private fields (`state`, caches, cleanup arrays)
+  - `connectedCallback()`
+  - `disconnectedCallback()`
+  - Public API (`show`, `hide`, `toggle`) when applicable
+  - Private setup/helpers (`_setupX`, `_applyState`, etc.)
+  - `customElements.define(...)` at file bottom
+- **Handler naming**
+  - Use `onX` names for event callbacks (for example, `onToggleOpen`, `onBackdropClick`)
+- **Cleanup pattern**
+  - Register teardown functions in `private _cleanupFns: (() => void)[] = []`
+  - Use `private _addCleanup(cleanup: () => void)` to register teardown callbacks
+  - Use `private _runCleanup()` in `disconnectedCallback()` to execute and clear cleanup callbacks
+  - In `disconnectedCallback()`, run all cleanup functions, then clear arrays/caches
+- **Typing and queries**
+  - Prefer inferred custom element types from `HTMLElementTagNameMap`
+  - Use `as` casts only when inference is not available (for example, generic slot selectors)
+- **Lifecycle expectation**
+  - Guard lifecycle setup with `private _isMounted = false` to prevent duplicate setup on re-attach
+  - Keep `connectedCallback()` focused on setup and `disconnectedCallback()` focused on full teardown
+
 ### Liquid Components
 
 **Blocks** (`blocks/`) – Small, reusable UI components:

@@ -21,6 +21,7 @@ import { setupExternalTriggers } from '../../utilities/trigger-manager.js';
  * </dialog>
  */
 export class DialogBase extends HTMLDialogElement {
+  private _isMounted = false;
   private _cleanupFns: (() => void)[] = [];
   private _cleanupFocusTrap: (() => void) | null = null;
 
@@ -40,14 +41,17 @@ export class DialogBase extends HTMLDialogElement {
   };
 
   connectedCallback(): void {
+    if (this._isMounted) return;
+    this._isMounted = true;
+
     this._setupCloseButtons();
     this._setupExternalTriggers();
 
     this.addEventListener('close', this._onClose);
-    this._cleanupFns.push(() => this.removeEventListener('close', this._onClose));
+    this._addCleanup(() => this.removeEventListener('close', this._onClose));
 
     this.addEventListener('click', this._onBackdropClick);
-    this._cleanupFns.push(() =>
+    this._addCleanup(() =>
       this.removeEventListener('click', this._onBackdropClick)
     );
   }
@@ -62,7 +66,7 @@ export class DialogBase extends HTMLDialogElement {
 
     closeButtons.forEach((button) => {
       button.addEventListener('click', onClick);
-      this._cleanupFns.push(() => {
+      this._addCleanup(() => {
         button.removeEventListener('click', onClick);
       });
     });
@@ -73,7 +77,7 @@ export class DialogBase extends HTMLDialogElement {
    * Enables declarative control via aria-controls without requiring JavaScript.
    */
   private _setupExternalTriggers(): void {
-    this._cleanupFns.push(setupExternalTriggers(this.id, () => this.show()));
+    this._addCleanup(setupExternalTriggers(this.id, () => this.show()));
   }
 
   show(): void {
@@ -103,8 +107,10 @@ export class DialogBase extends HTMLDialogElement {
   }
 
   disconnectedCallback(): void {
-    this._cleanupFns.forEach((cleanup) => cleanup());
-    this._cleanupFns = [];
+    if (!this._isMounted) return;
+    this._isMounted = false;
+
+    this._runCleanup();
 
     if (this._cleanupFocusTrap) {
       this._cleanupFocusTrap();
@@ -112,5 +118,14 @@ export class DialogBase extends HTMLDialogElement {
     }
 
     this.close();
+  }
+
+  private _addCleanup(cleanup: () => void): void {
+    this._cleanupFns.push(cleanup);
+  }
+
+  private _runCleanup(): void {
+    this._cleanupFns.forEach((cleanup) => cleanup());
+    this._cleanupFns = [];
   }
 }

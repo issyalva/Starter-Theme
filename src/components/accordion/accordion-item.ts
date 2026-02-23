@@ -15,9 +15,13 @@
  * </ui-accordion-item>
  */
 export class AccordionItem extends HTMLElement {
+  private _isMounted = false;
   private _cleanupFns: (() => void)[] = [];
 
   connectedCallback(): void {
+    if (this._isMounted) return;
+    this._isMounted = true;
+
     this._setupIconToggle();
   }
 
@@ -42,12 +46,12 @@ export class AccordionItem extends HTMLElement {
     };
 
     this.addEventListener('toggle:open', onToggleOpen);
-    this._cleanupFns.push(() =>
+    this._addCleanup(() =>
       this.removeEventListener('toggle:open', onToggleOpen)
     );
 
     this.addEventListener('toggle:close', onToggleClose);
-    this._cleanupFns.push(() =>
+    this._addCleanup(() =>
       this.removeEventListener('toggle:close', onToggleClose)
     );
 
@@ -60,6 +64,17 @@ export class AccordionItem extends HTMLElement {
   }
 
   disconnectedCallback(): void {
+    if (!this._isMounted) return;
+    this._isMounted = false;
+
+    this._runCleanup();
+  }
+
+  private _addCleanup(cleanup: () => void): void {
+    this._cleanupFns.push(cleanup);
+  }
+
+  private _runCleanup(): void {
     this._cleanupFns.forEach((cleanup) => cleanup());
     this._cleanupFns = [];
   }

@@ -21,8 +21,8 @@ import {
  * dynamically added/removed after initial render, call refreshTriggers() to update the cache.
  */
 export class Disclosure extends HTMLElement {
+  private _isMounted = false;
   private _cleanupFns: (() => void)[] = [];
-  private _cleanupExternalTriggers: (() => void) | null = null;
   private _cachedTriggers: Element[] | null = null;
 
   static get observedAttributes(): string[] {
@@ -34,15 +34,18 @@ export class Disclosure extends HTMLElement {
   }
 
   connectedCallback(): void {
+    if (this._isMounted) return;
+    this._isMounted = true;
+
     this._bindTriggers();
     this._applyState();
   }
 
   disconnectedCallback(): void {
-    this._unbindTriggers();
-    if (this._cleanupExternalTriggers) {
-      this._cleanupExternalTriggers();
-    }
+    if (!this._isMounted) return;
+    this._isMounted = false;
+
+    this._runCleanup();
   }
 
   /**
@@ -50,9 +53,7 @@ export class Disclosure extends HTMLElement {
    * External triggers enable declarative control, internal triggers provide close functionality.
    */
   private _bindTriggers(): void {
-    this._cleanupExternalTriggers = setupExternalTriggers(this.id, () =>
-      this.toggle()
-    );
+    this._addCleanup(setupExternalTriggers(this.id, () => this.toggle()));
 
     const internalTriggers = this.querySelectorAll('[data-close]');
     this._setupTriggers(internalTriggers, () => this.hide());
@@ -72,14 +73,18 @@ export class Disclosure extends HTMLElement {
       trigger.addEventListener('click', onClick);
       trigger.addEventListener('keydown', onKeydown);
 
-      this._cleanupFns.push(() => {
+      this._addCleanup(() => {
         trigger.removeEventListener('click', onClick);
         trigger.removeEventListener('keydown', onKeydown);
       });
     });
   }
 
-  private _unbindTriggers(): void {
+  private _addCleanup(cleanup: () => void): void {
+    this._cleanupFns.push(cleanup);
+  }
+
+  private _runCleanup(): void {
     this._cleanupFns.forEach((fn) => fn());
     this._cleanupFns = [];
   }

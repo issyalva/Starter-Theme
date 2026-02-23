@@ -25,10 +25,14 @@ import { Disclosure } from '../disclosure/disclosure.js';
  * </ui-accordion-group>
  */
 export class AccordionGroup extends HTMLElement {
+  private _isMounted = false;
   private _disclosures: Disclosure[] = [];
   private _cleanupFns: (() => void)[] = [];
 
   connectedCallback(): void {
+    if (this._isMounted) return;
+    this._isMounted = true;
+
     this.setAttribute('role', 'region');
 
     if (
@@ -52,7 +56,7 @@ export class AccordionGroup extends HTMLElement {
       };
 
       this.addEventListener('toggle:open', onToggleOpen);
-      this._cleanupFns.push(() =>
+      this._addCleanup(() =>
         this.removeEventListener('toggle:open', onToggleOpen)
       );
 
@@ -67,9 +71,20 @@ export class AccordionGroup extends HTMLElement {
   }
 
   disconnectedCallback(): void {
+    if (!this._isMounted) return;
+    this._isMounted = false;
+
+    this._runCleanup();
+    this._disclosures = [];
+  }
+
+  private _addCleanup(cleanup: () => void): void {
+    this._cleanupFns.push(cleanup);
+  }
+
+  private _runCleanup(): void {
     this._cleanupFns.forEach((cleanup) => cleanup());
     this._cleanupFns = [];
-    this._disclosures = [];
   }
 }
 
