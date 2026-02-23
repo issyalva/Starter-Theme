@@ -59,8 +59,8 @@ export class Disclosure extends HTMLElement {
   }
 
   private _setupTriggers(triggers: NodeListOf<Element>, callback: () => void): void {
-    const handleClick = (): void => callback();
-    const handleKeydown = (e: Event): void => {
+    const onClick = (): void => callback();
+    const onKeydown = (e: Event): void => {
       if (!(e instanceof KeyboardEvent)) return;
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -69,12 +69,12 @@ export class Disclosure extends HTMLElement {
     };
 
     triggers.forEach((trigger) => {
-      trigger.addEventListener('click', handleClick);
-      trigger.addEventListener('keydown', handleKeydown);
+      trigger.addEventListener('click', onClick);
+      trigger.addEventListener('keydown', onKeydown);
 
       this._cleanupFns.push(() => {
-        trigger.removeEventListener('click', handleClick);
-        trigger.removeEventListener('keydown', handleKeydown);
+        trigger.removeEventListener('click', onClick);
+        trigger.removeEventListener('keydown', onKeydown);
       });
     });
   }

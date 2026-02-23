@@ -31,29 +31,31 @@ export class AccordionItem extends HTMLElement {
 
     if (!iconClosed && !iconOpen) return;
 
-    const showOpen = (): void => {
+    const onToggleOpen = (): void => {
       if (iconClosed) iconClosed.style.display = 'none';
       if (iconOpen) iconOpen.style.display = '';
     };
 
-    const showClosed = (): void => {
+    const onToggleClose = (): void => {
       if (iconClosed) iconClosed.style.display = '';
       if (iconOpen) iconOpen.style.display = 'none';
     };
 
-    this.addEventListener('toggle:open', showOpen);
-    this._cleanupFns.push(() => this.removeEventListener('toggle:open', showOpen));
-
-    this.addEventListener('toggle:close', showClosed);
+    this.addEventListener('toggle:open', onToggleOpen);
     this._cleanupFns.push(() =>
-      this.removeEventListener('toggle:close', showClosed)
+      this.removeEventListener('toggle:open', onToggleOpen)
+    );
+
+    this.addEventListener('toggle:close', onToggleClose);
+    this._cleanupFns.push(() =>
+      this.removeEventListener('toggle:close', onToggleClose)
     );
 
     const disclosure = this.querySelector('ui-disclosure');
     if (disclosure && disclosure.hasAttribute('open')) {
-      showOpen();
+      onToggleOpen();
     } else {
-      showClosed();
+      onToggleClose();
     }
   }
 

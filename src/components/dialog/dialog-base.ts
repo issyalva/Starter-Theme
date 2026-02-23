@@ -24,7 +24,7 @@ export class DialogBase extends HTMLDialogElement {
   private _cleanupFns: (() => void)[] = [];
   private _cleanupFocusTrap: (() => void) | null = null;
 
-  private readonly _handleClose = (): void => {
+  private readonly _onClose = (): void => {
     this._unlockBodyScroll();
 
     if (this._cleanupFocusTrap) {
@@ -33,7 +33,7 @@ export class DialogBase extends HTMLDialogElement {
     }
   };
 
-  private readonly _handleBackdropClick = (e: Event): void => {
+  private readonly _onBackdropClick = (e: Event): void => {
     if (e.target === this) {
       this.close();
     }
@@ -43,12 +43,12 @@ export class DialogBase extends HTMLDialogElement {
     this._setupCloseButtons();
     this._setupExternalTriggers();
 
-    this.addEventListener('close', this._handleClose);
-    this._cleanupFns.push(() => this.removeEventListener('close', this._handleClose));
+    this.addEventListener('close', this._onClose);
+    this._cleanupFns.push(() => this.removeEventListener('close', this._onClose));
 
-    this.addEventListener('click', this._handleBackdropClick);
+    this.addEventListener('click', this._onBackdropClick);
     this._cleanupFns.push(() =>
-      this.removeEventListener('click', this._handleBackdropClick)
+      this.removeEventListener('click', this._onBackdropClick)
     );
   }
 
@@ -58,12 +58,12 @@ export class DialogBase extends HTMLDialogElement {
    */
   private _setupCloseButtons(): void {
     const closeButtons = this.querySelectorAll('[data-close-dialog]');
-    const handleClick = (): void => this.close();
+    const onClick = (): void => this.close();
 
     closeButtons.forEach((button) => {
-      button.addEventListener('click', handleClick);
+      button.addEventListener('click', onClick);
       this._cleanupFns.push(() => {
-        button.removeEventListener('click', handleClick);
+        button.removeEventListener('click', onClick);
       });
     });
   }

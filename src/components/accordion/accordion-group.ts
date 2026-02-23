@@ -41,7 +41,7 @@ export class AccordionGroup extends HTMLElement {
     if (!this.hasAttribute('multiple')) {
       this._disclosures = Array.from(this.querySelectorAll('ui-disclosure'));
 
-      const handleToggleOpen = (e: Event): void => {
+      const onToggleOpen = (e: Event): void => {
         const targetDisclosure = e.target instanceof Disclosure ? e.target : null;
 
         this._disclosures.forEach((disclosure) => {
@@ -51,9 +51,9 @@ export class AccordionGroup extends HTMLElement {
         });
       };
 
-      this.addEventListener('toggle:open', handleToggleOpen);
+      this.addEventListener('toggle:open', onToggleOpen);
       this._cleanupFns.push(() =>
-        this.removeEventListener('toggle:open', handleToggleOpen)
+        this.removeEventListener('toggle:open', onToggleOpen)
       );
 
       const openDisclosures = this._disclosures.filter((disclosure) =>
