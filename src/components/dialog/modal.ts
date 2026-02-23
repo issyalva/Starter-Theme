@@ -14,4 +14,6 @@ import { DialogBase } from './dialog-base.js';
  */
 export class Modal extends DialogBase {}
 
-customElements.define('ui-modal', Modal, { extends: 'dialog' });
+if (!customElements.get('ui-modal')) {
+	customElements.define('ui-modal', Modal, { extends: 'dialog' });
+}

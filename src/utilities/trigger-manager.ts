@@ -8,7 +8,10 @@ export function setupExternalTriggers(
 ): () => void {
   if (!targetId) return () => {};
 
-  const triggers = document.querySelectorAll(`[aria-controls="${targetId}"]`);
+  const escapedTargetId = CSS.escape(targetId);
+  const triggers = document.querySelectorAll(
+    `[aria-controls="${escapedTargetId}"]`
+  );
   if (!triggers.length) return () => {};
 
   const handleClick = (e: Event): void => {
@@ -38,13 +41,15 @@ export function updateTriggerAria(
 ): Element[] | null {
   if (!targetId) return null;
 
+  const escapedTargetId = CSS.escape(targetId);
+
   let triggers: Element[];
 
   if (cachedTriggers) {
     triggers = cachedTriggers.filter((trigger) => document.contains(trigger));
   } else {
     triggers = Array.from(
-      document.querySelectorAll(`[aria-controls="${targetId}"]`)
+      document.querySelectorAll(`[aria-controls="${escapedTargetId}"]`)
     );
   }
 

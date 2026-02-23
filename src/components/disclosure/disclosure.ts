@@ -91,7 +91,9 @@ export class Disclosure extends HTMLElement {
    * Dispatches bubbling event for parent coordination (e.g., accordion exclusivity) and child state updates.
    */
   onOpen(): void {
-    this.dispatchEvent(new CustomEvent('toggle:open', { bubbles: true }));
+    this.dispatchEvent(
+      new CustomEvent('toggle:open', { bubbles: true, composed: true })
+    );
   }
 
   /**
@@ -99,7 +101,9 @@ export class Disclosure extends HTMLElement {
    * Dispatches bubbling event for parent coordination and child state updates.
    */
   onClose(): void {
-    this.dispatchEvent(new CustomEvent('toggle:close', { bubbles: true }));
+    this.dispatchEvent(
+      new CustomEvent('toggle:close', { bubbles: true, composed: true })
+    );
   }
 
   /**
@@ -113,7 +117,10 @@ export class Disclosure extends HTMLElement {
     this._setupTriggers(internalTriggers, () => this.hide());
   }
 
-  private _setupTriggers(triggers: NodeListOf<Element>, callback: () => void): void {
+  private _setupTriggers(
+    triggers: NodeListOf<Element>,
+    callback: () => void
+  ): void {
     const onClick = (): void => callback();
     const onKeydown = (e: Event): void => {
       if (!(e instanceof KeyboardEvent)) return;
@@ -148,7 +155,6 @@ export class Disclosure extends HTMLElement {
    * Manages accessibility attributes, syncs trigger states, and fires lifecycle hooks for child/parent components.
    */
   private _applyState(): void {
-    // Use inert to remove from tab order and accessibility tree when closed
     if (this.open) {
       this.removeAttribute('inert');
     } else {
@@ -175,7 +181,8 @@ export class Disclosure extends HTMLElement {
       this._cachedTriggers
     );
   }
-
 }
 
-customElements.define('ui-disclosure', Disclosure);
+if (!customElements.get('ui-disclosure')) {
+  customElements.define('ui-disclosure', Disclosure);
+}
