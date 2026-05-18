@@ -211,6 +211,74 @@
       </ui-accordion-item>
     </ui-accordion-group>
   </div>
+
+  <div class='highlight'>
+    <h3>Tabs</h3>
+    <p class='highlight-description'>
+      Tabs organize related content into one active panel at a time. Use arrow
+      keys to move between tabs, and Tab to enter and leave the component.
+    </p>
+
+    <ui-tabs-group>
+      <div data-tablist role='tablist' aria-label='Product information tabs'>
+        <button
+          type='button'
+          data-tab
+          id='demo-tab-details'
+          role='tab'
+          aria-controls='demo-panel-details'
+          data-active
+        >
+          Details
+        </button>
+        <button
+          type='button'
+          data-tab
+          id='demo-tab-shipping'
+          role='tab'
+          aria-controls='demo-panel-shipping'
+        >
+          Shipping
+        </button>
+        <button
+          type='button'
+          data-tab
+          id='demo-tab-returns'
+          role='tab'
+          aria-controls='demo-panel-returns'
+        >
+          Returns
+        </button>
+      </div>
+
+      <div
+        data-panel
+        id='demo-panel-details'
+        role='tabpanel'
+        aria-labelledby='demo-tab-details'
+      >
+        Learn more about this product, including fit, materials, and care.
+      </div>
+      <div
+        data-panel
+        id='demo-panel-shipping'
+        role='tabpanel'
+        aria-labelledby='demo-tab-shipping'
+      >
+        Standard shipping takes 5-7 business days. Express is available at
+        checkout.
+      </div>
+      <div
+        data-panel
+        id='demo-panel-returns'
+        role='tabpanel'
+        aria-labelledby='demo-tab-returns'
+      >
+        Returns are accepted within 30 days for unused items in original
+        packaging.
+      </div>
+    </ui-tabs-group>
+  </div>
 </div>
 
 <dialog
@@ -327,6 +395,30 @@
     color: rgb(92, 95, 98);
     padding: 3px 10px 5px;
     text-decoration: none;
+  }
+
+  [data-tablist] {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  [data-tab] {
+    border: 1px solid rgb(140, 145, 150);
+    border-radius: 999px;
+    padding: 0.375rem 0.75rem;
+    background: rgb(250, 251, 251);
+    color: rgb(32, 34, 35);
+    cursor: pointer;
+  }
+
+  [data-tab][aria-selected='true'] {
+    background: rgb(32, 34, 35);
+    color: rgb(250, 251, 251);
+  }
+
+  [data-panel] {
+    padding-top: 0.5rem;
   }
 {% endstylesheet %}
 

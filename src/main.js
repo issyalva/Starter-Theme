@@ -7,6 +7,7 @@ const componentMap = {
   'ui-accordion-item': () => import('./components/accordion/accordion-item'),
   'dialog[is="ui-drawer"]': () => import('./components/dialog/drawer'),
   'dialog[is="ui-modal"]': () => import('./components/dialog/modal'),
+  'ui-tabs-group': () => import('./components/tabs/tabs-group'),
 };
 
 // Load components that exist on the page
