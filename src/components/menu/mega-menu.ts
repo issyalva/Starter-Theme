@@ -42,7 +42,7 @@ export class MegaMenu extends Disclosure {
   }
 
   private _onTriggerKeydown = (e: KeyboardEvent): void => {
-    if (e.key !== 'ArrowDown') return;
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
 
     e.preventDefault();
 
@@ -50,7 +50,12 @@ export class MegaMenu extends Disclosure {
       this.show();
     }
 
-    this._focusFirstFocusable();
+    if (e.key === 'ArrowDown') {
+      this._focusFirstFocusable();
+      return;
+    }
+
+    this._focusLastFocusable();
   };
 
   private _onPanelKeydown = (e: KeyboardEvent): void => {
@@ -76,6 +81,18 @@ export class MegaMenu extends Disclosure {
 
     if (firstFocusable instanceof HTMLElement) {
       firstFocusable.focus();
+    }
+  }
+
+  private _focusLastFocusable(): void {
+    const focusableElements = Array.from(
+      this.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )
+    ).filter((el): el is HTMLElement => el instanceof HTMLElement);
+
+    if (focusableElements.length > 0) {
+      focusableElements[focusableElements.length - 1].focus();
     }
   }
 
