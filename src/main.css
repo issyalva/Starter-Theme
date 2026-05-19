@@ -4,7 +4,8 @@
   display: inline-block;
 }
 
-.dropdown ui-disclosure {
+.dropdown ui-disclosure,
+.dropdown dropdown-menu {
   position: absolute;
   left: 0;
   top: 100%;
@@ -14,7 +15,8 @@
   display: none;
 }
 
-.dropdown ui-disclosure[open] {
+.dropdown ui-disclosure[open],
+.dropdown dropdown-menu[open] {
   display: block;
 }
 @import 'tailwindcss';

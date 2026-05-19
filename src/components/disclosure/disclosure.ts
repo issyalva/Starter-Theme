@@ -23,7 +23,7 @@ import {
 export class Disclosure extends HTMLElement {
   private _isMounted = false;
   private _cleanupFns: (() => void)[] = [];
-  private _cachedTriggers: Element[] | null = null;
+  protected _cachedTriggers: Element[] | null = null;
 
   static get observedAttributes(): string[] {
     return ['open'];

@@ -8,6 +8,8 @@ const componentMap = {
   'dialog[is="ui-drawer"]': () => import('./components/dialog/drawer'),
   'dialog[is="ui-modal"]': () => import('./components/dialog/modal'),
   'ui-tabs-group': () => import('./components/tabs/tabs-group'),
+  'dropdown-menu': () => import('./components/menu/dropdown-menu'),
+  'mega-menu': () => import('./components/menu/mega-menu'),
 };
 
 // Load components that exist on the page

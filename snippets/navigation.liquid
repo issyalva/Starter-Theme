@@ -1,7 +1,7 @@
 {% doc %}
   Renders the main navigation with support for dropdown and mega menu items.
 
-  @param {array} links - Navigation links (from section.settings.menu.links)
+  @param {object} links - Navigation links (from section.settings.menu.links)
 
   @example
   {% render 'navigation', links: section.settings.menu.links %}
@@ -13,30 +13,30 @@
       <li>
         {%- if link.links and link.links.size > 0 -%}
           <!-- Dropdown menu item using disclosure -->
-          <div class="dropdown">
+          <div class='dropdown'>
             <button
-              type="button"
-              aria-haspopup="true"
-              aria-controls="dropdown-{{ forloop.index }}"
-              class="dropdown-trigger"
+              type='button'
+              aria-haspopup='true'
+              aria-controls='dropdown-{{ forloop.index }}'
+              class='dropdown-trigger'
             >
               {{ link.title }}
             </button>
-            <ui-disclosure id="dropdown-{{ forloop.index }}">
+            <dropdown-menu id='dropdown-{{ forloop.index }}'>
               <ul
-                class="dropdown-menu-list"
-                role="menu"
-                tabindex="-1"
+                class='dropdown-menu-list'
+                role='menu'
+                tabindex='-1'
               >
                 {% for sublink in link.links %}
-                  <li role="none">
-                    <a href="{{ sublink.url }}" role="menuitem">
+                  <li role='none'>
+                    <a href='{{ sublink.url }}' role='menuitem'>
                       {{- sublink.title -}}
                     </a>
                   </li>
                 {% endfor %}
               </ul>
-            </ui-disclosure>
+            </dropdown-menu>
           </div>
         {%- else -%}
           <!-- Simple nav item -->
