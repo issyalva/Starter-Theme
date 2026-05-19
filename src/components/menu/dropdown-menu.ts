@@ -8,37 +8,29 @@ export class DropdownMenu extends Disclosure {
   private _menuItems: HTMLElement[] = [];
   private _externalTriggers: HTMLElement[] = [];
   private _currentIndex: number = -1;
-  private _isKeyboardBound = false;
-  private _isTriggerKeyboardBound = false;
+  private _localCleanupFns: (() => void)[] = [];
 
   connectedCallback(): void {
     super.connectedCallback();
-
-    if (!this._isKeyboardBound) {
-      this._bindDropdownKeyboardNavigation();
-      this._isKeyboardBound = true;
-    }
-
-    if (!this._isTriggerKeyboardBound) {
-      this._bindTriggerKeyboardNavigation();
-      this._isTriggerKeyboardBound = true;
-    }
-
     this._cacheMenuItems();
+    this._bindDropdownKeyboardNavigation();
+    this._bindTriggerKeyboardNavigation();
   }
 
   disconnectedCallback(): void {
-    this._externalTriggers.forEach((trigger) => {
-      trigger.removeEventListener('keydown', this._onTriggerKeydown);
-    });
+    this._runLocalCleanup();
+
     this._externalTriggers = [];
-    this._isTriggerKeyboardBound = false;
+    this._menuItems = [];
+    this._currentIndex = -1;
+
     super.disconnectedCallback();
   }
 
   onOpen(): void {
     super.onOpen();
     this._cacheMenuItems();
+    this._currentIndex = -1;
   }
 
   private _cacheMenuItems(): void {
@@ -54,6 +46,9 @@ export class DropdownMenu extends Disclosure {
 
     this._externalTriggers.forEach((trigger) => {
       trigger.addEventListener('keydown', this._onTriggerKeydown);
+      this._addLocalCleanup(() => {
+        trigger.removeEventListener('keydown', this._onTriggerKeydown);
+      });
     });
   }
 
@@ -79,33 +74,52 @@ export class DropdownMenu extends Disclosure {
   };
 
   private _bindDropdownKeyboardNavigation(): void {
-    this.addEventListener('keydown', (e: KeyboardEvent) => {
-      if (!this.open) return;
+    this.addEventListener('keydown', this._onDropdownKeydown);
+    this.addEventListener('focusout', this._onDropdownFocusout);
 
-      if (this._menuItems.length === 0) return;
-
-      switch (e.key) {
-        case 'ArrowDown':
-          e.preventDefault();
-          this._focusNextItem();
-          break;
-        case 'ArrowUp':
-          e.preventDefault();
-          this._focusPreviousItem();
-          break;
-        case 'Escape':
-          e.preventDefault();
-          this.hide();
-          this._focusTrigger();
-          break;
-      }
+    this._addLocalCleanup(() => {
+      this.removeEventListener('keydown', this._onDropdownKeydown);
     });
+    this._addLocalCleanup(() => {
+      this.removeEventListener('focusout', this._onDropdownFocusout);
+    });
+  }
 
-    this.addEventListener('focusout', (e: FocusEvent) => {
-      if (!this.contains(e.relatedTarget as Node)) {
+  private _onDropdownKeydown = (e: KeyboardEvent): void => {
+    if (!this.open || this._menuItems.length === 0) return;
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        this._focusNextItem();
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        this._focusPreviousItem();
+        break;
+      case 'Escape':
+        e.preventDefault();
         this.hide();
-      }
-    });
+        this._focusTrigger();
+        break;
+      default:
+        break;
+    }
+  };
+
+  private _onDropdownFocusout = (e: FocusEvent): void => {
+    if (!this.contains(e.relatedTarget as Node)) {
+      this.hide();
+    }
+  };
+
+  private _addLocalCleanup(cleanup: () => void): void {
+    this._localCleanupFns.push(cleanup);
+  }
+
+  private _runLocalCleanup(): void {
+    this._localCleanupFns.forEach((cleanup) => cleanup());
+    this._localCleanupFns = [];
   }
 
   private _focusNextItem(): void {
@@ -128,4 +142,6 @@ export class DropdownMenu extends Disclosure {
   }
 }
 
-customElements.define('dropdown-menu', DropdownMenu);
+if (!customElements.get('dropdown-menu')) {
+  customElements.define('dropdown-menu', DropdownMenu);
+}
