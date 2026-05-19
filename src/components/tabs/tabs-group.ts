@@ -10,6 +10,7 @@
  *       id="product-details-tab"
  *       role="tab"
  *       aria-controls="product-details-panel"
+ *       data-active
  *     >
  *       Details
  *     </button>
@@ -53,6 +54,10 @@ export class TabsGroup extends HTMLElement {
   private _panels: HTMLElement[] = [];
   private _cleanupFns: (() => void)[] = [];
 
+  private get _total(): number {
+    return Math.min(this._tabs.length, this._panels.length);
+  }
+
   connectedCallback(): void {
     if (this._isMounted) return;
     this._isMounted = true;
@@ -77,47 +82,52 @@ export class TabsGroup extends HTMLElement {
       this.querySelectorAll('[data-panel]')
     ) as HTMLElement[];
 
-    const total = Math.min(this._tabs.length, this._panels.length);
+    const total = this._total;
     if (!tablist || total === 0) return;
 
-    let initialIndex = this._tabs.findIndex((tab) =>
-      tab.hasAttribute('data-active')
-    );
-    if (initialIndex < 0 || initialIndex >= total) {
-      initialIndex = 0;
-    }
+    const initialIndex = this._getInitialIndex(total);
+
     for (let index = 0; index < total; index += 1) {
       const tab = this._tabs[index];
-
-      const onClick = (): void => {
-        this._activate(index, true);
-      };
-
-      const onKeydown = (event: Event): void => {
-        if (!(event instanceof KeyboardEvent)) return;
-        this._onTabKeydown(event, index, total);
-      };
-
-      tab.addEventListener('click', onClick);
-      tab.addEventListener('keydown', onKeydown);
-
-      this._addCleanup(() => tab.removeEventListener('click', onClick));
-      this._addCleanup(() => tab.removeEventListener('keydown', onKeydown));
+      this._bindTabEvents(tab, index, total);
     }
 
     this._activate(initialIndex, false);
   }
 
+  private _getInitialIndex(total: number): number {
+    const index = this._tabs.findIndex((tab) => tab.hasAttribute('data-active'));
+    if (index < 0 || index >= total) return 0;
+    return index;
+  }
+
+  private _bindTabEvents(tab: HTMLElement, index: number, total: number): void {
+    const onClick = (): void => {
+      this._activate(index, true);
+    };
+
+    const onKeydown = (event: Event): void => {
+      if (!(event instanceof KeyboardEvent)) return;
+      this._onTabKeydown(event, index, total);
+    };
+
+    tab.addEventListener('click', onClick);
+    tab.addEventListener('keydown', onKeydown);
+
+    this._addCleanup(() => tab.removeEventListener('click', onClick));
+    this._addCleanup(() => tab.removeEventListener('keydown', onKeydown));
+  }
+
   private _activate(index: number, shouldFocus: boolean): void {
-    const total = Math.min(this._tabs.length, this._panels.length);
+    const total = this._total;
     if (total === 0) return;
 
-    const safeIndex = ((index % total) + total) % total;
+    const activeIndex = this._normalizeIndex(index, total);
 
     for (let i = 0; i < total; i += 1) {
       const tab = this._tabs[i];
       const panel = this._panels[i];
-      const isActive = i === safeIndex;
+      const isActive = i === activeIndex;
 
       tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
       tab.setAttribute('tabindex', isActive ? '0' : '-1');
@@ -125,8 +135,12 @@ export class TabsGroup extends HTMLElement {
     }
 
     if (shouldFocus) {
-      this._tabs[safeIndex].focus();
+      this._tabs[activeIndex].focus();
     }
+  }
+
+  private _normalizeIndex(index: number, total: number): number {
+    return ((index % total) + total) % total;
   }
 
   private _onTabKeydown(
@@ -134,38 +148,40 @@ export class TabsGroup extends HTMLElement {
     index: number,
     total: number
   ): void {
+    let nextIndex: number | null = null;
+
     switch (event.key) {
       case 'ArrowRight':
       case 'Right': {
-        event.preventDefault();
-        this._activate(index + 1, true);
+        nextIndex = index + 1;
         break;
       }
       case 'ArrowLeft':
       case 'Left': {
-        event.preventDefault();
-        this._activate(index - 1, true);
+        nextIndex = index - 1;
         break;
       }
       case 'Home': {
-        event.preventDefault();
-        this._activate(0, true);
+        nextIndex = 0;
         break;
       }
       case 'End': {
-        event.preventDefault();
-        this._activate(total - 1, true);
+        nextIndex = total - 1;
         break;
       }
       case 'Enter':
       case ' ': {
-        event.preventDefault();
-        this._activate(index, true);
+        nextIndex = index;
         break;
       }
       default:
         break;
     }
+
+    if (nextIndex === null) return;
+
+    event.preventDefault();
+    this._activate(nextIndex, true);
   }
 
   private _addCleanup(cleanup: () => void): void {

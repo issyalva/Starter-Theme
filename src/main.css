@@ -14,6 +14,11 @@ ui-disclosure[open] {
   display: block;
 }
 
+[data-tab][aria-selected='true'] {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
 /* Drawer Styles */
 dialog[is='ui-drawer'] {
   position: fixed;
