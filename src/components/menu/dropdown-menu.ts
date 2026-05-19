@@ -5,14 +5,10 @@ import { Disclosure } from '../disclosure/disclosure.js';
  * Includes keyboard navigation, focus management, and ARIA roles.
  */
 export class DropdownMenu extends Disclosure {
-  private _menuItems: HTMLElement[] = [];
-  private _externalTriggers: HTMLElement[] = [];
-  private _currentIndex: number = -1;
   private _localCleanupFns: (() => void)[] = [];
 
   connectedCallback(): void {
     super.connectedCallback();
-    this._cacheMenuItems();
     this._bindDropdownKeyboardNavigation();
     this._bindTriggerKeyboardNavigation();
   }
@@ -20,31 +16,17 @@ export class DropdownMenu extends Disclosure {
   disconnectedCallback(): void {
     this._runLocalCleanup();
 
-    this._externalTriggers = [];
-    this._menuItems = [];
-    this._currentIndex = -1;
-
     super.disconnectedCallback();
-  }
-
-  onOpen(): void {
-    super.onOpen();
-    this._cacheMenuItems();
-    this._currentIndex = -1;
-  }
-
-  private _cacheMenuItems(): void {
-    this._menuItems = Array.from(this.querySelectorAll('[role="menuitem"]'));
   }
 
   private _bindTriggerKeyboardNavigation(): void {
     if (!this.id) return;
 
-    this._externalTriggers = Array.from(
+    const triggers = Array.from(
       document.querySelectorAll(`[aria-controls="${this.id}"]`)
     ).filter((el): el is HTMLElement => el instanceof HTMLElement);
 
-    this._externalTriggers.forEach((trigger) => {
+    triggers.forEach((trigger) => {
       trigger.addEventListener('keydown', this._onTriggerKeydown);
       this._addLocalCleanup(() => {
         trigger.removeEventListener('keydown', this._onTriggerKeydown);
@@ -61,16 +43,12 @@ export class DropdownMenu extends Disclosure {
       this.show();
     }
 
-    this._cacheMenuItems();
-
     if (e.key === 'ArrowDown') {
-      this._currentIndex = -1;
-      this._focusNextItem();
+      this._focusRelativeItem(1, -1);
       return;
     }
 
-    this._currentIndex = 0;
-    this._focusPreviousItem();
+    this._focusRelativeItem(-1, 0);
   };
 
   private _bindDropdownKeyboardNavigation(): void {
@@ -86,16 +64,16 @@ export class DropdownMenu extends Disclosure {
   }
 
   private _onDropdownKeydown = (e: KeyboardEvent): void => {
-    if (!this.open || this._menuItems.length === 0) return;
+    if (!this.open) return;
 
     switch (e.key) {
       case 'ArrowDown':
         e.preventDefault();
-        this._focusNextItem();
+        this._focusRelativeItem(1, -1);
         break;
       case 'ArrowUp':
         e.preventDefault();
-        this._focusPreviousItem();
+        this._focusRelativeItem(-1, 0);
         break;
       case 'Escape':
         e.preventDefault();
@@ -122,16 +100,24 @@ export class DropdownMenu extends Disclosure {
     this._localCleanupFns = [];
   }
 
-  private _focusNextItem(): void {
-    if (this._menuItems.length === 0) return;
-    this._currentIndex = (this._currentIndex + 1) % this._menuItems.length;
-    this._menuItems[this._currentIndex].focus();
+  private _getMenuItems(): HTMLElement[] {
+    return Array.from(this.querySelectorAll('[role="menuitem"]')).filter(
+      (el): el is HTMLElement => el instanceof HTMLElement
+    );
   }
 
-  private _focusPreviousItem(): void {
-    if (this._menuItems.length === 0) return;
-    this._currentIndex = (this._currentIndex - 1 + this._menuItems.length) % this._menuItems.length;
-    this._menuItems[this._currentIndex].focus();
+  private _focusRelativeItem(offset: number, fallbackIndex: number): void {
+    const menuItems = this._getMenuItems();
+    if (menuItems.length === 0) return;
+
+    const activeElement = document.activeElement;
+    const currentIndex = activeElement
+      ? menuItems.indexOf(activeElement as HTMLElement)
+      : -1;
+    const baseIndex = currentIndex === -1 ? fallbackIndex : currentIndex;
+    const nextIndex = (baseIndex + offset + menuItems.length) % menuItems.length;
+
+    menuItems[nextIndex].focus();
   }
 
   private _focusTrigger(): void {
