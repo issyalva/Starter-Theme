@@ -4,22 +4,7 @@
   </h2>
 
   <div class='header__menu'>
-    <nav aria-label='{{ 'general.navigation' | t }}'>
-      <ul>
-        {% for link in section.settings.menu.links %}
-          <li>
-            <a
-              href='{{ link.url }}'
-              {% if link.active %}
-                aria-current='page'
-              {% endif %}
-            >
-              {{ link.title }}
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
-    </nav>
+    {% render 'navigation', links: section.settings.menu.links %}
   </div>
 
   <div class='header__icons'>
