@@ -4,7 +4,22 @@
 @import '../tokens/build/tailwind.theme.css';
 
 /* Import design token CSS variables (optional, for direct var() usage) */
+
 @import '../tokens/build/tokens.css';
+
+/* Navigation Styles */
+nav[aria-label] > ul {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+nav[aria-label] > ul > li {
+  display: flex;
+  align-items: center;
+}
 
 ui-disclosure {
   display: none;

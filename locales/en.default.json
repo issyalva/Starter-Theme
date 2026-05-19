@@ -2,7 +2,8 @@
   "general": {
     "accessibility": {
       "close": "Close"
-    }
+    },
+    "navigation": "Main navigation"
   },
   "404": {
     "title": "404",
