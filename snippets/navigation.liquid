@@ -11,7 +11,52 @@
   <ul>
     {% for link in links %}
       <li>
-        {%- if link.links and link.links.size > 0 -%}
+        {%- assign has_grandchildren = false -%}
+        {%- for child in link.links -%}
+          {%- if child.links and child.links.size > 0 -%}
+            {%- assign has_grandchildren = true -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if has_grandchildren -%}
+          <!-- Mega menu trigger -->
+          <div class='mega-menu'>
+            <button
+              type='button'
+              aria-haspopup='true'
+              aria-controls='mega-menu-{{ forloop.index }}'
+              class='dropdown-trigger'
+              id='mega-trigger-{{ forloop.index }}'
+            >
+              {{ link.title }}
+            </button>
+            <mega-menu
+              id='mega-menu-{{ forloop.index }}'
+              aria-labelledby='mega-trigger-{{ forloop.index }}'
+            >
+              <div class='mega-menu-grid'>
+                {% for child in link.links %}
+                  {% if child.links and child.links.size > 0 %}
+                    <div>
+                      <span class='mega-menu-column-title'>
+                        {{- child.title -}}
+                      </span>
+                      <ul class='mega-menu-list'>
+                        {% for grandchild in child.links %}
+                          <li>
+                            <a href='{{ grandchild.url }}'>
+                              {{- grandchild.title -}}
+                            </a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </mega-menu>
+          </div>
+        {%- elsif link.links and link.links.size > 0 -%}
           <!-- Dropdown menu item using disclosure -->
           <div class='dropdown'>
             <button
