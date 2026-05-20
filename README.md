@@ -79,6 +79,7 @@ Located in `src/components/`:
 - **Dialog** (`dialog-base.ts`, `drawer.ts`, `modal.ts`)
 - **Disclosure** (`disclosure.ts`)
 - **DropdownMenu** (`dropdown-menu.ts`)
+- **MegaMenu** (`mega-menu.ts`)
 
 Components use TypeScript for type safety and are bundled via Vite to `assets/`.
 
