@@ -4,9 +4,10 @@ import { Disclosure } from '../disclosure/disclosure.js';
  * DropdownMenu extends Disclosure to add dropdown-specific functionality.
  * Includes keyboard navigation, focus management, and ARIA roles.
  */
+
 export class DropdownMenu extends Disclosure {
-  private _localCleanupFns: (() => void)[] = [];
   private _trigger: HTMLElement | null = null;
+
 
   connectedCallback(): void {
     super.connectedCallback();
@@ -14,10 +15,12 @@ export class DropdownMenu extends Disclosure {
     this._bindTriggerKeyboardNavigation();
   }
 
-  disconnectedCallback(): void {
-    this._runLocalCleanup();
-    this._trigger = null;
 
+  disconnectedCallback(): void {
+    this.removeEventListener('keydown', this._onDropdownKeydown);
+    this.removeEventListener('focusout', this._onDropdownFocusout);
+    this._trigger?.removeEventListener('keydown', this._onTriggerKeydown);
+    this._trigger = null;
     super.disconnectedCallback();
   }
 
@@ -29,9 +32,6 @@ export class DropdownMenu extends Disclosure {
 
     this._trigger = trigger;
     this._trigger.addEventListener('keydown', this._onTriggerKeydown);
-    this._addLocalCleanup(() => {
-      this._trigger?.removeEventListener('keydown', this._onTriggerKeydown);
-    });
   }
 
   private _onTriggerKeydown = (e: KeyboardEvent): void => {
@@ -54,13 +54,6 @@ export class DropdownMenu extends Disclosure {
   private _bindDropdownKeyboardNavigation(): void {
     this.addEventListener('keydown', this._onDropdownKeydown);
     this.addEventListener('focusout', this._onDropdownFocusout);
-
-    this._addLocalCleanup(() => {
-      this.removeEventListener('keydown', this._onDropdownKeydown);
-    });
-    this._addLocalCleanup(() => {
-      this.removeEventListener('focusout', this._onDropdownFocusout);
-    });
   }
 
   private _onDropdownKeydown = (e: KeyboardEvent): void => {
@@ -91,14 +84,7 @@ export class DropdownMenu extends Disclosure {
     }
   };
 
-  private _addLocalCleanup(cleanup: () => void): void {
-    this._localCleanupFns.push(cleanup);
-  }
 
-  private _runLocalCleanup(): void {
-    this._localCleanupFns.forEach((cleanup) => cleanup());
-    this._localCleanupFns = [];
-  }
 
   private _getMenuItems(): HTMLElement[] {
     return Array.from(this.querySelectorAll('[role="menuitem"]')).filter(
