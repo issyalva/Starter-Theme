@@ -4,8 +4,10 @@ import { Disclosure } from '../disclosure/disclosure.js';
  * DropdownMenu extends Disclosure to add dropdown-specific functionality.
  * Includes keyboard navigation, focus management, and ARIA roles.
  */
+
 export class DropdownMenu extends Disclosure {
-  private _localCleanupFns: (() => void)[] = [];
+  private _trigger: HTMLElement | null = null;
+
 
   connectedCallback(): void {
     super.connectedCallback();
@@ -13,25 +15,23 @@ export class DropdownMenu extends Disclosure {
     this._bindTriggerKeyboardNavigation();
   }
 
-  disconnectedCallback(): void {
-    this._runLocalCleanup();
 
+  disconnectedCallback(): void {
+    this.removeEventListener('keydown', this._onDropdownKeydown);
+    this.removeEventListener('focusout', this._onDropdownFocusout);
+    this._trigger?.removeEventListener('keydown', this._onTriggerKeydown);
+    this._trigger = null;
     super.disconnectedCallback();
   }
 
   private _bindTriggerKeyboardNavigation(): void {
     if (!this.id) return;
 
-    const triggers = Array.from(
-      document.querySelectorAll(`[aria-controls="${this.id}"]`)
-    ).filter((el): el is HTMLElement => el instanceof HTMLElement);
+    const trigger = document.querySelector(`[aria-controls="${this.id}"]`);
+    if (!(trigger instanceof HTMLElement)) return;
 
-    triggers.forEach((trigger) => {
-      trigger.addEventListener('keydown', this._onTriggerKeydown);
-      this._addLocalCleanup(() => {
-        trigger.removeEventListener('keydown', this._onTriggerKeydown);
-      });
-    });
+    this._trigger = trigger;
+    this._trigger.addEventListener('keydown', this._onTriggerKeydown);
   }
 
   private _onTriggerKeydown = (e: KeyboardEvent): void => {
@@ -44,23 +44,16 @@ export class DropdownMenu extends Disclosure {
     }
 
     if (e.key === 'ArrowDown') {
-      this._focusRelativeItem(1, -1);
+      this._focusNextItem();
       return;
     }
 
-    this._focusRelativeItem(-1, 0);
+    this._focusPreviousItem();
   };
 
   private _bindDropdownKeyboardNavigation(): void {
     this.addEventListener('keydown', this._onDropdownKeydown);
     this.addEventListener('focusout', this._onDropdownFocusout);
-
-    this._addLocalCleanup(() => {
-      this.removeEventListener('keydown', this._onDropdownKeydown);
-    });
-    this._addLocalCleanup(() => {
-      this.removeEventListener('focusout', this._onDropdownFocusout);
-    });
   }
 
   private _onDropdownKeydown = (e: KeyboardEvent): void => {
@@ -69,11 +62,11 @@ export class DropdownMenu extends Disclosure {
     switch (e.key) {
       case 'ArrowDown':
         e.preventDefault();
-        this._focusRelativeItem(1, -1);
+        this._focusNextItem();
         break;
       case 'ArrowUp':
         e.preventDefault();
-        this._focusRelativeItem(-1, 0);
+        this._focusPreviousItem();
         break;
       case 'Escape':
         e.preventDefault();
@@ -91,14 +84,7 @@ export class DropdownMenu extends Disclosure {
     }
   };
 
-  private _addLocalCleanup(cleanup: () => void): void {
-    this._localCleanupFns.push(cleanup);
-  }
 
-  private _runLocalCleanup(): void {
-    this._localCleanupFns.forEach((cleanup) => cleanup());
-    this._localCleanupFns = [];
-  }
 
   private _getMenuItems(): HTMLElement[] {
     return Array.from(this.querySelectorAll('[role="menuitem"]')).filter(
@@ -106,25 +92,37 @@ export class DropdownMenu extends Disclosure {
     );
   }
 
-  private _focusRelativeItem(offset: number, fallbackIndex: number): void {
+  private _focusNextItem(): void {
     const menuItems = this._getMenuItems();
     if (menuItems.length === 0) return;
 
-    const activeElement = document.activeElement;
-    const currentIndex = activeElement
-      ? menuItems.indexOf(activeElement as HTMLElement)
-      : -1;
-    const baseIndex = currentIndex === -1 ? fallbackIndex : currentIndex;
-    const nextIndex = (baseIndex + offset + menuItems.length) % menuItems.length;
+    const currentIndex = this._getCurrentMenuItemIndex(menuItems);
+    const nextIndex = currentIndex < 0 ? 0 : (currentIndex + 1) % menuItems.length;
 
     menuItems[nextIndex].focus();
   }
 
+  private _focusPreviousItem(): void {
+    const menuItems = this._getMenuItems();
+    if (menuItems.length === 0) return;
+
+    const currentIndex = this._getCurrentMenuItemIndex(menuItems);
+    const previousIndex =
+      currentIndex < 0
+        ? menuItems.length - 1
+        : (currentIndex - 1 + menuItems.length) % menuItems.length;
+
+    menuItems[previousIndex].focus();
+  }
+
+  private _getCurrentMenuItemIndex(menuItems: HTMLElement[]): number {
+    const activeElement = document.activeElement;
+    return activeElement
+      ? menuItems.indexOf(activeElement as HTMLElement)
+      : -1;
+  }
   private _focusTrigger(): void {
-    const trigger = this._cachedTriggers?.[0];
-    if (trigger instanceof HTMLElement) {
-      trigger.focus();
-    }
+    this._trigger?.focus();
   }
 }
 
