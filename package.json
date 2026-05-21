@@ -3,10 +3,8 @@
   "scripts": {
     "dev": "concurrently \"npm run shopify:dev\" \"npm run build:watch\"",
     "shopify:dev": "shopify theme dev -e dev",
-    "build": "npm run tokens:build && vite build",
+    "build": "vite build",
     "build:watch": "vite build --watch",
-    "tokens:build": "node scripts/build-tokens.js",
-    "tokens:watch": "node scripts/build-tokens.js --watch",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"**/*.{js,json,liquid,css,md}\"",
@@ -19,7 +17,6 @@
     "eslint": "^9.39.1",
     "globals": "^16.5.0",
     "prettier": "^3.6.2",
-    "style-dictionary": "^5.1.1",
     "terser": "^5.44.1",
     "typescript": "^5.9.3",
     "vite": "^7.2.2"
