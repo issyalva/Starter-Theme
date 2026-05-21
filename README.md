@@ -1,13 +1,12 @@
 # Shopify Starter Theme
 
-A Shopify theme with a modern design token pipeline and TypeScript-powered UI components. It uses Tailwind CSS v4, Style Dictionary, and Vite for a fast build workflow.
+A Shopify theme with a simple CSS-first foundation, a minimal reset, and TypeScript-powered UI components.
 
 > Based on [Shopify Skeleton Theme](https://github.com/Shopify/skeleton-theme) – a minimal, carefully structured foundation designed with modularity and best practices in mind.
 
 ## Features
 
-- 🎨 **Design Token System** – Figma tokens synced via Style Dictionary to Tailwind CSS
-- ⚡ **Tailwind CSS v4** – CSS-first architecture with `@theme` directive for on-demand class generation
+- 🎨 **CSS Foundation** – Minimal reset and a path toward a reusable styleguide
 - 🧩 **Component Library** – Modular TypeScript components (accordion, dialog, drawer, modal, disclosure)
 - 🔧 **Vite Build System** – Fast production builds and watch mode
 - 🌍 **Localization Ready** – Locale files and translation filters
@@ -43,31 +42,15 @@ This runs Shopify theme preview and Vite watch mode concurrently.
    npm run build
    ```
 
-## Design Token System
+## Styling Direction
 
-This theme uses a **Figma → Style Dictionary → Tailwind CSS** pipeline for design tokens.
+The theme now starts with a minimal reset and room for a future styleguide built on CSS variables and semantic component styles.
 
-### Quick Usage
+Planned layers:
 
-Use semantic token classes in your Liquid templates:
-
-```liquid
-<!-- Colors -->
-<div class='bg-primary text-on-primary'>Primary button</div>
-<div class='bg-surface text-on-surface border-outline'>Card</div>
-
-<!-- Typography -->
-<h1 class='text-display-large font-display-large'>Heading</h1>
-<p class='text-body-medium leading-body-medium'>Body text</p>
-```
-
-### Update Tokens
-
-1. Export design tokens from Figma (Tokens Studio) to `tokens/figma-tokens.json`
-2. Run `npm run tokens:build`
-3. Tailwind automatically generates classes for tokens you use
-
-📖 **See [DESIGN-TOKENS.md](./DESIGN-TOKENS.md) for complete documentation**
+- `reset.css` for browser normalization and low-level defaults
+- a future `styleguide.css` for typography, spacing, color, buttons, and form primitives
+- optional utility systems later if needed, rather than as the source of truth
 
 ## Component System
 
@@ -91,9 +74,7 @@ See `src/types/custom-elements.d.ts` for custom element tag typings used by the 
 
 ```bash
 npm run dev              # Start Shopify dev + Vite watch
-npm run build            # Build tokens + Vite production bundle
-npm run tokens:build     # Generate tokens from Figma export
-npm run tokens:watch     # Watch and rebuild tokens
+npm run build            # Build production bundle
 npm run lint             # Run ESLint
 npm run lint:fix         # Auto-fix ESLint issues
 npm run format           # Format code with Prettier
@@ -113,12 +94,8 @@ npm run format:check     # Check formatting
 ├── snippets/            # Reusable Liquid fragments
 ├── src/                 # Source files (CSS, JS)
 │   ├── components/      # TypeScript components
-│   └── main.css         # Main CSS entry (imports Tailwind + tokens)
+│   └── main.css         # Main CSS entry
 ├── templates/           # JSON page templates
-├── tokens/              # Design token files
-│   ├── figma-tokens.json       # Source tokens from Figma
-│   └── build/                  # Generated CSS (git ignored)
-├── style-dictionary.config.js  # Token transformation config
 └── vite.config.js              # Vite build configuration
 ```
 
@@ -127,25 +104,21 @@ npm run format:check     # Check formatting
 Recommended extensions:
 
 - [Shopify Liquid](https://marketplace.visualstudio.com/items?itemName=Shopify.theme-check-vscode)
-- [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
-
-See [.vscode/INTELLISENSE.md](./.vscode/INTELLISENSE.md) for configuration details.
+- [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) if you later reintroduce Tailwind utilities
 
 ## Architecture
 
 ### Styling approach
 
-**Design tokens** define your visual language (colors, typography, spacing) in Figma. **Style Dictionary** transforms these into Tailwind theme extensions. **Tailwind** generates utility classes on-demand based on what you use in templates.
+The current approach is to keep styling decisions in plain CSS first, then layer on more structure only where the theme needs it.
 
 Benefits:
 
-- Single source of truth (Figma)
-- Only ships CSS for classes you use
-- Full IntelliSense support
-- Easy to update entire design system
+- Easier to evolve without tool lock-in
+- Clear separation between reset, foundation, and component styles
+- Optional migration path to Tailwind or BEM later
 
 ## Documentation
 
-- [Design Token System](./DESIGN-TOKENS.md)
-- [VS Code IntelliSense Setup](./.vscode/INTELLISENSE.md)
-- [Tailwind CSS v4](https://tailwindcss.com/docs)
+- [Reset stylesheet](./src/styles/reset.css)
+- [Tailwind CSS v4](https://tailwindcss.com/docs) if you decide to add it back later

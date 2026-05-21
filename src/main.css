@@ -64,14 +64,6 @@
 .mega-menu-list li + li {
   margin-top: 0.35rem;
 }
-@import 'tailwindcss';
-
-/* Extend Tailwind theme with design tokens */
-@import '../tokens/build/tailwind.theme.css';
-
-/* Import design token CSS variables (optional, for direct var() usage) */
-
-@import '../tokens/build/tokens.css';
 
 /* Navigation Styles */
 nav[aria-label] > ul {
