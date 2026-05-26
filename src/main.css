@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+@import './styles/base/colors.css';
+@import './styles/base/spacing.css';
 @import './styles/base/typography.css';
 
 /* Dropdown menu positioning (prevents layout shift) */

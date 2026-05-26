@@ -33,10 +33,10 @@
   --letter-spacing-heading: -0.01em;
   --letter-spacing-eyebrow: 0.08em;
 
-  --text-color-default: var(--color-foreground, #1f2937);
-  --text-color-muted: #6b7280;
+  --text-color-default: var(--color-text, var(--color-foreground, #1f2937));
+  --text-color-muted: var(--color-text-muted, #6b7280);
 
-  --link-color: currentcolor;
+  --link-color: var(--color-primary, currentcolor);
   --link-decoration-thickness: 1px;
   --link-underline-offset: 0.14em;
 
