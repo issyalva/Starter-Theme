@@ -1,0 +1,87 @@
+{% doc %}
+  Renders a typography showcase with real heading, body, and supporting text examples.
+
+  Useful for validating the active type system, including element selectors and
+  class aliases like .h1 through .h6.
+
+  @example
+  {% render 'typography-showcase' %}
+{% enddoc %}
+
+<section class='typography-showcase'>
+  <header class='typography-showcase__header'>
+    <p class='text-eyebrow'>Typography showcase</p>
+    <p class='text-caption'>
+      Live preview of the current typography scale and utility classes
+    </p>
+  </header>
+
+  <div class='typography-showcase__content'>
+    <section class='typography-showcase__group'>
+      <h2 class='h4'>Native heading elements</h2>
+      <h1>Heading one uses h1</h1>
+      <h2>Heading two uses h2</h2>
+      <h3>Heading three uses h3</h3>
+      <h4>Heading four uses h4</h4>
+      <h5>Heading five uses h5</h5>
+      <h6>Heading six uses h6</h6>
+    </section>
+
+    <section class='typography-showcase__group'>
+      <h2 class='h4'>Heading class aliases</h2>
+      <p class='h1'>Heading one via .h1</p>
+      <p class='h2'>Heading two via .h2</p>
+      <p class='h3'>Heading three via .h3</p>
+      <p class='h4'>Heading four via .h4</p>
+      <p class='h5'>Heading five via .h5</p>
+      <p class='h6'>Heading six via .h6</p>
+    </section>
+
+    <section class='typography-showcase__group'>
+      <h2 class='h4'>Body and supporting text</h2>
+      <p class='text-body'>
+        Base body text is tuned for default reading flow in standard content
+        blocks.
+      </p>
+      <p class='text-body-lg'>
+        Large body text can be used for lead paragraphs and key messaging
+        sections.
+      </p>
+      <p class='text-caption'>
+        Caption text supports metadata, labels, and secondary helper content.
+      </p>
+      <p class='text-eyebrow'>Eyebrow text highlights short section context</p>
+      <blockquote>
+        Good typography makes content easier to scan and more pleasant to read.
+      </blockquote>
+    </section>
+  </div>
+</section>
+
+{% stylesheet %}
+  .typography-showcase {
+    padding: 2rem;
+  }
+
+  .typography-showcase__header {
+    margin-bottom: 1.5rem;
+  }
+
+  .typography-showcase__content {
+    max-width: 56rem;
+    background: #fff;
+  }
+
+  .typography-showcase__group + .typography-showcase__group {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+  }
+
+  .typography-showcase__group > * + * {
+    margin-top: 0.6rem;
+  }
+{% endstylesheet %}
