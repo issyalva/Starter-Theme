@@ -20,12 +20,29 @@
   --font-size-caption: 0.75rem;
   --font-size-eyebrow: 0.75rem;
   --font-size-quote: 1.125rem;
+  --font-size-meta: 0.875rem;
+
+  --font-weight-body: 400;
+  --font-weight-heading: 700;
+  --font-weight-strong: 600;
+  --font-weight-eyebrow: 600;
 
   --line-height-heading: 1.2;
   --line-height-body: 1.6;
   --line-height-relaxed: 1.7;
   --letter-spacing-heading: -0.01em;
   --letter-spacing-eyebrow: 0.08em;
+
+  --text-color-default: var(--color-foreground, #1f2937);
+  --text-color-muted: #6b7280;
+
+  --link-color: currentcolor;
+  --link-decoration-thickness: 1px;
+  --link-underline-offset: 0.14em;
+
+  --space-text-stack: 1em;
+  --space-list-indent: 1.25em;
+  --space-list-item: 0.4em;
 }
 
 @media (min-width: 48rem) {
@@ -41,6 +58,8 @@ body {
   font-family: var(--font-family-body);
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
+  font-weight: var(--font-weight-body);
+  color: var(--text-color-default);
 }
 
 h1,
@@ -90,10 +109,54 @@ h6,
   font-size: var(--font-size-h6);
 }
 
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+  font-weight: var(--font-weight-heading);
+}
+
 p,
 .text-body {
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
+}
+
+p,
+ul,
+ol,
+blockquote {
+  margin-block: 0 var(--space-text-stack);
+}
+
+ul,
+ol {
+  padding-inline-start: var(--space-list-indent);
+}
+
+ul {
+  list-style-type: disc;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+li + li {
+  margin-top: var(--space-list-item);
+}
+
+strong,
+b {
+  font-weight: var(--font-weight-strong);
 }
 
 .text-body-lg {
@@ -108,9 +171,33 @@ p,
 
 .text-eyebrow {
   font-size: var(--font-size-eyebrow);
-  font-weight: 600;
+  font-weight: var(--font-weight-eyebrow);
   letter-spacing: var(--letter-spacing-eyebrow);
   text-transform: uppercase;
+}
+
+small,
+figcaption,
+.text-meta {
+  font-size: var(--font-size-meta);
+  line-height: var(--line-height-body);
+  color: var(--text-color-muted);
+}
+
+a {
+  color: var(--link-color);
+  text-decoration-line: underline;
+  text-decoration-thickness: var(--link-decoration-thickness);
+  text-underline-offset: var(--link-underline-offset);
+}
+
+a:hover {
+  text-decoration-thickness: calc(var(--link-decoration-thickness) + 1px);
+}
+
+a:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 2px;
 }
 
 blockquote,
@@ -118,4 +205,14 @@ blockquote,
   font-size: var(--font-size-quote);
   line-height: var(--line-height-relaxed);
   font-style: italic;
+}
+
+blockquote cite,
+.text-quote-cite {
+  display: block;
+  margin-top: 0.6em;
+  font-size: var(--font-size-meta);
+  line-height: var(--line-height-body);
+  color: var(--text-color-muted);
+  font-style: normal;
 }

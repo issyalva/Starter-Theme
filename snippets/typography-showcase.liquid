@@ -18,42 +18,142 @@
 
   <div class='typography-showcase__content'>
     <section class='typography-showcase__group'>
-      <h2 class='h4'>Native heading elements</h2>
-      <h1>Heading one uses h1</h1>
-      <h2>Heading two uses h2</h2>
-      <h3>Heading three uses h3</h3>
-      <h4>Heading four uses h4</h4>
-      <h5>Heading five uses h5</h5>
-      <h6>Heading six uses h6</h6>
-    </section>
-
-    <section class='typography-showcase__group'>
-      <h2 class='h4'>Heading class aliases</h2>
-      <p class='h1'>Heading one via .h1</p>
-      <p class='h2'>Heading two via .h2</p>
-      <p class='h3'>Heading three via .h3</p>
-      <p class='h4'>Heading four via .h4</p>
-      <p class='h5'>Heading five via .h5</p>
-      <p class='h6'>Heading six via .h6</p>
+      <h2 class='h4'>Headings (element + class alias)</h2>
+      <div class='typography-showcase__sample'>
+        <div class='typography-showcase__compare'>
+          <p class='typography-showcase__label'>h1</p>
+          <h1>Heading one uses h1</h1>
+          <p class='typography-showcase__label'>.h1</p>
+          <p class='h1'>Heading one via .h1</p>
+        </div>
+      </div>
+      <div class='typography-showcase__sample'>
+        <div class='typography-showcase__compare'>
+          <p class='typography-showcase__label'>h2</p>
+          <h2>Heading two uses h2</h2>
+          <p class='typography-showcase__label'>.h2</p>
+          <p class='h2'>Heading two via .h2</p>
+        </div>
+      </div>
+      <div class='typography-showcase__sample'>
+        <div class='typography-showcase__compare'>
+          <p class='typography-showcase__label'>h3</p>
+          <h3>Heading three uses h3</h3>
+          <p class='typography-showcase__label'>.h3</p>
+          <p class='h3'>Heading three via .h3</p>
+        </div>
+      </div>
+      <div class='typography-showcase__sample'>
+        <div class='typography-showcase__compare'>
+          <p class='typography-showcase__label'>h4</p>
+          <h4>Heading four uses h4</h4>
+          <p class='typography-showcase__label'>.h4</p>
+          <p class='h4'>Heading four via .h4</p>
+        </div>
+      </div>
+      <div class='typography-showcase__sample'>
+        <div class='typography-showcase__compare'>
+          <p class='typography-showcase__label'>h5</p>
+          <h5>Heading five uses h5</h5>
+          <p class='typography-showcase__label'>.h5</p>
+          <p class='h5'>Heading five via .h5</p>
+        </div>
+      </div>
+      <div class='typography-showcase__sample'>
+        <div class='typography-showcase__compare'>
+          <p class='typography-showcase__label'>h6</p>
+          <h6>Heading six uses h6</h6>
+          <p class='typography-showcase__label'>.h6</p>
+          <p class='h6'>Heading six via .h6</p>
+        </div>
+      </div>
     </section>
 
     <section class='typography-showcase__group'>
       <h2 class='h4'>Body and supporting text</h2>
-      <p class='text-body'>
-        Base body text is tuned for default reading flow in standard content
-        blocks.
-      </p>
-      <p class='text-body-lg'>
-        Large body text can be used for lead paragraphs and key messaging
-        sections.
-      </p>
-      <p class='text-caption'>
-        Caption text supports metadata, labels, and secondary helper content.
-      </p>
-      <p class='text-eyebrow'>Eyebrow text highlights short section context</p>
-      <blockquote>
-        Good typography makes content easier to scan and more pleasant to read.
-      </blockquote>
+      <div class='typography-showcase__sample'>
+        <p class='typography-showcase__label'>.text-body + a</p>
+        <p class='text-body'>
+          Base body text is tuned for default reading flow in standard content
+          blocks and includes <a href='#'>inline link styles</a> for
+          content-heavy sections.
+        </p>
+      </div>
+
+      <div class='typography-showcase__sample'>
+        <p class='typography-showcase__label'>.text-body-lg</p>
+        <p class='text-body-lg'>
+          Large body text can be used for lead paragraphs and key messaging
+          sections.
+        </p>
+      </div>
+
+      <div class='typography-showcase__sample'>
+        <p class='typography-showcase__label'>.text-caption</p>
+        <p class='text-caption'>
+          Caption text supports metadata, labels, and secondary helper content.
+        </p>
+      </div>
+
+      <div class='typography-showcase__sample'>
+        <p class='typography-showcase__label'>.text-eyebrow</p>
+        <p class='text-eyebrow'>
+          Eyebrow text highlights short section context
+        </p>
+      </div>
+
+      <div class='typography-showcase__sample'>
+        <p class='typography-showcase__label'>blockquote + cite</p>
+        <blockquote>
+          Good typography makes content easier to scan and more pleasant to
+          read.
+          <cite>Type system principle</cite>
+        </blockquote>
+      </div>
+
+      <h3 class='h5'>Meta and caption text</h3>
+      <div class='typography-showcase__sample'>
+        <p class='typography-showcase__label'>small</p>
+        <p>
+          <small>Small element text for lightweight supporting copy.</small>
+        </p>
+      </div>
+
+      <div class='typography-showcase__sample'>
+        <p class='typography-showcase__label'>.text-meta</p>
+        <p class='text-meta'>
+          Text meta class for timestamps and helper labels.
+        </p>
+      </div>
+
+      <div class='typography-showcase__sample'>
+        <p class='typography-showcase__label'>figure + figcaption</p>
+        <figure class='typography-showcase__figure'>
+          <div class='typography-showcase__figure-sample'>
+            Example media area
+          </div>
+          <figcaption>
+            Figcaption text uses muted metadata styling by default.
+          </figcaption>
+        </figure>
+      </div>
+
+      <h3 class='h5'>List rhythm</h3>
+      <div class='typography-showcase__sample'>
+        <p class='typography-showcase__label'>ul</p>
+        <ul>
+          <li>Unordered list items use shared typography spacing.</li>
+          <li>Nested content should still feel readable and consistent.</li>
+        </ul>
+      </div>
+
+      <div class='typography-showcase__sample'>
+        <p class='typography-showcase__label'>ol</p>
+        <ol>
+          <li>Ordered lists follow the same rhythm rules.</li>
+          <li>Line height and list indentation remain predictable.</li>
+        </ol>
+      </div>
     </section>
   </div>
 </section>
@@ -83,5 +183,42 @@
 
   .typography-showcase__group > * + * {
     margin-top: 0.6rem;
+  }
+
+  .typography-showcase__sample {
+    padding: 0.75rem;
+    border-radius: 0.4rem;
+    background: rgba(0, 0, 0, 0.015);
+  }
+
+  .typography-showcase__sample + .typography-showcase__sample {
+    margin-top: 0.75rem;
+  }
+
+  .typography-showcase__label {
+    margin: 0 0 0.45rem;
+    font-family:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+      'Courier New', monospace;
+    font-size: 0.75rem;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .typography-showcase__compare > * + * {
+    margin-top: 0.45rem;
+  }
+
+  .typography-showcase__figure {
+    margin: 0;
+  }
+
+  .typography-showcase__figure-sample {
+    display: grid;
+    place-items: center;
+    min-height: 6rem;
+    border: 1px dashed rgba(0, 0, 0, 0.2);
+    border-radius: 0.4rem;
+    background: rgba(0, 0, 0, 0.02);
   }
 {% endstylesheet %}
