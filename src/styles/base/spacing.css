@@ -16,12 +16,23 @@
   --layout-content-max: 56rem;
   --layout-section-space: var(--space-7);
 
-  /* Shape and depth */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
+  /* Shape primitives */
+  --radius-none: 0;
+  --radius-sm: 0.5rem;
+
+  /* Border primitives */
+  --border-width-1: 1px;
+  --border-width-2: 2px;
+
+  /* Minimal depth primitives */
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 8%);
   --shadow-md: 0 8px 24px rgb(0 0 0 / 12%);
+
+  /* Optional stacking scale for overlays and modals. */
+  --z-base: 0;
+  --z-sticky: 10;
+  --z-overlay: 40;
+  --z-modal: 50;
 }
 
 .l-container {
