@@ -14,7 +14,7 @@
     <p class='text-caption'>Live preview of spacing and layout tokens</p>
   </header>
 
-  <div class='spacing-showcase__content'>
+  <div class='spacing-showcase__content l-content'>
     <section class='spacing-showcase__group'>
       <h2 class='h4'>Spacing scale</h2>
 
@@ -151,100 +151,99 @@
 
 {% stylesheet %}
   .spacing-showcase {
-    padding: 2rem;
+    padding: var(--space-6, 2rem);
   }
 
   .spacing-showcase__header {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--space-5, 1.5rem);
   }
 
   .spacing-showcase__content {
-    max-width: 56rem;
-    background: var(--color-surface, #fff);
+    background: var(--color-surface, var(--gray-0, #fff));
   }
 
   .spacing-showcase__group + .spacing-showcase__group {
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--color-border, rgba(0, 0, 0, 0.12));
+    margin-top: var(--space-6, 2rem);
+    padding-top: var(--space-6, 2rem);
+    border-top: 1px solid var(--color-border, var(--gray-200, #e5e7eb));
   }
 
   .spacing-showcase__row + .spacing-showcase__row {
-    margin-top: 0.75rem;
+    margin-top: var(--space-3, 0.75rem);
   }
 
   .spacing-showcase__label {
-    margin: 0 0 0.35rem;
+    margin: 0 0 var(--space-1, 0.25rem);
     font-family:
       ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
       'Courier New', monospace;
-    font-size: 0.75rem;
+    font-size: var(--font-size-caption, 0.75rem);
     line-height: 1.3;
-    color: rgba(0, 0, 0, 0.65);
+    color: var(--color-text-muted, var(--gray-500, #6b7280));
   }
 
   .spacing-showcase__bar {
-    --size: 1rem;
+    --size: var(--space-4, 1rem);
     width: var(--size);
-    height: 0.75rem;
-    border-radius: 0.2rem;
-    background: var(--color-primary, #2563eb);
+    height: var(--space-3, 0.75rem);
+    border-radius: var(--radius-sm, 0.25rem);
+    background: var(--color-primary, var(--blue-600, #2563eb));
   }
 
   .spacing-showcase__stack {
-    padding: 1rem;
-    border: 1px solid var(--color-border, rgba(0, 0, 0, 0.12));
+    padding: var(--space-4, 1rem);
+    border: 1px solid var(--color-border, var(--gray-200, #e5e7eb));
     border-radius: var(--radius-md, 0.5rem);
-    background: var(--color-surface-muted, #f9fafb);
+    background: var(--color-surface-muted, var(--gray-50, #f9fafb));
   }
 
   .spacing-showcase__stack-item {
-    padding: 0.75rem;
-    border: 1px solid var(--color-border, rgba(0, 0, 0, 0.12));
+    padding: var(--space-3, 0.75rem);
+    border: 1px solid var(--color-border, var(--gray-200, #e5e7eb));
     border-radius: var(--radius-sm, 0.25rem);
-    background: var(--color-surface, #fff);
+    background: var(--color-surface, var(--gray-0, #fff));
   }
 
   .spacing-showcase__layout-shell {
-    padding: 0.75rem;
-    border: 1px dashed var(--color-border, rgba(0, 0, 0, 0.2));
+    padding: var(--space-3, 0.75rem);
+    border: 1px dashed var(--color-border-strong, var(--gray-300, #d1d5db));
     border-radius: var(--radius-md, 0.5rem);
-    background: var(--color-surface-muted, #f9fafb);
+    background: var(--color-surface-muted, var(--gray-50, #f9fafb));
   }
 
   .spacing-showcase__layout-shell + .spacing-showcase__label,
   .spacing-showcase__label + .spacing-showcase__layout-shell {
-    margin-top: 0.6rem;
+    margin-top: var(--space-2, 0.5rem);
   }
 
   .spacing-showcase__layout-demo {
-    border: 1px solid var(--color-border, rgba(0, 0, 0, 0.12));
+    border: 1px solid var(--color-border, var(--gray-200, #e5e7eb));
     border-radius: var(--radius-sm, 0.25rem);
-    background: var(--color-surface, #fff);
+    background: var(--color-surface, var(--gray-0, #fff));
   }
 
   .spacing-showcase__layout-block {
-    padding: 0.75rem;
+    padding: var(--space-3, 0.75rem);
   }
 
   .spacing-showcase__shape-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-    gap: 0.75rem;
+    gap: var(--space-3, 0.75rem);
   }
 
   .spacing-showcase__shape-card {
     --shape-radius: var(--radius-md, 0.5rem);
     --shape-shadow: none;
-    padding: 0.9rem;
-    border: 1px solid var(--color-border, rgba(0, 0, 0, 0.12));
+    padding: var(--space-4, 1rem);
+    border: 1px solid var(--color-border, var(--gray-200, #e5e7eb));
     border-radius: var(--shape-radius);
     box-shadow: var(--shape-shadow);
-    background: var(--color-surface, #fff);
+    background: var(--color-surface, var(--gray-0, #fff));
   }
 
   .spacing-showcase__token {
-    margin: 0.2rem 0 0;
-    font-weight: 600;
+    margin: var(--space-1, 0.25rem) 0 0;
+    font-weight: var(--font-weight-strong, 600);
   }
 {% endstylesheet %}
