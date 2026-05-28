@@ -1,10 +1,5 @@
 :root {
-  --font-family-body: var(
-    --font-primary--family,
-    'Helvetica Neue',
-    Arial,
-    sans-serif
-  );
+  --font-family-body: 'Helvetica Neue', Arial, sans-serif;
   --font-heading:
     'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
   --font-family-heading: var(--font-heading);
@@ -22,8 +17,8 @@
   --font-size-quote: 1.125rem;
   --font-size-meta: 0.875rem;
 
-  --font-style-body: var(--font-primary--style, normal);
-  --font-weight-body: var(--font-primary--weight, 400);
+  --font-style-body: normal;
+  --font-weight-body: 400;
   --font-weight-heading: 700;
   --font-weight-strong: 600;
   --font-weight-eyebrow: 600;
@@ -34,7 +29,7 @@
   --letter-spacing-heading: -0.01em;
   --letter-spacing-eyebrow: 0.08em;
 
-  --text-color-default: var(--color-text, var(--color-foreground, #1f2937));
+  --text-color-default: var(--color-text, #1f2937);
   --text-color-muted: var(--color-text-muted, #6b7280);
 
   --link-color: var(--color-primary, currentcolor);

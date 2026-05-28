@@ -11,8 +11,8 @@
   --space-8: 4rem;
 
   /* Layout tokens */
-  --layout-page-width: var(--page-width, 90rem);
-  --layout-page-gutter: var(--page-margin, 1.25rem);
+  --layout-page-width: 90rem;
+  --layout-page-gutter: 1.25rem;
   --layout-content-max: 56rem;
   --layout-section-space: var(--space-7);
 
