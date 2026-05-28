@@ -9,35 +9,38 @@
   --gray-100: #f3f4f6;
   --gray-200: #e5e7eb;
   --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
   --gray-500: #6b7280;
+  --gray-600: #4b5563;
   --gray-700: #374151;
+  --gray-800: #1f2937;
   --gray-900: #111827;
 
-  /* Brand palette primitives */
-  --blue-500: #3b82f6;
-  --blue-600: #2563eb;
-  --violet-500: #7c3aed;
-  --violet-600: #6d28d9;
-  --teal-500: #14b8a6;
-  --teal-600: #0d9488;
+  /* Brand value primitives */
+  --brand-primary-value: #2563eb;
+  --brand-primary-faded-value: #3b82f6;
+  --brand-secondary-value: #6d28d9;
+  --brand-secondary-faded-value: #7c3aed;
+  --brand-accent-value: #0d9488;
+  --brand-accent-faded-value: #14b8a6;
 
-  /* Status palette primitives */
-  --green-600: #16a34a;
-  --amber-600: #d97706;
-  --red-600: #dc2626;
+  /* Status primitives */
+  --status-success: #16a34a;
+  --status-warning: #d97706;
+  --status-danger: #dc2626;
 
   /*
    * Brand guideline tokens
    * These are the primary values a brand team typically manages.
    */
-  --brand-primary: var(--blue-600);
-  --brand-primary-faded: var(--blue-500);
+  --brand-primary: var(--brand-primary-value);
+  --brand-primary-faded: var(--brand-primary-faded-value);
 
-  --brand-secondary: var(--violet-600);
-  --brand-secondary-faded: var(--violet-500);
+  --brand-secondary: var(--brand-secondary-value);
+  --brand-secondary-faded: var(--brand-secondary-faded-value);
 
-  --brand-accent: var(--teal-600);
-  --brand-accent-faded: var(--teal-500);
+  --brand-accent: var(--brand-accent-value);
+  --brand-accent-faded: var(--brand-accent-faded-value);
 
   /* Semantic UI colors */
   --color-bg: var(--light);
@@ -63,10 +66,6 @@
   --color-accent: var(--brand-accent);
   --color-accent-hover: var(--brand-accent-faded);
   --color-on-accent: var(--light);
-
-  --color-success: var(--green-600);
-  --color-warning: var(--amber-600);
-  --color-danger: var(--red-600);
 
   --color-focus-ring: var(--brand-primary-faded);
 }
