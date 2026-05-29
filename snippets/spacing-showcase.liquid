@@ -1,0 +1,255 @@
+{% doc %}
+  Renders a spacing and layout showcase for the theme styleguide.
+
+  Displays spacing tokens, stack rhythm, layout container helpers, and shape/depth
+  tokens using live CSS variables.
+
+  @example
+  {% render 'spacing-showcase' %}
+{% enddoc %}
+
+<section class='spacing-showcase'>
+  <header class='spacing-showcase__header'>
+    <p class='text-eyebrow'>Spacing showcase</p>
+    <p class='text-caption'>Live preview of spacing and layout tokens</p>
+  </header>
+
+  <div class='spacing-showcase__content l-content'>
+    <section class='spacing-showcase__group'>
+      <h2 class='h4'>Spacing scale</h2>
+
+      <div class='spacing-showcase__row'>
+        <p class='spacing-showcase__label'>--space-1 (0.25rem)</p>
+        <div
+          class='spacing-showcase__bar'
+          style='--size: var(--space-1);'
+        ></div>
+      </div>
+
+      <div class='spacing-showcase__row'>
+        <p class='spacing-showcase__label'>--space-2 (0.5rem)</p>
+        <div
+          class='spacing-showcase__bar'
+          style='--size: var(--space-2);'
+        ></div>
+      </div>
+
+      <div class='spacing-showcase__row'>
+        <p class='spacing-showcase__label'>--space-3 (0.75rem)</p>
+        <div
+          class='spacing-showcase__bar'
+          style='--size: var(--space-3);'
+        ></div>
+      </div>
+
+      <div class='spacing-showcase__row'>
+        <p class='spacing-showcase__label'>--space-4 (1rem)</p>
+        <div
+          class='spacing-showcase__bar'
+          style='--size: var(--space-4);'
+        ></div>
+      </div>
+
+      <div class='spacing-showcase__row'>
+        <p class='spacing-showcase__label'>--space-5 (1.5rem)</p>
+        <div
+          class='spacing-showcase__bar'
+          style='--size: var(--space-5);'
+        ></div>
+      </div>
+
+      <div class='spacing-showcase__row'>
+        <p class='spacing-showcase__label'>--space-6 (2rem)</p>
+        <div
+          class='spacing-showcase__bar'
+          style='--size: var(--space-6);'
+        ></div>
+      </div>
+
+      <div class='spacing-showcase__row'>
+        <p class='spacing-showcase__label'>--space-7 (3rem)</p>
+        <div
+          class='spacing-showcase__bar'
+          style='--size: var(--space-7);'
+        ></div>
+      </div>
+
+      <div class='spacing-showcase__row'>
+        <p class='spacing-showcase__label'>--space-8 (4rem)</p>
+        <div
+          class='spacing-showcase__bar'
+          style='--size: var(--space-8);'
+        ></div>
+      </div>
+    </section>
+
+    <section class='spacing-showcase__group'>
+      <h2 class='h4'>Stack rhythm utility</h2>
+      <p class='spacing-showcase__label'>
+        .u-stack uses --space-4 between siblings
+      </p>
+
+      <div class='spacing-showcase__stack u-stack'>
+        <div class='spacing-showcase__stack-item'>First stacked block</div>
+        <div class='spacing-showcase__stack-item'>Second stacked block</div>
+        <div class='spacing-showcase__stack-item'>Third stacked block</div>
+      </div>
+    </section>
+
+    <section class='spacing-showcase__group'>
+      <h2 class='h4'>Layout helper widths</h2>
+
+      <p class='spacing-showcase__label'>
+        .l-container (page width + gutter token)
+      </p>
+      <div class='spacing-showcase__layout-shell'>
+        <div class='spacing-showcase__layout-demo l-container'>
+          <div class='spacing-showcase__layout-block'>Container width demo</div>
+        </div>
+      </div>
+
+      <p class='spacing-showcase__label'>.l-content (content max token)</p>
+      <div class='spacing-showcase__layout-shell'>
+        <div class='spacing-showcase__layout-demo l-content'>
+          <div class='spacing-showcase__layout-block'>
+            Content max width demo
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class='spacing-showcase__group'>
+      <h2 class='h4'>Shape and depth tokens</h2>
+      <div class='spacing-showcase__shape-grid'>
+        <div
+          class='spacing-showcase__shape-card'
+          style='--shape-radius: var(--radius-sm); --shape-shadow: var(--shadow-sm);'
+        >
+          <p class='spacing-showcase__label'>--radius-sm + --shadow-sm</p>
+          <p class='spacing-showcase__token'>Small shape</p>
+        </div>
+
+        <div
+          class='spacing-showcase__shape-card'
+          style='--shape-radius: var(--radius-sm); --shape-shadow: var(--shadow-md);'
+        >
+          <p class='spacing-showcase__label'>--radius-sm + --shadow-md</p>
+          <p class='spacing-showcase__token'>Medium shape</p>
+        </div>
+
+        <div
+          class='spacing-showcase__shape-card'
+          style='--shape-radius: var(--radius-none); --shape-shadow: var(--shadow-md);'
+        >
+          <p class='spacing-showcase__label'>--radius-none + --shadow-md</p>
+          <p class='spacing-showcase__token'>Large shape</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+
+{% stylesheet %}
+  .spacing-showcase {
+    padding: var(--space-6, 2rem);
+  }
+
+  .spacing-showcase__header {
+    margin-bottom: var(--space-5, 1.5rem);
+  }
+
+  .spacing-showcase__content {
+    background: var(--color-surface, var(--gray-0, #fff));
+  }
+
+  .spacing-showcase__group + .spacing-showcase__group {
+    margin-top: var(--space-6, 2rem);
+    padding-top: var(--space-6, 2rem);
+    border-top: var(--border-width-1, 1px) solid
+      var(--color-border, var(--gray-200, #e5e7eb));
+  }
+
+  .spacing-showcase__row + .spacing-showcase__row {
+    margin-top: var(--space-3, 0.75rem);
+  }
+
+  .spacing-showcase__label {
+    margin: 0 0 var(--space-1, 0.25rem);
+    font-family:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+      'Courier New', monospace;
+    font-size: var(--font-size-caption, 0.75rem);
+    line-height: 1.3;
+    color: var(--color-text-muted, var(--gray-500, #6b7280));
+  }
+
+  .spacing-showcase__bar {
+    --size: var(--space-4, 1rem);
+    width: var(--size);
+    height: var(--space-3, 0.75rem);
+    border-radius: var(--radius-sm, 0.5rem);
+    background: var(--color-primary, var(--blue-600, #2563eb));
+  }
+
+  .spacing-showcase__stack {
+    padding: var(--space-4, 1rem);
+    border: var(--border-width-1, 1px) solid
+      var(--color-border, var(--gray-200, #e5e7eb));
+    border-radius: var(--radius-sm, 0.5rem);
+    background: var(--color-surface-muted, var(--gray-50, #f9fafb));
+  }
+
+  .spacing-showcase__stack-item {
+    padding: var(--space-3, 0.75rem);
+    border: var(--border-width-1, 1px) solid
+      var(--color-border, var(--gray-200, #e5e7eb));
+    border-radius: var(--radius-sm, 0.5rem);
+    background: var(--color-surface, var(--gray-0, #fff));
+  }
+
+  .spacing-showcase__layout-shell {
+    padding: var(--space-3, 0.75rem);
+    border: var(--border-width-1, 1px) dashed
+      var(--color-border-strong, var(--gray-300, #d1d5db));
+    border-radius: var(--radius-sm, 0.5rem);
+    background: var(--color-surface-muted, var(--gray-50, #f9fafb));
+  }
+
+  .spacing-showcase__layout-shell + .spacing-showcase__label,
+  .spacing-showcase__label + .spacing-showcase__layout-shell {
+    margin-top: var(--space-2, 0.5rem);
+  }
+
+  .spacing-showcase__layout-demo {
+    border: var(--border-width-1, 1px) solid
+      var(--color-border, var(--gray-200, #e5e7eb));
+    border-radius: var(--radius-sm, 0.5rem);
+    background: var(--color-surface, var(--gray-0, #fff));
+  }
+
+  .spacing-showcase__layout-block {
+    padding: var(--space-3, 0.75rem);
+  }
+
+  .spacing-showcase__shape-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: var(--space-3, 0.75rem);
+  }
+
+  .spacing-showcase__shape-card {
+    --shape-radius: var(--radius-sm, 0.5rem);
+    --shape-shadow: none;
+    padding: var(--space-4, 1rem);
+    border: var(--border-width-1, 1px) solid
+      var(--color-border, var(--gray-200, #e5e7eb));
+    border-radius: var(--shape-radius);
+    box-shadow: var(--shape-shadow);
+    background: var(--color-surface, var(--gray-0, #fff));
+  }
+
+  .spacing-showcase__token {
+    margin: var(--space-1, 0.25rem) 0 0;
+    font-weight: var(--font-weight-strong, 600);
+  }
+{% endstylesheet %}

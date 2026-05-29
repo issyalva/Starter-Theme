@@ -1,0 +1,52 @@
+:root {
+  /* Spacing scale */
+  --space-0: 0;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  /* Layout tokens */
+  --layout-page-width: 90rem;
+  --layout-page-gutter: 1.25rem;
+  --layout-content-max: 56rem;
+  --layout-section-space: var(--space-7);
+
+  /* Shape primitives */
+  --radius-none: 0;
+  --radius-sm: 0.5rem;
+
+  /* Border primitives */
+  --border-width-1: 1px;
+  --border-width-2: 2px;
+
+  /* Minimal depth primitives */
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 8%);
+  --shadow-md: 0 8px 24px rgb(0 0 0 / 12%);
+
+  /* Optional stacking scale for overlays and modals. */
+  --z-base: 0;
+  --z-sticky: 10;
+  --z-overlay: 40;
+  --z-modal: 50;
+}
+
+.l-container {
+  width: min(
+    var(--layout-page-width),
+    calc(100% - (var(--layout-page-gutter) * 2))
+  );
+  margin-inline: auto;
+}
+
+.l-content {
+  width: min(var(--layout-content-max), 100%);
+}
+
+.u-stack > * + * {
+  margin-top: var(--space-4);
+}

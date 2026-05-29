@@ -1,0 +1,290 @@
+{% doc %}
+  Renders a color showcase for the theme styleguide.
+
+  Displays brand, semantic, status, and neutral color tokens using live CSS
+  variables so updates to tokens are immediately reflected.
+
+  @example
+  {% render 'colors-showcase' %}
+{% enddoc %}
+
+<section class='colors-showcase'>
+  <header class='colors-showcase__header'>
+    <p class='text-eyebrow'>Color showcase</p>
+    <p class='text-caption'>Live preview of brand and semantic color tokens</p>
+  </header>
+
+  <div class='colors-showcase__content l-content'>
+    <section class='colors-showcase__group'>
+      <h2 class='h4'>Brand guideline colors</h2>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--brand-primary); --swatch-text: var(--light);'
+      >
+        <p class='colors-showcase__label'>--brand-primary</p>
+        <p class='colors-showcase__token'>Primary</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--brand-primary-faded); --swatch-text: var(--light);'
+      >
+        <p class='colors-showcase__label'>--brand-primary-faded</p>
+        <p class='colors-showcase__token'>Primary faded</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--brand-secondary); --swatch-text: var(--light);'
+      >
+        <p class='colors-showcase__label'>--brand-secondary</p>
+        <p class='colors-showcase__token'>Secondary</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--brand-secondary-faded); --swatch-text: var(--light);'
+      >
+        <p class='colors-showcase__label'>--brand-secondary-faded</p>
+        <p class='colors-showcase__token'>Secondary faded</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--brand-accent); --swatch-text: var(--light);'
+      >
+        <p class='colors-showcase__label'>--brand-accent</p>
+        <p class='colors-showcase__token'>Accent</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--brand-accent-faded); --swatch-text: var(--light);'
+      >
+        <p class='colors-showcase__label'>--brand-accent-faded</p>
+        <p class='colors-showcase__token'>Accent faded</p>
+      </div>
+    </section>
+
+    <section class='colors-showcase__group'>
+      <h2 class='h4'>Semantic UI colors</h2>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--color-bg); --swatch-text: var(--color-text);'
+      >
+        <p class='colors-showcase__label'>--color-bg</p>
+        <p class='colors-showcase__token'>Background</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--color-surface); --swatch-text: var(--color-text);'
+      >
+        <p class='colors-showcase__label'>--color-surface</p>
+        <p class='colors-showcase__token'>Surface</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--color-surface-inverse); --swatch-text: var(--color-text-inverse);'
+      >
+        <p class='colors-showcase__label'>--color-surface-inverse</p>
+        <p class='colors-showcase__token'>Inverse surface</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--color-primary); --swatch-text: var(--color-on-primary);'
+      >
+        <p class='colors-showcase__label'>--color-primary</p>
+        <p class='colors-showcase__token'>Primary action</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--color-secondary); --swatch-text: var(--color-on-secondary);'
+      >
+        <p class='colors-showcase__label'>--color-secondary</p>
+        <p class='colors-showcase__token'>Secondary action</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--color-accent); --swatch-text: var(--color-on-accent);'
+      >
+        <p class='colors-showcase__label'>--color-accent</p>
+        <p class='colors-showcase__token'>Accent action</p>
+      </div>
+    </section>
+
+    <section class='colors-showcase__group'>
+      <h2 class='h4'>Status colors</h2>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--status-success); --swatch-text: var(--color-text-inverse);'
+      >
+        <p class='colors-showcase__label'>--status-success</p>
+        <p class='colors-showcase__token'>Success</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--status-warning); --swatch-text: var(--color-text-inverse);'
+      >
+        <p class='colors-showcase__label'>--status-warning</p>
+        <p class='colors-showcase__token'>Warning</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--status-danger); --swatch-text: var(--color-text-inverse);'
+      >
+        <p class='colors-showcase__label'>--status-danger</p>
+        <p class='colors-showcase__token'>Danger</p>
+      </div>
+    </section>
+
+    <section class='colors-showcase__group'>
+      <h2 class='h4'>Neutral scale</h2>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--gray-0); --swatch-text: var(--gray-900);'
+      >
+        <p class='colors-showcase__label'>--gray-0</p>
+        <p class='colors-showcase__token'>White</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--gray-50); --swatch-text: var(--gray-900);'
+      >
+        <p class='colors-showcase__label'>--gray-50</p>
+        <p class='colors-showcase__token'>Near white</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--gray-100); --swatch-text: var(--gray-900);'
+      >
+        <p class='colors-showcase__label'>--gray-100</p>
+        <p class='colors-showcase__token'>Light neutral</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--gray-200); --swatch-text: var(--gray-900);'
+      >
+        <p class='colors-showcase__label'>--gray-200</p>
+        <p class='colors-showcase__token'>Soft border</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--gray-300); --swatch-text: var(--gray-900);'
+      >
+        <p class='colors-showcase__label'>--gray-300</p>
+        <p class='colors-showcase__token'>Medium border</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--gray-400); --swatch-text: var(--gray-900);'
+      >
+        <p class='colors-showcase__label'>--gray-400</p>
+        <p class='colors-showcase__token'>Muted text alt</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--gray-500); --swatch-text: var(--light);'
+      >
+        <p class='colors-showcase__label'>--gray-500</p>
+        <p class='colors-showcase__token'>Mid neutral</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--gray-600); --swatch-text: var(--light);'
+      >
+        <p class='colors-showcase__label'>--gray-600</p>
+        <p class='colors-showcase__token'>Body text alt</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--gray-700); --swatch-text: var(--light);'
+      >
+        <p class='colors-showcase__label'>--gray-700</p>
+        <p class='colors-showcase__token'>Strong text</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--gray-800); --swatch-text: var(--light);'
+      >
+        <p class='colors-showcase__label'>--gray-800</p>
+        <p class='colors-showcase__token'>Heading dark</p>
+      </div>
+
+      <div
+        class='colors-showcase__swatch'
+        style='--swatch: var(--gray-900); --swatch-text: var(--light);'
+      >
+        <p class='colors-showcase__label'>--gray-900</p>
+        <p class='colors-showcase__token'>Dark neutral</p>
+      </div>
+    </section>
+  </div>
+</section>
+
+{% stylesheet %}
+  .colors-showcase {
+    padding: var(--space-6, 2rem);
+  }
+
+  .colors-showcase__header {
+    margin-bottom: var(--space-5, 1.5rem);
+  }
+
+  .colors-showcase__content {
+    background: var(--color-surface, var(--gray-0, #fff));
+  }
+
+  .colors-showcase__group + .colors-showcase__group {
+    margin-top: var(--space-6, 2rem);
+    padding-top: var(--space-6, 2rem);
+    border-top: var(--border-width-1, 1px) solid
+      var(--color-border, var(--gray-200, #e5e7eb));
+  }
+
+  .colors-showcase__swatch {
+    --swatch: var(--color-surface, var(--gray-0, #fff));
+    --swatch-text: var(--color-text, var(--gray-900, #111827));
+    margin-top: var(--space-3, 0.75rem);
+    padding: var(--space-4, 1rem);
+    border-radius: var(--radius-sm, 0.5rem);
+    border: var(--border-width-1, 1px) solid
+      var(--color-border, var(--gray-200, #e5e7eb));
+    background: var(--swatch);
+    color: var(--swatch-text);
+  }
+
+  .colors-showcase__label {
+    margin: 0;
+    font-family:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+      'Courier New', monospace;
+    font-size: 0.75rem;
+    line-height: 1.3;
+    color: var(--color-text-muted, var(--gray-500, #6b7280));
+  }
+
+  .colors-showcase__token {
+    margin: 0.35rem 0 0;
+    font-weight: 600;
+  }
+{% endstylesheet %}
