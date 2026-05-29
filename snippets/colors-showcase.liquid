@@ -1,7 +1,7 @@
 {% doc %}
   Renders a color showcase for the theme styleguide.
 
-  Displays brand, semantic, status, and neutral color tokens using live CSS
+  Displays brand, semantic, status, and grayscale color tokens using live CSS
   variables so updates to tokens are immediately reflected.
 
   @example
@@ -68,58 +68,6 @@
     </section>
 
     <section class='colors-showcase__group'>
-      <h2 class='h4'>Semantic UI colors</h2>
-
-      <div
-        class='colors-showcase__swatch'
-        style='--swatch: var(--color-bg); --swatch-text: var(--color-text);'
-      >
-        <p class='colors-showcase__label'>--color-bg</p>
-        <p class='colors-showcase__token'>Background</p>
-      </div>
-
-      <div
-        class='colors-showcase__swatch'
-        style='--swatch: var(--color-surface); --swatch-text: var(--color-text);'
-      >
-        <p class='colors-showcase__label'>--color-surface</p>
-        <p class='colors-showcase__token'>Surface</p>
-      </div>
-
-      <div
-        class='colors-showcase__swatch'
-        style='--swatch: var(--color-surface-inverse); --swatch-text: var(--color-text-inverse);'
-      >
-        <p class='colors-showcase__label'>--color-surface-inverse</p>
-        <p class='colors-showcase__token'>Inverse surface</p>
-      </div>
-
-      <div
-        class='colors-showcase__swatch'
-        style='--swatch: var(--color-primary); --swatch-text: var(--color-on-primary);'
-      >
-        <p class='colors-showcase__label'>--color-primary</p>
-        <p class='colors-showcase__token'>Primary action</p>
-      </div>
-
-      <div
-        class='colors-showcase__swatch'
-        style='--swatch: var(--color-secondary); --swatch-text: var(--color-on-secondary);'
-      >
-        <p class='colors-showcase__label'>--color-secondary</p>
-        <p class='colors-showcase__token'>Secondary action</p>
-      </div>
-
-      <div
-        class='colors-showcase__swatch'
-        style='--swatch: var(--color-accent); --swatch-text: var(--color-on-accent);'
-      >
-        <p class='colors-showcase__label'>--color-accent</p>
-        <p class='colors-showcase__token'>Accent action</p>
-      </div>
-    </section>
-
-    <section class='colors-showcase__group'>
       <h2 class='h4'>Status colors</h2>
 
       <div
@@ -148,22 +96,22 @@
     </section>
 
     <section class='colors-showcase__group'>
-      <h2 class='h4'>Neutral scale</h2>
+      <h2 class='h4'>Grayscale section</h2>
 
       <div
         class='colors-showcase__swatch'
-        style='--swatch: var(--gray-0); --swatch-text: var(--gray-900);'
+        style='--swatch: var(--light); --swatch-text: var(--dark);'
       >
-        <p class='colors-showcase__label'>--gray-0</p>
-        <p class='colors-showcase__token'>White</p>
+        <p class='colors-showcase__label'>--light</p>
+        <p class='colors-showcase__token'>Grayscale-light</p>
       </div>
 
       <div
         class='colors-showcase__swatch'
-        style='--swatch: var(--gray-50); --swatch-text: var(--gray-900);'
+        style='--swatch: var(--dark); --swatch-text: var(--light);'
       >
-        <p class='colors-showcase__label'>--gray-50</p>
-        <p class='colors-showcase__token'>Near white</p>
+        <p class='colors-showcase__label'>--dark</p>
+        <p class='colors-showcase__token'>Grayscale-dark</p>
       </div>
 
       <div
@@ -171,15 +119,7 @@
         style='--swatch: var(--gray-100); --swatch-text: var(--gray-900);'
       >
         <p class='colors-showcase__label'>--gray-100</p>
-        <p class='colors-showcase__token'>Light neutral</p>
-      </div>
-
-      <div
-        class='colors-showcase__swatch'
-        style='--swatch: var(--gray-200); --swatch-text: var(--gray-900);'
-      >
-        <p class='colors-showcase__label'>--gray-200</p>
-        <p class='colors-showcase__token'>Soft border</p>
+        <p class='colors-showcase__token'>Grayscale-100</p>
       </div>
 
       <div
@@ -187,15 +127,7 @@
         style='--swatch: var(--gray-300); --swatch-text: var(--gray-900);'
       >
         <p class='colors-showcase__label'>--gray-300</p>
-        <p class='colors-showcase__token'>Medium border</p>
-      </div>
-
-      <div
-        class='colors-showcase__swatch'
-        style='--swatch: var(--gray-400); --swatch-text: var(--gray-900);'
-      >
-        <p class='colors-showcase__label'>--gray-400</p>
-        <p class='colors-showcase__token'>Muted text alt</p>
+        <p class='colors-showcase__token'>Grayscale-300</p>
       </div>
 
       <div
@@ -203,15 +135,7 @@
         style='--swatch: var(--gray-500); --swatch-text: var(--light);'
       >
         <p class='colors-showcase__label'>--gray-500</p>
-        <p class='colors-showcase__token'>Mid neutral</p>
-      </div>
-
-      <div
-        class='colors-showcase__swatch'
-        style='--swatch: var(--gray-600); --swatch-text: var(--light);'
-      >
-        <p class='colors-showcase__label'>--gray-600</p>
-        <p class='colors-showcase__token'>Body text alt</p>
+        <p class='colors-showcase__token'>Grayscale-500</p>
       </div>
 
       <div
@@ -219,15 +143,7 @@
         style='--swatch: var(--gray-700); --swatch-text: var(--light);'
       >
         <p class='colors-showcase__label'>--gray-700</p>
-        <p class='colors-showcase__token'>Strong text</p>
-      </div>
-
-      <div
-        class='colors-showcase__swatch'
-        style='--swatch: var(--gray-800); --swatch-text: var(--light);'
-      >
-        <p class='colors-showcase__label'>--gray-800</p>
-        <p class='colors-showcase__token'>Heading dark</p>
+        <p class='colors-showcase__token'>Grayscale-700</p>
       </div>
 
       <div
@@ -235,7 +151,89 @@
         style='--swatch: var(--gray-900); --swatch-text: var(--light);'
       >
         <p class='colors-showcase__label'>--gray-900</p>
-        <p class='colors-showcase__token'>Dark neutral</p>
+        <p class='colors-showcase__token'>Grayscale-900</p>
+      </div>
+    </section>
+
+    <section class='colors-showcase__group'>
+      <h2 class='h4'>Semantic UI colors in use</h2>
+      <p class='text-caption colors-showcase__note'>
+        Examples of semantic tokens applied to common UI patterns.
+      </p>
+
+      <div class='colors-showcase__semantic-grid'>
+        <article class='colors-showcase__semantic-item'>
+          <p class='colors-showcase__semantic-title'>Use case: page surfaces</p>
+          <p class='colors-showcase__label'>
+            --color-bg, --color-surface, --color-surface-muted,
+            --color-surface-inverse
+          </p>
+          <div class='colors-showcase__semantic-surfaces'>
+            <div class='colors-showcase__semantic-panel colors-showcase__semantic-panel--bg'>
+              Page background
+            </div>
+            <div class='colors-showcase__semantic-panel'>Surface</div>
+            <div class='colors-showcase__semantic-panel colors-showcase__semantic-panel--muted'>
+              Muted surface
+            </div>
+            <div class='colors-showcase__semantic-panel colors-showcase__semantic-panel--inverse'>
+              Inverse surface
+            </div>
+          </div>
+        </article>
+
+        <article class='colors-showcase__semantic-item'>
+          <p class='colors-showcase__semantic-title'>
+            Use case: call-to-action buttons
+          </p>
+          <p class='colors-showcase__label'>
+            --color-primary, --color-primary-hover, --color-secondary,
+            --color-secondary-hover, --color-accent, --color-accent-hover
+          </p>
+          <div class='colors-showcase__semantic-actions'>
+            <button
+              type='button'
+              class='colors-showcase__semantic-button colors-showcase__semantic-button--primary'
+            >
+              Primary action
+            </button>
+            <button
+              type='button'
+              class='colors-showcase__semantic-button colors-showcase__semantic-button--secondary'
+            >
+              Secondary action
+            </button>
+            <button
+              type='button'
+              class='colors-showcase__semantic-button colors-showcase__semantic-button--accent'
+            >
+              Accent action
+            </button>
+          </div>
+          <p class='colors-showcase__semantic-hint'>
+            Hover a button to preview the matching hover token.
+          </p>
+        </article>
+
+        <article class='colors-showcase__semantic-item'>
+          <p class='colors-showcase__semantic-title'>
+            Use case: form and content styling
+          </p>
+          <p class='colors-showcase__label'>
+            --color-text, --color-text-muted, --color-border,
+            --color-border-strong, --color-focus-ring
+          </p>
+          <div class='colors-showcase__semantic-field'>
+            <p class='colors-showcase__semantic-copy'>Primary content text</p>
+            <p class='colors-showcase__semantic-copy colors-showcase__semantic-copy--muted'>
+              Muted helper text
+            </p>
+            <div class='colors-showcase__semantic-input' role='note'>
+              Input with focus ring preview
+            </div>
+            <div class='colors-showcase__semantic-divider'></div>
+          </div>
+        </article>
       </div>
     </section>
   </div>
@@ -251,24 +249,24 @@
   }
 
   .colors-showcase__content {
-    background: var(--color-surface, var(--gray-0, #fff));
+    background: var(--color-surface, var(--light, #fff));
   }
 
   .colors-showcase__group + .colors-showcase__group {
     margin-top: var(--space-6, 2rem);
     padding-top: var(--space-6, 2rem);
     border-top: var(--border-width-1, 1px) solid
-      var(--color-border, var(--gray-200, #e5e7eb));
+      var(--color-border, var(--gray-300, #d1d5db));
   }
 
   .colors-showcase__swatch {
-    --swatch: var(--color-surface, var(--gray-0, #fff));
+    --swatch: var(--color-surface, var(--light, #fff));
     --swatch-text: var(--color-text, var(--gray-900, #111827));
     margin-top: var(--space-3, 0.75rem);
     padding: var(--space-4, 1rem);
     border-radius: var(--radius-sm, 0.5rem);
     border: var(--border-width-1, 1px) solid
-      var(--color-border, var(--gray-200, #e5e7eb));
+      var(--color-border, var(--gray-300, #d1d5db));
     background: var(--swatch);
     color: var(--swatch-text);
   }
@@ -286,5 +284,150 @@
   .colors-showcase__token {
     margin: 0.35rem 0 0;
     font-weight: 600;
+  }
+
+  .colors-showcase__note {
+    margin: var(--space-2, 0.5rem) 0 0;
+  }
+
+  .colors-showcase__semantic-grid {
+    display: grid;
+    gap: var(--space-3, 0.75rem);
+    margin-top: var(--space-3, 0.75rem);
+  }
+
+  .colors-showcase__semantic-item {
+    padding: var(--space-4, 1rem);
+    border: var(--border-width-1, 1px) solid
+      var(--color-border, var(--gray-300, #d1d5db));
+    border-radius: var(--radius-sm, 0.5rem);
+    background: var(--color-surface, var(--light, #fff));
+  }
+
+  .colors-showcase__semantic-title {
+    margin: 0 0 var(--space-1, 0.25rem);
+    font-weight: 600;
+    color: var(--color-text, #000);
+  }
+
+  .colors-showcase__semantic-surfaces {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-2, 0.5rem);
+    margin-top: var(--space-2, 0.5rem);
+  }
+
+  .colors-showcase__semantic-panel {
+    padding: var(--space-3, 0.75rem);
+    border-radius: var(--radius-sm, 0.5rem);
+    border: var(--border-width-1, 1px) solid
+      var(--color-border, var(--gray-300, #d1d5db));
+    background: var(--color-surface, var(--light, #fff));
+    color: var(--color-text, #000);
+    text-align: center;
+    font-size: 0.875rem;
+  }
+
+  .colors-showcase__semantic-panel--muted {
+    background: var(--color-surface-muted, var(--gray-100, #f3f4f6));
+  }
+
+  .colors-showcase__semantic-panel--bg {
+    background: var(--color-bg, var(--light, #fff));
+  }
+
+  .colors-showcase__semantic-panel--inverse {
+    background: var(--color-surface-inverse, var(--dark, #000));
+    color: var(--color-text-inverse, #fff);
+    border-color: transparent;
+  }
+
+  .colors-showcase__semantic-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2, 0.5rem);
+    margin-top: var(--space-2, 0.5rem);
+  }
+
+  .colors-showcase__semantic-button {
+    border: 0;
+    border-radius: var(--radius-sm, 0.5rem);
+    padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 120ms ease-in-out;
+  }
+
+  .colors-showcase__semantic-button--primary {
+    background: var(--color-primary, #2563eb);
+    color: var(--color-on-primary, #fff);
+  }
+
+  .colors-showcase__semantic-button--primary:hover,
+  .colors-showcase__semantic-button--primary:focus-visible {
+    background: var(--color-primary-hover, #3b82f6);
+  }
+
+  .colors-showcase__semantic-button--secondary {
+    background: var(--color-secondary, #6d28d9);
+    color: var(--color-on-secondary, #fff);
+  }
+
+  .colors-showcase__semantic-button--secondary:hover,
+  .colors-showcase__semantic-button--secondary:focus-visible {
+    background: var(--color-secondary-hover, #7c3aed);
+  }
+
+  .colors-showcase__semantic-button--accent {
+    background: var(--color-accent, #0d9488);
+    color: var(--color-on-accent, #fff);
+  }
+
+  .colors-showcase__semantic-button--accent:hover,
+  .colors-showcase__semantic-button--accent:focus-visible {
+    background: var(--color-accent-hover, #14b8a6);
+  }
+
+  .colors-showcase__semantic-hint {
+    margin: var(--space-2, 0.5rem) 0 0;
+    font-size: 0.875rem;
+    color: var(--color-text-muted, var(--gray-700, #374151));
+  }
+
+  .colors-showcase__semantic-field {
+    margin-top: var(--space-2, 0.5rem);
+  }
+
+  .colors-showcase__semantic-copy {
+    margin: 0;
+    color: var(--color-text, #000);
+  }
+
+  .colors-showcase__semantic-copy--muted {
+    margin-top: var(--space-1, 0.25rem);
+    color: var(--color-text-muted, var(--gray-700, #374151));
+  }
+
+  .colors-showcase__semantic-input {
+    margin-top: var(--space-2, 0.5rem);
+    border: var(--border-width-1, 1px) solid
+      var(--color-border, var(--gray-300, #d1d5db));
+    border-radius: var(--radius-sm, 0.5rem);
+    padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+    color: var(--color-text, #000);
+    box-shadow: 0 0 0 3px var(--color-focus-ring, #3b82f6);
+  }
+
+  .colors-showcase__semantic-divider {
+    margin-top: var(--space-2, 0.5rem);
+    border-top: var(--border-width-2, 2px) solid
+      var(--color-border-strong, var(--gray-500, #6b7280));
+  }
+
+  @media (max-width: 749px) {
+    .colors-showcase__semantic-surfaces {
+      grid-template-columns: 1fr;
+    }
   }
 {% endstylesheet %}
