@@ -1,0 +1,38 @@
+/* Global layout and spacing utilities.
+ * Keep this file as the evolving source of theme-wide layout behavior.
+ */
+
+.container {
+  width: calc(100% - (var(--layout-page-gutter) * 2));
+  max-width: var(--layout-page-width);
+  margin-inline: auto;
+}
+
+/* Optional narrower container for reading/content-focused layouts */
+.container--content {
+  max-width: var(--layout-content-max);
+}
+
+/* Full-bleed variant for top-level regions that span the viewport */
+.container--full {
+  width: 100%;
+  max-width: none;
+}
+
+/* Grid that lives inside .container or .container--full */
+.container-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--grid-gutter);
+}
+
+/* Simple vertical rhythm helper */
+.u-stack > * + * {
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 749px) {
+  .container-grid {
+    gap: var(--grid-gutter-compact);
+  }
+}

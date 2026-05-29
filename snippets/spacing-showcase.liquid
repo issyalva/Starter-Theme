@@ -14,7 +14,7 @@
     <p class='text-caption'>Live preview of spacing and layout tokens</p>
   </header>
 
-  <div class='spacing-showcase__content l-content'>
+  <div class='spacing-showcase__content container container--content'>
     <section class='spacing-showcase__group'>
       <h2 class='h4'>Spacing scale</h2>
 
@@ -132,19 +132,72 @@
       <h2 class='h4'>Layout helper widths</h2>
 
       <p class='spacing-showcase__label'>
-        .l-container (page width + gutter token)
+        .container (max width + page gutters)
       </p>
       <div class='spacing-showcase__layout-shell'>
-        <div class='spacing-showcase__layout-demo l-container'>
+        <div class='spacing-showcase__layout-demo container'>
           <div class='spacing-showcase__layout-block'>Container width demo</div>
         </div>
       </div>
 
-      <p class='spacing-showcase__label'>.l-content (content max token)</p>
+      <p class='spacing-showcase__label'>
+        .container.container--content (narrow content width)
+      </p>
       <div class='spacing-showcase__layout-shell'>
-        <div class='spacing-showcase__layout-demo l-content'>
+        <div class='spacing-showcase__layout-demo container container--content'>
           <div class='spacing-showcase__layout-block'>
             Content max width demo
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class='spacing-showcase__group'>
+      <h2 class='h4'>Grid layer</h2>
+
+      <p class='spacing-showcase__label'>
+        Constrained: .container + .container-grid
+      </p>
+      <div class='spacing-showcase__layout-shell'>
+        <div
+          class='spacing-showcase__grid-demo container'
+          style='--layout-page-width: 40rem;'
+        >
+          <div class='spacing-showcase__grid container-grid'>
+            <div class='spacing-showcase__grid-item spacing-showcase__grid-item--8'>
+              Span 8
+            </div>
+            <div class='spacing-showcase__grid-item spacing-showcase__grid-item--4'>
+              Span 4
+            </div>
+            <div class='spacing-showcase__grid-item spacing-showcase__grid-item--6'>
+              Span 6
+            </div>
+            <div class='spacing-showcase__grid-item spacing-showcase__grid-item--6'>
+              Span 6
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class='spacing-showcase__label'>
+        Full width: .container.container--full + .container-grid
+      </p>
+      <div class='spacing-showcase__layout-shell'>
+        <div class='spacing-showcase__grid-demo container container--full'>
+          <div class='spacing-showcase__grid container-grid'>
+            <div class='spacing-showcase__grid-item spacing-showcase__grid-item--3'>
+              Span 3
+            </div>
+            <div class='spacing-showcase__grid-item spacing-showcase__grid-item--3'>
+              Span 3
+            </div>
+            <div class='spacing-showcase__grid-item spacing-showcase__grid-item--3'>
+              Span 3
+            </div>
+            <div class='spacing-showcase__grid-item spacing-showcase__grid-item--3'>
+              Span 3
+            </div>
           </div>
         </div>
       </div>
@@ -261,6 +314,46 @@
 
   .spacing-showcase__layout-block {
     padding: var(--space-3, 0.75rem);
+  }
+
+  .spacing-showcase__grid-demo {
+    padding: var(--space-2, 0.5rem);
+  }
+
+  .spacing-showcase__grid-item {
+    padding: var(--space-2, 0.5rem);
+    border: var(--border-width, 1px) solid
+      var(--color-border, var(--gray-300, #d1d5db));
+    border-radius: var(--radius-sm, 0.5rem);
+    background: var(--color-surface, var(--light, #fff));
+    text-align: center;
+    font-size: var(--font-size-caption, 0.75rem);
+    color: var(--color-text-muted, var(--gray-700, #374151));
+  }
+
+  .spacing-showcase__grid-item--8 {
+    grid-column: span 8;
+  }
+
+  .spacing-showcase__grid-item--6 {
+    grid-column: span 6;
+  }
+
+  .spacing-showcase__grid-item--4 {
+    grid-column: span 4;
+  }
+
+  .spacing-showcase__grid-item--3 {
+    grid-column: span 3;
+  }
+
+  @media (max-width: 749px) {
+    .spacing-showcase__grid-item--8,
+    .spacing-showcase__grid-item--6,
+    .spacing-showcase__grid-item--4,
+    .spacing-showcase__grid-item--3 {
+      grid-column: span 12;
+    }
   }
 
   .spacing-showcase__shape-grid {

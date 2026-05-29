@@ -22,6 +22,12 @@
   --layout-content-max: 56rem;
   --layout-section-space: var(--space-7);
 
+  /* Optional column grid tokens for larger layouts */
+  --grid-columns: 12;
+  --grid-gutter: var(--space-4);
+  --grid-gutter-compact: var(--space-2);
+  --grid-max-width: var(--layout-page-width);
+
   /* Shape primitives */
   --radius-none: 0;
   --radius-sm: 0.5rem;
@@ -39,20 +45,4 @@
   --z-sticky: 10;
   --z-overlay: 40;
   --z-modal: 50;
-}
-
-.l-container {
-  width: min(
-    var(--layout-page-width),
-    calc(100% - (var(--layout-page-gutter) * 2))
-  );
-  margin-inline: auto;
-}
-
-.l-content {
-  width: min(var(--layout-content-max), 100%);
-}
-
-.u-stack > * + * {
-  margin-top: var(--space-4);
 }
