@@ -10,6 +10,12 @@
   --space-7: 3rem;
   --space-8: 4rem;
 
+  /* Macro spacing for section and page rhythm */
+  --space-9: 6rem;
+  --space-10: 8rem;
+  --space-11: 10rem;
+  --space-12: 12rem;
+
   /* Layout tokens */
   --layout-page-width: 90rem;
   --layout-page-gutter: 1.25rem;
@@ -21,8 +27,8 @@
   --radius-sm: 0.5rem;
 
   /* Border primitives */
-  --border-width-1: 1px;
-  --border-width-2: 2px;
+  --border-width: 1px;
+  --border-width-strong: 2px;
 
   /* Minimal depth primitives */
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 8%);
