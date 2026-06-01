@@ -17,16 +17,16 @@
   --space-12: 12rem;
 
   /* Layout tokens */
-  --layout-page-width: 90rem;
+  --layout-wide-max: 90rem;
+  --layout-page-width: var(--layout-wide-max);
   --layout-page-gutter: 1.25rem;
   --layout-content-max: 56rem;
   --layout-section-space: var(--space-7);
 
   /* Optional column grid tokens for larger layouts */
   --grid-columns: 12;
-  --grid-gutter: var(--space-4);
-  --grid-gutter-compact: var(--space-2);
-  --grid-max-width: var(--layout-page-width);
+  --grid-gutter: var(--space-2);
+  --grid-max-width: var(--layout-wide-max);
 
   /* Shape primitives */
   --radius-none: 0;
@@ -45,4 +45,10 @@
   --z-sticky: 10;
   --z-overlay: 40;
   --z-modal: 50;
+}
+
+@media (min-width: 750px) {
+  :root {
+    --grid-gutter: var(--space-4);
+  }
 }

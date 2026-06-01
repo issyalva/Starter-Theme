@@ -8,13 +8,13 @@
   {% render 'spacing-showcase' %}
 {% enddoc %}
 
-<section class='spacing-showcase'>
+<section class='spacing-showcase container'>
   <header class='spacing-showcase__header'>
     <p class='text-eyebrow'>Spacing showcase</p>
     <p class='text-caption'>Live preview of spacing and layout tokens</p>
   </header>
 
-  <div class='spacing-showcase__content container container--content'>
+  <div class='spacing-showcase__content container--content'>
     <section class='spacing-showcase__group'>
       <h2 class='h4'>Spacing scale</h2>
 
@@ -181,10 +181,10 @@
       </div>
 
       <p class='spacing-showcase__label'>
-        Full width: .container.container--full + .container-grid
+        Guttered full width: .container + .container-grid
       </p>
       <div class='spacing-showcase__layout-shell'>
-        <div class='spacing-showcase__grid-demo container container--full'>
+        <div class='spacing-showcase__grid-demo container'>
           <div class='spacing-showcase__grid container-grid'>
             <div class='spacing-showcase__grid-item spacing-showcase__grid-item--3'>
               Span 3
@@ -235,10 +235,6 @@
 </section>
 
 {% stylesheet %}
-  .spacing-showcase {
-    padding: var(--space-6, 2rem);
-  }
-
   .spacing-showcase__header {
     margin-bottom: var(--space-5, 1.5rem);
   }

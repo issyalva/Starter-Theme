@@ -8,7 +8,7 @@
   {% render 'typography-showcase' %}
 {% enddoc %}
 
-<section class='typography-showcase'>
+<section class='typography-showcase container'>
   <header class='typography-showcase__header'>
     <p class='text-eyebrow'>Typography showcase</p>
     <p class='text-caption'>
@@ -16,7 +16,7 @@
     </p>
   </header>
 
-  <div class='typography-showcase__content container container--content'>
+  <div class='typography-showcase__content container--content'>
     <section class='typography-showcase__group'>
       <h2 class='h4'>Headings (element + class alias)</h2>
       <div class='typography-showcase__sample'>
@@ -159,10 +159,6 @@
 </section>
 
 {% stylesheet %}
-  .typography-showcase {
-    padding: var(--space-6, 2rem);
-  }
-
   .typography-showcase__header {
     margin-bottom: var(--space-5, 1.5rem);
   }

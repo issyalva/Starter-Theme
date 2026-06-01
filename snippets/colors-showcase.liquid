@@ -8,13 +8,13 @@
   {% render 'colors-showcase' %}
 {% enddoc %}
 
-<section class='colors-showcase'>
+<section class='colors-showcase container'>
   <header class='colors-showcase__header'>
     <p class='text-eyebrow'>Color showcase</p>
     <p class='text-caption'>Live preview of brand and semantic color tokens</p>
   </header>
 
-  <div class='colors-showcase__content container container--content'>
+  <div class='colors-showcase__content container--content'>
     <section class='colors-showcase__group'>
       <h2 class='h4'>Brand guideline colors</h2>
 
@@ -240,10 +240,6 @@
 </section>
 
 {% stylesheet %}
-  .colors-showcase {
-    padding: var(--space-6, 2rem);
-  }
-
   .colors-showcase__header {
     margin-bottom: var(--space-5, 1.5rem);
   }
