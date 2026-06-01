@@ -1,0 +1,180 @@
+{% doc %}
+  Renders an MVP form controls showcase for the styleguide.
+
+  Displays the first set of input primitives: text-like fields, select,
+  textarea, checkbox, and radio controls.
+
+  @example
+  {% render 'form-controls-showcase' %}
+{% enddoc %}
+
+<section class='forms-showcase container'>
+  <header class='forms-showcase__header'>
+    <p class='text-eyebrow'>Form controls showcase</p>
+    <p class='text-caption'>Live preview of MVP input primitives and states</p>
+  </header>
+
+  <div class='forms-showcase__content container--content'>
+    <section class='forms-showcase__group'>
+      <h2 class='h4'>Text-like inputs</h2>
+      <div class='forms-showcase__stack'>
+        <div class='form-field'>
+          <label for='showcase-text' class='form-label'>Text input</label>
+          <input
+            id='showcase-text'
+            class='form-control'
+            type='text'
+            placeholder='Enter text'
+          >
+          <p class='form-help'>General single-line input</p>
+        </div>
+
+        <div class='form-field'>
+          <label for='showcase-email' class='form-label'>Email input</label>
+          <input
+            id='showcase-email'
+            class='form-control'
+            type='email'
+            placeholder='email@example.com'
+          >
+        </div>
+
+        <div class='form-field'>
+          <label for='showcase-password' class='form-label'
+            >Password input</label
+          >
+          <input
+            id='showcase-password'
+            class='form-control'
+            type='password'
+            value='password123'
+          >
+        </div>
+
+        <div class='form-field'>
+          <label for='showcase-number' class='form-label'>Number input</label>
+          <input
+            id='showcase-number'
+            class='form-control'
+            type='number'
+            value='1'
+            min='1'
+          >
+        </div>
+      </div>
+    </section>
+
+    <section class='forms-showcase__group'>
+      <h2 class='h4'>Select and textarea</h2>
+      <div class='forms-showcase__stack'>
+        <div class='form-field'>
+          <label for='showcase-select' class='form-label'>Select</label>
+          <select id='showcase-select' class='form-control'>
+            <option value=''>Choose an option</option>
+            <option value='option-1' selected>Option one</option>
+            <option value='option-2'>Option two</option>
+          </select>
+        </div>
+
+        <div class='form-field'>
+          <label for='showcase-textarea' class='form-label'>Textarea</label>
+          <textarea
+            id='showcase-textarea'
+            class='form-control'
+            placeholder='Write your message...'
+          ></textarea>
+          <p class='form-help'>Use for longer multi-line content</p>
+        </div>
+      </div>
+    </section>
+
+    <section class='forms-showcase__group'>
+      <h2 class='h4'>Choice controls</h2>
+      <div class='forms-showcase__stack'>
+        <fieldset class='forms-showcase__fieldset'>
+          <legend class='form-label'>Checkbox</legend>
+          <div class='form-choice-group'>
+            <label class='form-choice'>
+              <input type='checkbox' checked>
+              Subscribe to updates
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class='forms-showcase__fieldset'>
+          <legend class='form-label'>Radio group</legend>
+          <div class='form-choice-group'>
+            <label class='form-choice'>
+              <input type='radio' name='showcase-delivery' checked>
+              Standard delivery
+            </label>
+            <label class='form-choice'>
+              <input type='radio' name='showcase-delivery'>
+              Express delivery
+            </label>
+          </div>
+        </fieldset>
+      </div>
+    </section>
+
+    <section class='forms-showcase__group'>
+      <h2 class='h4'>Disabled and error states</h2>
+      <div class='forms-showcase__stack'>
+        <div class='form-field'>
+          <label for='showcase-disabled' class='form-label'
+            >Disabled input</label
+          >
+          <input
+            id='showcase-disabled'
+            class='form-control'
+            type='text'
+            value='Unavailable value'
+            disabled
+          >
+        </div>
+
+        <div class='form-field'>
+          <label for='showcase-error' class='form-label'
+            >Field with error</label
+          >
+          <input
+            id='showcase-error'
+            class='form-control'
+            type='email'
+            value='invalid-email'
+            aria-invalid='true'
+          >
+          <p class='form-error'>Please enter a valid email address</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+
+{% stylesheet %}
+  .forms-showcase__header {
+    margin-bottom: var(--space-5, 1.5rem);
+  }
+
+  .forms-showcase__content {
+    background: var(--color-surface, var(--light, #fff));
+  }
+
+  .forms-showcase__group + .forms-showcase__group {
+    margin-top: var(--space-6, 2rem);
+    padding-top: var(--space-6, 2rem);
+    border-top: var(--border-width, 1px) solid
+      var(--color-border, var(--gray-300, #d1d5db));
+  }
+
+  .forms-showcase__stack {
+    display: grid;
+    gap: var(--space-3, 0.75rem);
+  }
+
+  .forms-showcase__fieldset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+{% endstylesheet %}
