@@ -32,10 +32,6 @@
   --text-color-default: var(--color-text, #1f2937);
   --text-color-muted: var(--color-text-muted, #6b7280);
 
-  --link-color: var(--color-primary, currentcolor);
-  --link-decoration-thickness: 1px;
-  --link-underline-offset: 0.14em;
-
   --space-text-stack: 1em;
   --space-list-indent: 1.25em;
   --space-list-item: 0.4em;
@@ -147,10 +143,6 @@ ol {
   list-style-type: decimal;
 }
 
-li + li {
-  margin-top: var(--space-list-item);
-}
-
 strong,
 b {
   font-weight: var(--font-weight-strong);
@@ -179,22 +171,6 @@ figcaption,
   font-size: var(--font-size-meta);
   line-height: var(--line-height-body);
   color: var(--text-color-muted);
-}
-
-a {
-  color: var(--link-color);
-  text-decoration-line: underline;
-  text-decoration-thickness: var(--link-decoration-thickness);
-  text-underline-offset: var(--link-underline-offset);
-}
-
-a:hover {
-  text-decoration-thickness: calc(var(--link-decoration-thickness) + 1px);
-}
-
-a:focus-visible {
-  outline: 2px solid currentcolor;
-  outline-offset: 2px;
 }
 
 blockquote,

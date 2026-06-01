@@ -1,0 +1,109 @@
+/* Navigation component styles */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown ui-disclosure,
+.dropdown dropdown-menu {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  min-width: 180px;
+  z-index: 100;
+  background: white;
+  display: none;
+}
+
+.dropdown ui-disclosure[open],
+.dropdown dropdown-menu[open] {
+  display: block;
+}
+
+.mega-menu {
+  position: static;
+}
+
+.mega-menu > mega-menu {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: none;
+  width: auto;
+  max-width: none;
+  min-width: auto;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-left: 0;
+  border-right: 0;
+}
+
+.mega-menu > mega-menu[open] {
+  display: block;
+}
+
+.mega-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1rem;
+}
+
+.mega-menu-column-title {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.mega-menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mega-menu-list li + li {
+  margin-top: 0.35rem;
+}
+
+nav[aria-label] > ul {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav[aria-label] > ul > li {
+  display: flex;
+  align-items: center;
+}
+
+.nav-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: var(--space-2, 0.5rem) var(--space-1, 0.25rem);
+  background: transparent;
+  border: 0;
+  color: var(--color-text, #000);
+  font: inherit;
+  line-height: var(--line-height-body, 1.6);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.nav-item:hover,
+.nav-item[aria-current='page'],
+.nav-item[aria-expanded='true'] {
+  text-decoration-line: underline;
+  text-decoration-thickness: var(--link-decoration-thickness, 1px);
+  text-underline-offset: var(--link-underline-offset, 0.14em);
+}
+
+.nav-item:focus-visible {
+  outline: 2px solid var(--color-focus-ring, currentcolor);
+  outline-offset: 2px;
+}

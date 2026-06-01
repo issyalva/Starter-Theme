@@ -25,7 +25,7 @@
               type='button'
               aria-haspopup='true'
               aria-controls='mega-menu-{{ forloop.index }}'
-              class='dropdown-trigger'
+              class='dropdown-trigger nav-item'
               id='mega-trigger-{{ forloop.index }}'
             >
               {{ link.title }}
@@ -63,7 +63,7 @@
               type='button'
               aria-haspopup='true'
               aria-controls='dropdown-{{ forloop.index }}'
-              class='dropdown-trigger'
+              class='dropdown-trigger nav-item'
             >
               {{ link.title }}
             </button>
@@ -87,6 +87,7 @@
           <!-- Simple nav item -->
           <a
             href='{{ link.url }}'
+            class='nav-item'
             {% if link.active %}
               aria-current='page'
             {% endif %}
