@@ -10,19 +10,31 @@
   --space-7: 3rem;
   --space-8: 4rem;
 
+  /* Macro spacing for section and page rhythm */
+  --space-9: 6rem;
+  --space-10: 8rem;
+  --space-11: 10rem;
+  --space-12: 12rem;
+
   /* Layout tokens */
-  --layout-page-width: 90rem;
+  --layout-wide-max: 90rem;
+  --layout-page-width: var(--layout-wide-max);
   --layout-page-gutter: 1.25rem;
   --layout-content-max: 56rem;
   --layout-section-space: var(--space-7);
+
+  /* Optional column grid tokens for larger layouts */
+  --grid-columns: 12;
+  --grid-gutter: var(--space-2);
+  --grid-max-width: var(--layout-wide-max);
 
   /* Shape primitives */
   --radius-none: 0;
   --radius-sm: 0.5rem;
 
   /* Border primitives */
-  --border-width-1: 1px;
-  --border-width-2: 2px;
+  --border-width: 1px;
+  --border-width-strong: 2px;
 
   /* Minimal depth primitives */
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 8%);
@@ -35,18 +47,8 @@
   --z-modal: 50;
 }
 
-.l-container {
-  width: min(
-    var(--layout-page-width),
-    calc(100% - (var(--layout-page-gutter) * 2))
-  );
-  margin-inline: auto;
-}
-
-.l-content {
-  width: min(var(--layout-content-max), 100%);
-}
-
-.u-stack > * + * {
-  margin-top: var(--space-4);
+@media (min-width: 750px) {
+  :root {
+    --grid-gutter: var(--space-4);
+  }
 }

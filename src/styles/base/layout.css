@@ -1,0 +1,32 @@
+/* Global layout and spacing utilities.
+ * Keep this file as the evolving source of theme-wide layout behavior.
+ */
+
+.container {
+  width: 100%;
+  max-width: none;
+  padding-inline: var(--layout-page-gutter);
+}
+
+/* Optional bounded layout wrapper for large screens */
+.container--bounded {
+  max-width: var(--layout-wide-max);
+  margin-inline: auto;
+}
+
+/* Optional narrower container for reading/content-focused layouts */
+.container--content {
+  max-width: var(--layout-content-max);
+}
+
+/* Grid that lives inside .container and optional container variants */
+.container-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--grid-gutter);
+}
+
+/* Simple vertical rhythm helper */
+.u-stack > * + * {
+  margin-top: var(--space-4);
+}

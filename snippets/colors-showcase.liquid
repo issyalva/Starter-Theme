@@ -8,13 +8,13 @@
   {% render 'colors-showcase' %}
 {% enddoc %}
 
-<section class='colors-showcase'>
+<section class='colors-showcase container'>
   <header class='colors-showcase__header'>
     <p class='text-eyebrow'>Color showcase</p>
     <p class='text-caption'>Live preview of brand and semantic color tokens</p>
   </header>
 
-  <div class='colors-showcase__content l-content'>
+  <div class='colors-showcase__content container--content'>
     <section class='colors-showcase__group'>
       <h2 class='h4'>Brand guideline colors</h2>
 
@@ -240,10 +240,6 @@
 </section>
 
 {% stylesheet %}
-  .colors-showcase {
-    padding: var(--space-6, 2rem);
-  }
-
   .colors-showcase__header {
     margin-bottom: var(--space-5, 1.5rem);
   }
@@ -255,7 +251,7 @@
   .colors-showcase__group + .colors-showcase__group {
     margin-top: var(--space-6, 2rem);
     padding-top: var(--space-6, 2rem);
-    border-top: var(--border-width-1, 1px) solid
+    border-top: var(--border-width, 1px) solid
       var(--color-border, var(--gray-300, #d1d5db));
   }
 
@@ -265,7 +261,7 @@
     margin-top: var(--space-3, 0.75rem);
     padding: var(--space-4, 1rem);
     border-radius: var(--radius-sm, 0.5rem);
-    border: var(--border-width-1, 1px) solid
+    border: var(--border-width, 1px) solid
       var(--color-border, var(--gray-300, #d1d5db));
     background: var(--swatch);
     color: var(--swatch-text);
@@ -298,7 +294,7 @@
 
   .colors-showcase__semantic-item {
     padding: var(--space-4, 1rem);
-    border: var(--border-width-1, 1px) solid
+    border: var(--border-width, 1px) solid
       var(--color-border, var(--gray-300, #d1d5db));
     border-radius: var(--radius-sm, 0.5rem);
     background: var(--color-surface, var(--light, #fff));
@@ -320,7 +316,7 @@
   .colors-showcase__semantic-panel {
     padding: var(--space-3, 0.75rem);
     border-radius: var(--radius-sm, 0.5rem);
-    border: var(--border-width-1, 1px) solid
+    border: var(--border-width, 1px) solid
       var(--color-border, var(--gray-300, #d1d5db));
     background: var(--color-surface, var(--light, #fff));
     color: var(--color-text, #000);
@@ -411,7 +407,7 @@
 
   .colors-showcase__semantic-input {
     margin-top: var(--space-2, 0.5rem);
-    border: var(--border-width-1, 1px) solid
+    border: var(--border-width, 1px) solid
       var(--color-border, var(--gray-300, #d1d5db));
     border-radius: var(--radius-sm, 0.5rem);
     padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
@@ -421,7 +417,7 @@
 
   .colors-showcase__semantic-divider {
     margin-top: var(--space-2, 0.5rem);
-    border-top: var(--border-width-2, 2px) solid
+    border-top: var(--border-width-strong, 2px) solid
       var(--color-border-strong, var(--gray-500, #6b7280));
   }
 
