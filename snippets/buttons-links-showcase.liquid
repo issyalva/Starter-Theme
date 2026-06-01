@@ -79,6 +79,22 @@
         <a href='#' class='link link--inverted'>Inverted link</a>
       </div>
     </section>
+
+    <section class='elements-showcase__group'>
+      <h2 class='h4'>Nav item styles</h2>
+      <p class='elements-showcase__note'>
+        Top-level nav items share one class across links and buttons.
+      </p>
+
+      <div class='elements-showcase__nav-row'>
+        <a href='#' class='nav-item'>Default nav link</a>
+        <a href='#' class='nav-item' aria-current='page'>Current nav link</a>
+        <button type='button' class='nav-item'>Nav trigger</button>
+        <button type='button' class='nav-item' aria-expanded='true'>
+          Expanded nav trigger
+        </button>
+      </div>
+    </section>
   </div>
 </section>
 
@@ -124,5 +140,12 @@
     padding: var(--space-3, 0.75rem);
     border-radius: var(--radius-sm, 0.5rem);
     background: var(--color-surface-inverse, var(--dark, #000));
+  }
+
+  .elements-showcase__nav-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2, 0.5rem) var(--space-4, 1rem);
+    align-items: center;
   }
 {% endstylesheet %}
