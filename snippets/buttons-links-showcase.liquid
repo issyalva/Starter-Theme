@@ -1,0 +1,151 @@
+{% doc %}
+  Renders a showcase for button and link element primitives.
+
+  Displays button variants, size modifiers, disabled states, and link variants
+  so global element styles can be validated in one place.
+
+  @example
+  {% render 'buttons-links-showcase' %}
+{% enddoc %}
+
+<section class='elements-showcase container'>
+  <header class='elements-showcase__header'>
+    <p class='text-eyebrow'>Elements showcase</p>
+    <p class='text-caption'>Live preview of button and link primitives</p>
+  </header>
+
+  <div class='elements-showcase__content container--content'>
+    <section class='elements-showcase__group'>
+      <h2 class='h4'>Button variants</h2>
+      <p class='elements-showcase__note'>
+        Primary is the default call to action. Use secondary and ghost for
+        lower-emphasis actions.
+      </p>
+
+      <div class='elements-showcase__actions'>
+        <button type='button' class='button button-primary'>
+          Primary action
+        </button>
+        <button type='button' class='button button-secondary'>
+          Secondary action
+        </button>
+        <button type='button' class='button button-ghost'>Ghost action</button>
+      </div>
+    </section>
+
+    <section class='elements-showcase__group'>
+      <h2 class='h4'>Button sizes and width</h2>
+      <div class='elements-showcase__actions'>
+        <button type='button' class='button button-primary button-sm'>
+          Small
+        </button>
+        <button type='button' class='button button-primary'>Default</button>
+        <button type='button' class='button button-primary button-lg'>
+          Large
+        </button>
+      </div>
+
+      <div class='elements-showcase__actions elements-showcase__actions--stack'>
+        <button type='button' class='button button-primary button-block'>
+          Full-width action
+        </button>
+      </div>
+    </section>
+
+    <section class='elements-showcase__group'>
+      <h2 class='h4'>Button states</h2>
+      <div class='elements-showcase__actions'>
+        <button type='button' class='button button-primary' disabled>
+          Primary - Disabled
+        </button>
+        <button
+          type='button'
+          class='button button-secondary'
+          aria-disabled='true'
+        >
+          Seondary - Aria disabled
+        </button>
+      </div>
+    </section>
+
+    <section class='elements-showcase__group'>
+      <h2 class='h4'>Link styles</h2>
+      <div class='elements-showcase__links'>
+        <a href='#'>Default link</a>
+        <a href='#' class='link--subtle'>Subtle link</a>
+      </div>
+
+      <div class='elements-showcase__inverse'>
+        <a href='#' class='link link--inverted'>Inverted link</a>
+      </div>
+    </section>
+
+    <section class='elements-showcase__group'>
+      <h2 class='h4'>Nav item styles</h2>
+      <p class='elements-showcase__note'>
+        Top-level nav items share one class across links and buttons.
+      </p>
+
+      <div class='elements-showcase__nav-row'>
+        <a href='#' class='nav-item'>Default nav link</a>
+        <a href='#' class='nav-item' aria-current='page'>Current nav link</a>
+        <button type='button' class='nav-item'>Nav trigger</button>
+        <button type='button' class='nav-item' aria-expanded='true'>
+          Expanded nav trigger
+        </button>
+      </div>
+    </section>
+  </div>
+</section>
+
+{% stylesheet %}
+  .elements-showcase__header {
+    margin-bottom: var(--space-5, 1.5rem);
+  }
+
+  .elements-showcase__content {
+    background: var(--color-surface, var(--light, #fff));
+  }
+
+  .elements-showcase__group + .elements-showcase__group {
+    margin-top: var(--space-6, 2rem);
+    padding-top: var(--space-6, 2rem);
+    border-top: var(--border-width, 1px) solid
+      var(--color-border, var(--gray-300, #d1d5db));
+  }
+
+  .elements-showcase__note {
+    margin: 0 0 var(--space-3, 0.75rem);
+    color: var(--color-text-muted, var(--gray-700, #374151));
+  }
+
+  .elements-showcase__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2, 0.5rem);
+  }
+
+  .elements-showcase__actions--stack {
+    margin-top: var(--space-3, 0.75rem);
+  }
+
+  .elements-showcase__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3, 0.75rem);
+  }
+
+  .elements-showcase__inverse {
+    margin-top: var(--space-3, 0.75rem);
+    padding: var(--space-3, 0.75rem);
+    border-radius: var(--radius-sm, 0.5rem);
+    background: var(--color-surface-inverse, var(--dark, #000));
+  }
+
+  .elements-showcase__nav-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2, 0.5rem) var(--space-4, 1rem);
+    align-items: center;
+  }
+{% endstylesheet %}
