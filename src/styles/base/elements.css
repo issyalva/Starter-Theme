@@ -16,11 +16,16 @@
   --button-primary-bg: var(--color-primary, #2563eb);
   --button-primary-bg-hover: var(--color-primary-hover, #3b82f6);
   --button-primary-fg: var(--color-on-primary, #fff);
+  --button-primary-disabled-bg: var(--color-border-strong, #6b7280);
+  --button-primary-disabled-fg: var(--color-text-inverse, #fff);
 
   --button-secondary-bg: var(--color-surface, #fff);
   --button-secondary-bg-hover: var(--color-surface-muted, #f3f4f6);
   --button-secondary-fg: var(--color-text, #000);
   --button-secondary-border: var(--color-border, #d1d5db);
+  --button-secondary-disabled-bg: var(--color-surface-muted, #f3f4f6);
+  --button-secondary-disabled-fg: var(--color-text-muted, #6b7280);
+  --button-secondary-disabled-border: var(--color-border, #d1d5db);
 
   --button-ghost-bg-hover: var(--color-surface-muted, #f3f4f6);
   --button-ghost-fg: var(--color-text, #000);
@@ -68,9 +73,7 @@ a:focus-visible,
   color: var(--color-text-inverse, #fff);
 }
 
-.button,
-button[type='submit'],
-input[type='submit'] {
+.button {
   appearance: none;
   -webkit-appearance: none;
   display: inline-flex;
@@ -89,23 +92,23 @@ input[type='submit'] {
   cursor: pointer;
 }
 
-.button-primary,
-button[type='submit'],
-input[type='submit'] {
+.button-primary {
   background: var(--button-primary-bg);
   color: var(--button-primary-fg);
 }
 
-.button-primary:hover,
-button[type='submit']:hover,
-input[type='submit']:hover {
+.button-primary:hover {
   background: var(--button-primary-bg-hover);
 }
 
+.button-primary:disabled,
+.button-primary[aria-disabled='true'] {
+  background: var(--button-primary-disabled-bg);
+  color: var(--button-primary-disabled-fg);
+}
+
 .button:disabled,
-.button[aria-disabled='true'],
-button[type='submit']:disabled,
-input[type='submit']:disabled {
+.button[aria-disabled='true'] {
   opacity: var(--button-disabled-opacity);
   cursor: not-allowed;
   pointer-events: none;
@@ -121,6 +124,13 @@ input[type='submit']:disabled {
   background: var(--button-secondary-bg-hover);
 }
 
+.button-secondary:disabled,
+.button-secondary[aria-disabled='true'] {
+  background: var(--button-secondary-disabled-bg);
+  color: var(--button-secondary-disabled-fg);
+  border-color: var(--button-secondary-disabled-border);
+}
+
 .button-ghost {
   background: transparent;
   color: var(--button-ghost-fg);
@@ -132,7 +142,7 @@ input[type='submit']:disabled {
 }
 
 .button-block {
-  display: inline-flex;
+  display: flex;
   width: 100%;
 }
 
@@ -145,12 +155,4 @@ input[type='submit']:disabled {
 .button-lg {
   min-height: 3rem;
   padding-inline: var(--space-5, 1.5rem);
-}
-
-input.button,
-button.button,
-a.button,
-button[type='submit'],
-input[type='submit'] {
-  text-decoration: none;
 }
