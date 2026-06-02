@@ -89,6 +89,69 @@
     </section>
 
     <section class='forms-showcase__group'>
+      <h2 class='h4'>Search and affixed inputs</h2>
+      <div class='forms-showcase__stack'>
+        <div class='form-field'>
+          <label for='showcase-search' class='form-label'>Search input</label>
+          <div class='form-control-affix form-control-affix--leading'>
+            <span
+              class='form-control-affix__item form-control-affix__item--leading'
+              aria-hidden='true'
+            >
+              🔍
+            </span>
+            <input
+              id='showcase-search'
+              class='form-control form-control--search'
+              type='search'
+              placeholder='Search products'
+            >
+          </div>
+        </div>
+
+        <div class='form-field'>
+          <label for='showcase-icon-leading' class='form-label'
+            >Leading affix</label
+          >
+          <div class='form-control-affix form-control-affix--leading'>
+            <span
+              class='form-control-affix__item form-control-affix__item--leading'
+              aria-hidden='true'
+            >
+              ⌕
+            </span>
+            <input
+              id='showcase-icon-leading'
+              class='form-control'
+              type='text'
+              placeholder='Search or filter'
+            >
+          </div>
+        </div>
+
+        <div class='form-field'>
+          <label for='showcase-icon-trailing' class='form-label'
+            >Trailing affix</label
+          >
+          <div class='form-control-affix form-control-affix--trailing'>
+            <input
+              id='showcase-icon-trailing'
+              class='form-control'
+              type='text'
+              placeholder='12.5'
+            >
+            <span
+              class='form-control-affix__item form-control-affix__item--trailing'
+              aria-hidden='true'
+            >
+              kg
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class='forms-showcase__group'>
       <h2 class='h4'>Choice controls</h2>
       <div class='forms-showcase__stack'>
         <fieldset class='forms-showcase__fieldset'>
@@ -158,6 +221,40 @@
         <p class='form-status form-status--error' role='alert'>
           Something went wrong. Please fix the highlighted fields and try again.
         </p>
+      </div>
+    </section>
+
+    <section class='forms-showcase__group'>
+      <h2 class='h4'>Quantity selector</h2>
+      <div class='forms-showcase__stack'>
+        <div class='form-field'>
+          <label for='showcase-quantity' class='form-label'>Quantity</label>
+          <div class='quantity-selector'>
+            <button
+              type='button'
+              class='button button-secondary quantity-selector__button'
+              aria-label='Decrease quantity'
+            >
+              −
+            </button>
+            <input
+              id='showcase-quantity'
+              class='form-control quantity-selector__input'
+              type='number'
+              value='1'
+              min='1'
+              inputmode='numeric'
+            >
+            <button
+              type='button'
+              class='button button-secondary quantity-selector__button'
+              aria-label='Increase quantity'
+            >
+              +
+            </button>
+          </div>
+          <p class='form-help'>Use this for adjustable line-item counts</p>
+        </div>
       </div>
     </section>
 
