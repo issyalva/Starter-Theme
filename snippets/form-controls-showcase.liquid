@@ -1,0 +1,389 @@
+{% doc %}
+  Renders an MVP form controls showcase for the styleguide.
+
+  Displays the first set of input primitives: text-like fields, select,
+  textarea, checkbox, and radio controls.
+
+  @example
+  {% render 'form-controls-showcase' %}
+{% enddoc %}
+
+<section class='forms-showcase container'>
+  <header class='forms-showcase__header'>
+    <p class='text-eyebrow'>Form controls showcase</p>
+    <p class='text-caption'>Live preview of MVP input primitives and states</p>
+  </header>
+
+  <div class='forms-showcase__content container--content'>
+    <section class='forms-showcase__group'>
+      <h2 class='h4'>Text-like inputs</h2>
+      <div class='forms-showcase__stack'>
+        <div class='form-field'>
+          <label for='showcase-text' class='form-label'>Text input</label>
+          <input
+            id='showcase-text'
+            class='form-control'
+            type='text'
+            placeholder='Enter text'
+          >
+          <p class='form-help'>General single-line input</p>
+        </div>
+
+        <div class='form-field'>
+          <label for='showcase-email' class='form-label'>Email input</label>
+          <input
+            id='showcase-email'
+            class='form-control'
+            type='email'
+            placeholder='email@example.com'
+          >
+        </div>
+
+        <div class='form-field'>
+          <label for='showcase-password' class='form-label'
+            >Password input</label
+          >
+          <input
+            id='showcase-password'
+            class='form-control'
+            type='password'
+            value='password123'
+          >
+        </div>
+
+        <div class='form-field'>
+          <label for='showcase-number' class='form-label'>Number input</label>
+          <input
+            id='showcase-number'
+            class='form-control'
+            type='number'
+            value='1'
+            min='1'
+          >
+        </div>
+      </div>
+    </section>
+
+    <section class='forms-showcase__group'>
+      <h2 class='h4'>Select and textarea</h2>
+      <div class='forms-showcase__stack'>
+        <div class='form-field'>
+          <label for='showcase-select' class='form-label'>Select</label>
+          <select id='showcase-select' class='form-control'>
+            <option value=''>Choose an option</option>
+            <option value='option-1' selected>Option one</option>
+            <option value='option-2'>Option two</option>
+          </select>
+        </div>
+
+        <div class='form-field'>
+          <label for='showcase-textarea' class='form-label'>Textarea</label>
+          <textarea
+            id='showcase-textarea'
+            class='form-control'
+            placeholder='Write your message...'
+          ></textarea>
+          <p class='form-help'>Use for longer multi-line content</p>
+        </div>
+      </div>
+    </section>
+
+    <section class='forms-showcase__group'>
+      <h2 class='h4'>Affixed inputs</h2>
+      <div class='forms-showcase__stack'>
+        <div class='form-field'>
+          <label for='showcase-search' class='form-label'>Leading affix</label>
+          <div class='form-control-affix form-control-affix--leading'>
+            <span
+              class='form-control-affix__item form-control-affix__item--leading'
+              aria-hidden='true'
+            >
+              🔍
+            </span>
+            <input
+              id='showcase-search'
+              class='form-control'
+              type='search'
+              placeholder='Search products'
+            >
+          </div>
+        </div>
+
+        <div class='form-field'>
+          <label for='showcase-icon-trailing' class='form-label'
+            >Trailing affix</label
+          >
+          <div class='form-control-affix form-control-affix--trailing'>
+            <input
+              id='showcase-icon-trailing'
+              class='form-control'
+              type='text'
+              placeholder='12.5'
+            >
+            <span
+              class='form-control-affix__item form-control-affix__item--trailing'
+              aria-hidden='true'
+            >
+              kg
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class='forms-showcase__group'>
+      <h2 class='h4'>Choice controls</h2>
+      <div class='forms-showcase__stack'>
+        <fieldset class='forms-showcase__fieldset'>
+          <legend class='form-legend'>Checkbox</legend>
+          <div class='form-choice-group'>
+            <label class='form-choice'>
+              <input type='checkbox' checked>
+              Subscribe to updates
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class='forms-showcase__fieldset'>
+          <legend class='form-legend'>Radio group</legend>
+          <div class='form-choice-group'>
+            <label class='form-choice'>
+              <input type='radio' name='showcase-delivery' checked>
+              Standard delivery
+            </label>
+            <label class='form-choice'>
+              <input type='radio' name='showcase-delivery'>
+              Express delivery
+            </label>
+          </div>
+        </fieldset>
+      </div>
+    </section>
+
+    <section class='forms-showcase__group'>
+      <h2 class='h4'>Disabled state</h2>
+      <div class='forms-showcase__stack'>
+        <div class='form-field'>
+          <label for='showcase-disabled' class='form-label'
+            >Disabled input</label
+          >
+          <input
+            id='showcase-disabled'
+            class='form-control'
+            type='text'
+            value='Unavailable value'
+            disabled
+          >
+        </div>
+      </div>
+    </section>
+
+    <section class='forms-showcase__group'>
+      <h2 class='h4'>Required and form status states</h2>
+      <div class='forms-showcase__stack'>
+        <div class='form-field'>
+          <label for='showcase-required' class='form-label form-label-required'>
+            Required field
+          </label>
+          <input
+            id='showcase-required'
+            class='form-control'
+            type='text'
+            placeholder='This field is required'
+            required
+          >
+        </div>
+
+        <p class='form-status form-status--success' role='status'>
+          Thanks! Your message has been sent successfully.
+        </p>
+
+        <p class='form-status form-status--error' role='alert'>
+          Something went wrong. Please fix the highlighted fields and try again.
+        </p>
+      </div>
+    </section>
+
+    <section class='forms-showcase__group'>
+      <h2 class='h4'>Quantity selector</h2>
+      <div class='forms-showcase__stack'>
+        <div class='form-field'>
+          <label for='showcase-quantity' class='form-label'>Quantity</label>
+          <div class='quantity-selector'>
+            <button
+              type='button'
+              class='button button-secondary quantity-selector__button'
+              aria-label='Decrease quantity'
+            >
+              −
+            </button>
+            <input
+              id='showcase-quantity'
+              class='form-control quantity-selector__input'
+              type='number'
+              value='1'
+              min='1'
+              inputmode='numeric'
+            >
+            <button
+              type='button'
+              class='button button-secondary quantity-selector__button'
+              aria-label='Increase quantity'
+            >
+              +
+            </button>
+          </div>
+          <p class='form-help'>Use this for adjustable line-item counts</p>
+        </div>
+      </div>
+    </section>
+
+    <section class='forms-showcase__group'>
+      <h2 class='h4'>Faux contact form</h2>
+      <p class='forms-showcase__note'>
+        Example structure for a real contact flow using the MVP form patterns.
+      </p>
+
+      <form
+        class='forms-showcase__form'
+        action='{{ routes.search_url }}'
+        method='get'
+        novalidate
+        onsubmit='return false;'
+      >
+        <div class='forms-showcase__stack'>
+          <fieldset class='forms-showcase__fieldset'>
+            <legend class='form-legend'>Contact details</legend>
+
+            <div class='form-field'>
+              <label for='contact-name' class='form-label'>Name</label>
+              <input
+                id='contact-name'
+                class='form-control'
+                type='text'
+                name='name'
+                autocomplete='name'
+                placeholder='Jane Doe'
+                aria-describedby='contact-name-help'
+              >
+              <p id='contact-name-help' class='form-help'>Use your full name</p>
+            </div>
+
+            <div class='form-field'>
+              <label for='contact-email' class='form-label'>Email</label>
+              <input
+                id='contact-email'
+                class='form-control'
+                type='email'
+                name='email'
+                autocomplete='email'
+                placeholder='jane@example.com'
+                aria-describedby='contact-email-help'
+              >
+              <p id='contact-email-help' class='form-help'>
+                We’ll use this to reply back
+              </p>
+            </div>
+          </fieldset>
+
+          <fieldset class='forms-showcase__fieldset'>
+            <legend class='form-legend'>Inquiry details</legend>
+
+            <div class='form-field'>
+              <label for='contact-subject' class='form-label'>Subject</label>
+              <select
+                id='contact-subject'
+                class='form-control'
+                name='subject'
+                aria-describedby='contact-subject-help'
+              >
+                <option value=''>Choose a topic</option>
+                <option value='general'>General question</option>
+                <option value='support'>Support request</option>
+                <option value='partnership'>Partnership inquiry</option>
+              </select>
+              <p id='contact-subject-help' class='form-help'>
+                Helps route your message
+              </p>
+            </div>
+
+            <div class='form-field'>
+              <label for='contact-message' class='form-label'>Message</label>
+              <textarea
+                id='contact-message'
+                class='form-control'
+                name='message'
+                placeholder='How can we help?'
+                aria-describedby='contact-message-help'
+              ></textarea>
+              <p id='contact-message-help' class='form-help'>
+                Add context, timelines, or links if helpful
+              </p>
+            </div>
+          </fieldset>
+
+          <fieldset class='forms-showcase__fieldset'>
+            <legend class='form-legend'>Preferences</legend>
+            <div class='form-choice-group'>
+              <label class='form-choice'>
+                <input type='checkbox' name='newsletter'>
+                Send me product updates
+              </label>
+            </div>
+          </fieldset>
+
+          <div class='forms-showcase__actions'>
+            <button type='button' class='button button-primary'>
+              Send message
+            </button>
+            <button type='reset' class='button button-secondary'>Reset</button>
+          </div>
+        </div>
+      </form>
+    </section>
+  </div>
+</section>
+
+{% stylesheet %}
+  .forms-showcase__header {
+    margin-bottom: var(--space-5, 1.5rem);
+  }
+
+  .forms-showcase__content {
+    background: var(--color-surface, var(--light, #fff));
+  }
+
+  .forms-showcase__group + .forms-showcase__group {
+    margin-top: var(--space-6, 2rem);
+    padding-top: var(--space-6, 2rem);
+    border-top: var(--border-width, 1px) solid
+      var(--color-border, var(--gray-300, #d1d5db));
+  }
+
+  .forms-showcase__stack {
+    display: grid;
+    gap: var(--space-3, 0.75rem);
+  }
+
+  .forms-showcase__fieldset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .forms-showcase__note {
+    margin: 0 0 var(--space-3, 0.75rem);
+    color: var(--color-text-muted, var(--gray-700, #374151));
+  }
+
+  .forms-showcase__form {
+    display: grid;
+    gap: var(--space-3, 0.75rem);
+  }
+
+  .forms-showcase__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2, 0.5rem);
+  }
+{% endstylesheet %}
