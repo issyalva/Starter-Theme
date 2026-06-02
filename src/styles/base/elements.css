@@ -232,14 +232,11 @@ a:focus-visible,
   color: var(--field-placeholder);
 }
 
-.form-control--search,
-.form-control-affix--leading .form-control,
-.form-control-affix--both .form-control {
+.form-control-affix--leading .form-control {
   padding-inline-start: calc(var(--field-padding-inline) * 2 + 1.25rem);
 }
 
-.form-control-affix--trailing .form-control,
-.form-control-affix--both .form-control {
+.form-control-affix--trailing .form-control {
   padding-inline-end: calc(var(--field-padding-inline) * 2 + 1.25rem);
 }
 
