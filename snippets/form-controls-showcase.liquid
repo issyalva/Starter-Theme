@@ -118,7 +118,7 @@
     </section>
 
     <section class='forms-showcase__group'>
-      <h2 class='h4'>Disabled and error states</h2>
+      <h2 class='h4'>Disabled state</h2>
       <div class='forms-showcase__stack'>
         <div class='form-field'>
           <label for='showcase-disabled' class='form-label'
@@ -132,20 +132,32 @@
             disabled
           >
         </div>
+      </div>
+    </section>
 
+    <section class='forms-showcase__group'>
+      <h2 class='h4'>Required and form status states</h2>
+      <div class='forms-showcase__stack'>
         <div class='form-field'>
-          <label for='showcase-error' class='form-label'
-            >Field with error</label
-          >
+          <label for='showcase-required' class='form-label form-label-required'>
+            Required field
+          </label>
           <input
-            id='showcase-error'
+            id='showcase-required'
             class='form-control'
-            type='email'
-            value='invalid-email'
-            aria-invalid='true'
+            type='text'
+            placeholder='This field is required'
+            required
           >
-          <p class='form-error'>Please enter a valid email address</p>
         </div>
+
+        <p class='form-status form-status--success' role='status'>
+          Thanks! Your message has been sent successfully.
+        </p>
+
+        <p class='form-status form-status--error' role='alert'>
+          Something went wrong. Please fix the highlighted fields and try again.
+        </p>
       </div>
     </section>
 

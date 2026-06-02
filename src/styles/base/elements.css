@@ -46,6 +46,18 @@
   --field-disabled-bg: var(--color-surface-muted, #f3f4f6);
   --field-disabled-fg: var(--color-text-muted, #6b7280);
   --field-error-color: var(--status-danger, #dc2626);
+  --form-status-success-bg: color-mix(
+    in srgb,
+    var(--status-success, #16a34a) 12%,
+    var(--color-surface, #fff)
+  );
+  --form-status-success-fg: var(--status-success, #16a34a);
+  --form-status-error-bg: color-mix(
+    in srgb,
+    var(--status-danger, #dc2626) 12%,
+    var(--color-surface, #fff)
+  );
+  --form-status-error-fg: var(--status-danger, #dc2626);
 }
 
 a,
@@ -188,6 +200,11 @@ a:focus-visible,
   color: var(--color-text, #000);
 }
 
+.form-label-required::after {
+  content: ' *';
+  color: var(--field-error-color);
+}
+
 .form-legend {
   display: block;
   margin-bottom: var(--space-2, 0.5rem);
@@ -250,21 +267,29 @@ textarea.form-control {
   cursor: not-allowed;
 }
 
-.form-control[aria-invalid='true'],
-.form-control.is-error {
-  border-color: var(--field-error-color);
-}
-
 .form-help {
   font-size: var(--font-size-caption, 0.75rem);
   line-height: var(--line-height-body, 1.6);
   color: var(--color-text-muted, #6b7280);
 }
 
-.form-error {
-  font-size: var(--font-size-caption, 0.75rem);
+.form-status {
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  border: var(--border-width, 1px) solid transparent;
+  font-size: var(--font-size-meta, 0.875rem);
   line-height: var(--line-height-body, 1.6);
-  color: var(--field-error-color);
+}
+
+.form-status--success {
+  border-color: var(--form-status-success-fg);
+  background: var(--form-status-success-bg);
+  color: var(--form-status-success-fg);
+}
+
+.form-status--error {
+  border-color: var(--form-status-error-fg);
+  background: var(--form-status-error-bg);
+  color: var(--form-status-error-fg);
 }
 
 .form-choice-group {
