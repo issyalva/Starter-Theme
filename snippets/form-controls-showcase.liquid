@@ -244,7 +244,13 @@
         Example structure for a real contact flow using the MVP form patterns.
       </p>
 
-      <form class='forms-showcase__form' action='#' method='post'>
+      <form
+        class='forms-showcase__form'
+        action='{{ routes.search_url }}'
+        method='get'
+        novalidate
+        onsubmit='return false;'
+      >
         <div class='forms-showcase__stack'>
           <fieldset class='forms-showcase__fieldset'>
             <legend class='form-legend'>Contact details</legend>
@@ -327,7 +333,7 @@
           </fieldset>
 
           <div class='forms-showcase__actions'>
-            <button type='submit' class='button button-primary'>
+            <button type='button' class='button button-primary'>
               Send message
             </button>
             <button type='reset' class='button button-secondary'>Reset</button>

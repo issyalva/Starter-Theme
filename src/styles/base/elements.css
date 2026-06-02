@@ -45,6 +45,7 @@
   --field-focus-ring: var(--color-focus-ring, #3b82f6);
   --field-disabled-bg: var(--color-surface-muted, #f3f4f6);
   --field-disabled-fg: var(--color-text-muted, #6b7280);
+  --form-control-affix-size: 1.25rem;
   --field-error-color: var(--status-danger, #dc2626);
   --form-status-success-bg: color-mix(
     in srgb,
@@ -233,11 +234,15 @@ a:focus-visible,
 }
 
 .form-control-affix--leading .form-control {
-  padding-inline-start: calc(var(--field-padding-inline) * 2 + 1.25rem);
+  padding-inline-start: calc(
+    var(--field-padding-inline) * 2 + var(--form-control-affix-size)
+  );
 }
 
 .form-control-affix--trailing .form-control {
-  padding-inline-end: calc(var(--field-padding-inline) * 2 + 1.25rem);
+  padding-inline-end: calc(
+    var(--field-padding-inline) * 2 + var(--form-control-affix-size)
+  );
 }
 
 .form-control-affix {
@@ -252,7 +257,7 @@ a:focus-visible,
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 1.25rem;
+  min-width: var(--form-control-affix-size);
   color: var(--field-placeholder);
   pointer-events: none;
   white-space: nowrap;
@@ -277,7 +282,9 @@ select.form-control {
     6px 6px,
     6px 6px;
   background-repeat: no-repeat;
-  padding-right: calc(var(--field-padding-inline) + 1.25rem);
+  padding-inline-end: calc(
+    var(--field-padding-inline) + var(--form-control-affix-size)
+  );
 }
 
 textarea.form-control {
@@ -294,8 +301,7 @@ textarea.form-control {
   outline-offset: 2px;
 }
 
-.form-control:disabled,
-.form-control[aria-disabled='true'] {
+.form-control:disabled {
   background: var(--field-disabled-bg);
   color: var(--field-disabled-fg);
   cursor: not-allowed;
