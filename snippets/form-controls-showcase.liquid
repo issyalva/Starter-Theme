@@ -92,7 +92,7 @@
       <h2 class='h4'>Choice controls</h2>
       <div class='forms-showcase__stack'>
         <fieldset class='forms-showcase__fieldset'>
-          <legend class='form-label'>Checkbox</legend>
+          <legend class='form-legend'>Checkbox</legend>
           <div class='form-choice-group'>
             <label class='form-choice'>
               <input type='checkbox' checked>
@@ -102,7 +102,7 @@
         </fieldset>
 
         <fieldset class='forms-showcase__fieldset'>
-          <legend class='form-label'>Radio group</legend>
+          <legend class='form-legend'>Radio group</legend>
           <div class='form-choice-group'>
             <label class='form-choice'>
               <input type='radio' name='showcase-delivery' checked>
@@ -148,6 +148,104 @@
         </div>
       </div>
     </section>
+
+    <section class='forms-showcase__group'>
+      <h2 class='h4'>Faux contact form</h2>
+      <p class='forms-showcase__note'>
+        Example structure for a real contact flow using the MVP form patterns.
+      </p>
+
+      <form class='forms-showcase__form' action='#' method='post'>
+        <div class='forms-showcase__stack'>
+          <fieldset class='forms-showcase__fieldset'>
+            <legend class='form-legend'>Contact details</legend>
+
+            <div class='form-field'>
+              <label for='contact-name' class='form-label'>Name</label>
+              <input
+                id='contact-name'
+                class='form-control'
+                type='text'
+                name='name'
+                autocomplete='name'
+                placeholder='Jane Doe'
+                aria-describedby='contact-name-help'
+              >
+              <p id='contact-name-help' class='form-help'>Use your full name</p>
+            </div>
+
+            <div class='form-field'>
+              <label for='contact-email' class='form-label'>Email</label>
+              <input
+                id='contact-email'
+                class='form-control'
+                type='email'
+                name='email'
+                autocomplete='email'
+                placeholder='jane@example.com'
+                aria-describedby='contact-email-help'
+              >
+              <p id='contact-email-help' class='form-help'>
+                We’ll use this to reply back
+              </p>
+            </div>
+          </fieldset>
+
+          <fieldset class='forms-showcase__fieldset'>
+            <legend class='form-legend'>Inquiry details</legend>
+
+            <div class='form-field'>
+              <label for='contact-subject' class='form-label'>Subject</label>
+              <select
+                id='contact-subject'
+                class='form-control'
+                name='subject'
+                aria-describedby='contact-subject-help'
+              >
+                <option value=''>Choose a topic</option>
+                <option value='general'>General question</option>
+                <option value='support'>Support request</option>
+                <option value='partnership'>Partnership inquiry</option>
+              </select>
+              <p id='contact-subject-help' class='form-help'>
+                Helps route your message
+              </p>
+            </div>
+
+            <div class='form-field'>
+              <label for='contact-message' class='form-label'>Message</label>
+              <textarea
+                id='contact-message'
+                class='form-control'
+                name='message'
+                placeholder='How can we help?'
+                aria-describedby='contact-message-help'
+              ></textarea>
+              <p id='contact-message-help' class='form-help'>
+                Add context, timelines, or links if helpful
+              </p>
+            </div>
+          </fieldset>
+
+          <fieldset class='forms-showcase__fieldset'>
+            <legend class='form-legend'>Preferences</legend>
+            <div class='form-choice-group'>
+              <label class='form-choice'>
+                <input type='checkbox' name='newsletter'>
+                Send me product updates
+              </label>
+            </div>
+          </fieldset>
+
+          <div class='forms-showcase__actions'>
+            <button type='submit' class='button button-primary'>
+              Send message
+            </button>
+            <button type='reset' class='button button-secondary'>Reset</button>
+          </div>
+        </div>
+      </form>
+    </section>
   </div>
 </section>
 
@@ -176,5 +274,21 @@
     margin: 0;
     padding: 0;
     border: 0;
+  }
+
+  .forms-showcase__note {
+    margin: 0 0 var(--space-3, 0.75rem);
+    color: var(--color-text-muted, var(--gray-700, #374151));
+  }
+
+  .forms-showcase__form {
+    display: grid;
+    gap: var(--space-3, 0.75rem);
+  }
+
+  .forms-showcase__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2, 0.5rem);
   }
 {% endstylesheet %}

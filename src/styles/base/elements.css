@@ -188,6 +188,15 @@ a:focus-visible,
   color: var(--color-text, #000);
 }
 
+.form-legend {
+  display: block;
+  margin-bottom: var(--space-2, 0.5rem);
+  font-size: var(--font-size-meta, 0.875rem);
+  font-weight: var(--font-weight-strong, 600);
+  line-height: var(--line-height-body, 1.6);
+  color: var(--color-text, #000);
+}
+
 .form-control {
   appearance: none;
   -webkit-appearance: none;
