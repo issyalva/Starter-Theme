@@ -1,0 +1,7 @@
+ui-disclosure {
+  display: none;
+}
+
+ui-disclosure[open] {
+  display: block;
+}
