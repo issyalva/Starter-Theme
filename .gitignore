@@ -26,5 +26,3 @@ assets/theme.min.js
 assets/theme.min.css
 assets/chunk.*.js
 
-# Style Dictionary generated files
-tokens/build/
