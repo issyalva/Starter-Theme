@@ -9,9 +9,10 @@
 
 dialog[is='ui-drawer'] {
   position: fixed;
-  top: 0;
-  bottom: 0;
+  inset-block: 0;
   height: 100vh;
+  height: 100dvh;
+  max-height: none;
   width: 100%;
   max-width: var(--drawer-width);
   background: var(--color-surface);
@@ -21,9 +22,11 @@ dialog[is='ui-drawer'] {
   padding: 0;
   margin: 0;
   left: 0;
+  right: auto;
 }
 
-dialog[is='ui-drawer'][side='right'] {
+dialog[is='ui-drawer'][side='right'],
+dialog[is='ui-drawer'][side='end'] {
   left: auto;
   right: 0;
 }
@@ -37,7 +40,6 @@ dialog[is='ui-modal'] {
   max-width: var(--modal-width);
   max-height: var(--modal-max-height);
   background: var(--color-surface);
-  border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
   overflow-y: auto;
   border: none;

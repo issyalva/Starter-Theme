@@ -176,6 +176,12 @@
             Open drawer
           </button>
           <button
+            class='button button-secondary button-sm'
+            aria-controls='showcase-drawer-left'
+          >
+            Open drawer - Left side
+          </button>
+          <button
             class='button button-primary button-sm'
             aria-controls='showcase-modal'
           >
@@ -187,6 +193,21 @@
           is='ui-drawer'
           id='showcase-drawer'
           side='right'
+          aria-label='Showcase drawer'
+        >
+          <div class='custom-components-showcase__dialog-content'>
+            <h4 class='h5'>Drawer title</h4>
+            <p>Quick summary content inside the drawer.</p>
+            <button class='button button-secondary button-sm' data-close-dialog>
+              Close drawer
+            </button>
+          </div>
+        </dialog>
+
+        <dialog
+          is='ui-drawer'
+          id='showcase-drawer-left'
+          side='left'
           aria-label='Showcase drawer'
         >
           <div class='custom-components-showcase__dialog-content'>
