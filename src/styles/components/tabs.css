@@ -1,4 +1,46 @@
-[data-tab][aria-selected='true'] {
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+:root {
+  --tabs-list-gap: var(--space-1);
+  --tabs-tab-padding-block: var(--space-2);
+  --tabs-tab-padding-inline: var(--space-3);
+  --tabs-tab-active-color: var(--color-primary);
+  --tabs-tab-active-border-width: 2px;
+  --tabs-panel-padding-block-start: var(--space-3);
+}
+
+ui-tabs-group [data-tablist] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tabs-list-gap);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+ui-tabs-group [data-tab] {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--tabs-tab-padding-block) var(--tabs-tab-padding-inline);
+  border: 0;
+  border-bottom: var(--tabs-tab-active-border-width) solid transparent;
+  margin-bottom: calc(var(--tabs-tab-active-border-width) * -1);
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  line-height: var(--line-height-body);
+  cursor: pointer;
+}
+
+ui-tabs-group [data-tab]:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+ui-tabs-group [data-tab][aria-selected='true'] {
+  color: var(--tabs-tab-active-color);
+  border-bottom-color: var(--tabs-tab-active-color);
+}
+
+ui-tabs-group [data-panel] {
+  padding-top: var(--tabs-panel-padding-block-start);
 }

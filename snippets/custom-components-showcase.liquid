@@ -1,0 +1,294 @@
+{% doc %}
+  Showcases the custom web components with lightweight example markup.
+
+  @example
+  {% render 'custom-components-showcase' %}
+{% enddoc %}
+
+<section class='custom-components-showcase container'>
+  <header class='custom-components-showcase__header'>
+    <p class='text-eyebrow'>Custom components showcase</p>
+    <p class='text-caption'>
+      Live preview of token-driven base styles for custom components
+    </p>
+  </header>
+
+  <div class='custom-components-showcase__content container--content'>
+    <section class='custom-components-showcase__group'>
+      <h2 class='h4'>Disclosure</h2>
+      <div class='custom-components-showcase__sample'>
+        <p class='custom-components-showcase__label'>ui-disclosure</p>
+        <button
+          class='button button-secondary button-sm'
+          aria-controls='showcase-disclosure'
+        >
+          Toggle disclosure
+        </button>
+        <ui-disclosure id='showcase-disclosure'>
+          <div class='custom-components-showcase__panel-content'>
+            <p>This panel uses the shared disclosure behavior.</p>
+            <button class='button button-ghost button-sm' data-close>
+              Close
+            </button>
+          </div>
+        </ui-disclosure>
+      </div>
+    </section>
+
+    <section class='custom-components-showcase__group'>
+      <h2 class='h4'>Accordion</h2>
+      <div class='custom-components-showcase__sample'>
+        <p class='custom-components-showcase__label'>ui-accordion-group</p>
+        <ui-accordion-group>
+          <ui-accordion-item>
+            <button aria-controls='showcase-accordion-1'>
+              Shipping details
+              <span slot='icon-closed'>+</span>
+              <span slot='icon-open'>−</span>
+            </button>
+            <ui-disclosure id='showcase-accordion-1'>
+              Ships in 2-4 business days with tracking.
+            </ui-disclosure>
+          </ui-accordion-item>
+          <ui-accordion-item>
+            <button aria-controls='showcase-accordion-2'>
+              Return policy
+              <span slot='icon-closed'>+</span>
+              <span slot='icon-open'>−</span>
+            </button>
+            <ui-disclosure id='showcase-accordion-2'>
+              Returns accepted within 30 days.
+            </ui-disclosure>
+          </ui-accordion-item>
+        </ui-accordion-group>
+      </div>
+    </section>
+
+    <section class='custom-components-showcase__group'>
+      <h2 class='h4'>Tabs</h2>
+      <div class='custom-components-showcase__sample'>
+        <p class='custom-components-showcase__label'>ui-tabs-group</p>
+        <ui-tabs-group>
+          <div data-tablist role='tablist' aria-label='Showcase tabs'>
+            <button
+              type='button'
+              data-tab
+              id='showcase-tab-1'
+              role='tab'
+              aria-controls='showcase-panel-1'
+              data-active
+            >
+              Details
+            </button>
+            <button
+              type='button'
+              data-tab
+              id='showcase-tab-2'
+              role='tab'
+              aria-controls='showcase-panel-2'
+            >
+              Delivery
+            </button>
+          </div>
+          <div
+            data-panel
+            id='showcase-panel-1'
+            role='tabpanel'
+            aria-labelledby='showcase-tab-1'
+          >
+            Product details and material notes.
+          </div>
+          <div
+            data-panel
+            id='showcase-panel-2'
+            role='tabpanel'
+            aria-labelledby='showcase-tab-2'
+          >
+            Delivery windows and carrier options.
+          </div>
+        </ui-tabs-group>
+      </div>
+    </section>
+
+    <section class='custom-components-showcase__group'>
+      <h2 class='h4'>Dropdown and mega menu</h2>
+      <div class='custom-components-showcase__sample'>
+        <p class='custom-components-showcase__label'>
+          dropdown-menu, mega-menu
+        </p>
+        <nav aria-label='Showcase menus'>
+          <ul>
+            <li class='dropdown'>
+              <button
+                class='nav-item'
+                aria-controls='showcase-dropdown'
+                aria-haspopup='true'
+              >
+                Dropdown
+              </button>
+              <dropdown-menu id='showcase-dropdown' role='menu'>
+                <a href='#' role='menuitem'>All products</a>
+                <a href='#' role='menuitem'>New arrivals</a>
+                <a href='#' role='menuitem'>Best sellers</a>
+              </dropdown-menu>
+            </li>
+            <li class='mega-menu'>
+              <button
+                class='nav-item'
+                aria-controls='showcase-mega'
+                aria-haspopup='true'
+              >
+                Mega menu
+              </button>
+              <mega-menu id='showcase-mega'>
+                <div class='mega-menu-grid'>
+                  <section>
+                    <p class='mega-menu-column-title'>Shop</p>
+                    <ul class='mega-menu-list'>
+                      <li><a href='#'>Men</a></li>
+                      <li><a href='#'>Women</a></li>
+                    </ul>
+                  </section>
+                  <section>
+                    <p class='mega-menu-column-title'>Support</p>
+                    <ul class='mega-menu-list'>
+                      <li><a href='#'>Contact</a></li>
+                      <li><a href='#'>FAQ</a></li>
+                    </ul>
+                  </section>
+                </div>
+              </mega-menu>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </section>
+
+    <section class='custom-components-showcase__group'>
+      <h2 class='h4'>Modal and drawer</h2>
+      <div class='custom-components-showcase__sample'>
+        <p class='custom-components-showcase__label'>ui-modal, ui-drawer</p>
+        <div class='custom-components-showcase__button-row'>
+          <button
+            class='button button-secondary button-sm'
+            aria-controls='showcase-drawer'
+          >
+            Open drawer
+          </button>
+          <button
+            class='button button-primary button-sm'
+            aria-controls='showcase-modal'
+          >
+            Open modal
+          </button>
+        </div>
+
+        <dialog
+          is='ui-drawer'
+          id='showcase-drawer'
+          side='right'
+          aria-label='Showcase drawer'
+        >
+          <div class='custom-components-showcase__dialog-content'>
+            <h4 class='h5'>Drawer title</h4>
+            <p>Quick summary content inside the drawer.</p>
+            <button class='button button-secondary button-sm' data-close-dialog>
+              Close drawer
+            </button>
+          </div>
+        </dialog>
+
+        <dialog
+          is='ui-modal'
+          id='showcase-modal'
+          focus-trap
+          aria-labelledby='showcase-modal-title'
+        >
+          <div class='custom-components-showcase__dialog-content'>
+            <h4 class='h5' id='showcase-modal-title'>Modal title</h4>
+            <p>Use this for focused decisions or confirmation flows.</p>
+            <button class='button button-secondary button-sm' data-close-dialog>
+              Close modal
+            </button>
+          </div>
+        </dialog>
+      </div>
+    </section>
+  </div>
+</section>
+
+{% stylesheet %}
+  .custom-components-showcase__header {
+    margin-bottom: var(--space-5, 1.5rem);
+  }
+
+  .custom-components-showcase__content {
+    background: var(--color-surface, var(--light, #fff));
+  }
+
+  .custom-components-showcase__group + .custom-components-showcase__group {
+    margin-top: var(--space-6, 2rem);
+    padding-top: var(--space-6, 2rem);
+    border-top: var(--border-width, 1px) solid
+      var(--color-border, var(--gray-300, #d1d5db));
+  }
+
+  .custom-components-showcase__group > * + * {
+    margin-top: var(--space-2, 0.5rem);
+  }
+
+  .custom-components-showcase__sample {
+    padding: var(--space-3, 0.75rem);
+    border-radius: var(--radius-sm, 0.5rem);
+    background: var(--color-surface-muted, var(--gray-100, #f3f4f6));
+    border: var(--border-width, 1px) solid
+      var(--color-border, var(--gray-300, #d1d5db));
+  }
+
+  .custom-components-showcase__label {
+    margin: 0 0 var(--space-2, 0.5rem);
+    font-family:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+      'Courier New', monospace;
+    font-size: var(--font-size-caption, 0.75rem);
+    line-height: 1.3;
+    color: var(--color-text-muted, var(--gray-500, #6b7280));
+  }
+
+  .custom-components-showcase__panel-content {
+    display: grid;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+  }
+
+  .custom-components-showcase__button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .custom-components-showcase__dialog-content {
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-4);
+  }
+
+  .custom-components-showcase dropdown-menu,
+  .custom-components-showcase mega-menu {
+    min-width: 12rem;
+  }
+
+  .custom-components-showcase nav[aria-label] > ul {
+    flex-wrap: wrap;
+  }
+
+  .custom-components-showcase dropdown-menu a {
+    display: block;
+    padding: var(--space-1) var(--space-2);
+    text-decoration: none;
+  }
+
+  .custom-components-showcase dropdown-menu a:hover {
+    background: var(--color-surface-muted);
+  }
+{% endstylesheet %}

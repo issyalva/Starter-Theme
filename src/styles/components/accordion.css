@@ -1,0 +1,54 @@
+:root {
+  --accordion-gap: var(--space-2);
+  --accordion-trigger-padding-block: var(--space-3);
+  --accordion-trigger-padding-inline: var(--space-4);
+  --accordion-content-padding-block: var(--space-3);
+  --accordion-content-padding-inline: var(--space-4);
+}
+
+ui-accordion-group {
+  display: grid;
+  gap: var(--accordion-gap);
+}
+
+ui-accordion-item {
+  display: block;
+  border: var(--border-width) solid var(--color-border);
+  background: var(--color-surface);
+  overflow: clip;
+}
+
+ui-accordion-item > [aria-controls] {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--accordion-trigger-padding-block)
+    var(--accordion-trigger-padding-inline);
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  line-height: var(--line-height-body);
+  text-align: start;
+  cursor: pointer;
+}
+
+ui-accordion-item > [aria-controls]:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: -2px;
+}
+
+ui-accordion-item > ui-disclosure {
+  padding: var(--accordion-content-padding-block)
+    var(--accordion-content-padding-inline);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+ui-accordion-item > [aria-controls] [slot='icon-closed'],
+ui-accordion-item > [aria-controls] [slot='icon-open'] {
+  flex: 0 0 auto;
+}
