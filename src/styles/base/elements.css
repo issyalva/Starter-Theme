@@ -83,22 +83,22 @@ a:hover,
 a:focus-visible,
 .link:focus-visible,
 .button:focus-visible {
-  outline: 2px solid var(--color-focus-ring, currentcolor);
+  outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
 }
 
 .link--subtle {
-  color: var(--color-text, #000);
-  text-decoration-color: var(--color-border-strong, currentcolor);
+  color: var(--color-text);
+  text-decoration-color: var(--color-border-strong);
 }
 
 .link--inverted {
-  color: var(--color-text-inverse, #fff);
+  color: var(--color-text-inverse);
 }
 
 .link--inverted:visited,
 .link--inverted:hover {
-  color: var(--color-text-inverse, #fff);
+  color: var(--color-text-inverse);
 }
 
 .button {
@@ -176,29 +176,29 @@ a:focus-visible,
 
 .button-sm {
   min-height: 2.25rem;
-  padding-inline: var(--space-3, 0.75rem);
-  font-size: var(--font-size-meta, 0.875rem);
+  padding-inline: var(--space-3);
+  font-size: var(--font-size-meta);
 }
 
 .button-lg {
   min-height: 3rem;
-  padding-inline: var(--space-5, 1.5rem);
+  padding-inline: var(--space-5);
 }
 
 .form-field {
   display: grid;
-  gap: var(--space-1, 0.25rem);
+  gap: var(--space-1);
 }
 
 .form-field + .form-field {
-  margin-top: var(--space-3, 0.75rem);
+  margin-top: var(--space-3);
 }
 
 .form-label {
   display: inline-block;
-  font-size: var(--font-size-meta, 0.875rem);
-  line-height: var(--line-height-body, 1.6);
-  color: var(--color-text, #000);
+  font-size: var(--font-size-meta);
+  line-height: var(--line-height-body);
+  color: var(--color-text);
 }
 
 .form-label-required::after {
@@ -208,11 +208,11 @@ a:focus-visible,
 
 .form-legend {
   display: block;
-  margin-bottom: var(--space-2, 0.5rem);
-  font-size: var(--font-size-meta, 0.875rem);
-  font-weight: var(--font-weight-strong, 600);
-  line-height: var(--line-height-body, 1.6);
-  color: var(--color-text, #000);
+  margin-bottom: var(--space-2);
+  font-size: var(--font-size-meta);
+  font-weight: var(--font-weight-strong);
+  line-height: var(--line-height-body);
+  color: var(--color-text);
 }
 
 .form-control {
@@ -226,7 +226,7 @@ a:focus-visible,
   background: var(--field-bg);
   color: var(--field-fg);
   font: inherit;
-  line-height: var(--line-height-body, 1.6);
+  line-height: var(--line-height-body);
 }
 
 .form-control::placeholder {
@@ -333,16 +333,16 @@ textarea.form-control {
 }
 
 .form-help {
-  font-size: var(--font-size-caption, 0.75rem);
-  line-height: var(--line-height-body, 1.6);
-  color: var(--color-text-muted, #6b7280);
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-body);
+  color: var(--color-text-muted);
 }
 
 .form-status {
-  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
-  border: var(--border-width, 1px) solid transparent;
-  font-size: var(--font-size-meta, 0.875rem);
-  line-height: var(--line-height-body, 1.6);
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width) solid transparent;
+  font-size: var(--font-size-meta);
+  line-height: var(--line-height-body);
 }
 
 .form-status--success {
@@ -359,14 +359,14 @@ textarea.form-control {
 
 .form-choice-group {
   display: grid;
-  gap: var(--space-2, 0.5rem);
+  gap: var(--space-2);
 }
 
 .form-choice {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2, 0.5rem);
-  color: var(--color-text, #000);
+  gap: var(--space-2);
+  color: var(--color-text);
 }
 
 .form-choice input[type='checkbox'],
@@ -374,28 +374,28 @@ textarea.form-control {
   width: 1rem;
   height: 1rem;
   margin: 0;
-  accent-color: var(--color-primary, #2563eb);
+  accent-color: var(--color-primary);
 }
 
 .surface {
-  padding: var(--space-4, 1rem);
-  border: var(--border-width, 1px) solid var(--color-border, #d1d5db);
+  padding: var(--space-4);
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-md, 0.75rem);
-  background: var(--color-surface, #fff);
+  background: var(--color-surface);
 }
 
 details {
-  border: var(--border-width, 1px) solid var(--color-border, #d1d5db);
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-md, 0.75rem);
-  background: var(--color-surface, #fff);
+  background: var(--color-surface);
 }
 
 details > summary {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-2, 0.5rem);
-  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
   list-style: none;
   cursor: pointer;
 }
@@ -409,9 +409,9 @@ details > summary::-webkit-details-marker {
 }
 
 details[open] > summary {
-  border-bottom: var(--border-width, 1px) solid var(--color-border, #d1d5db);
+  border-bottom: var(--border-width) solid var(--color-border);
 }
 
 details > :not(summary) {
-  padding: var(--space-4, 1rem);
+  padding: var(--space-4);
 }

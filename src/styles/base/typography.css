@@ -189,7 +189,7 @@ b {
 
 .rte a {
   color: var(--link-color);
-  text-decoration-color: var(--color-border-strong, currentcolor);
+  text-decoration-color: var(--color-border-strong);
   text-underline-offset: var(--link-underline-offset);
 }
 
@@ -206,14 +206,14 @@ b {
 }
 
 .rte blockquote {
-  padding-inline-start: var(--space-4, 1rem);
-  border-inline-start: 2px solid var(--color-border, #d1d5db);
+  padding-inline-start: var(--space-4);
+  border-inline-start: 2px solid var(--color-border);
   color: var(--text-color-default);
   font-style: normal;
 }
 
 .rte blockquote cite {
-  margin-top: var(--space-2, 0.5rem);
+  margin-top: var(--space-2);
 }
 
 .text-caption {

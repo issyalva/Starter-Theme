@@ -84,12 +84,12 @@ nav[aria-label] > ul > li {
   align-items: center;
   justify-content: center;
   min-height: 2.5rem;
-  padding: var(--space-2, 0.5rem) var(--space-1, 0.25rem);
+  padding: var(--space-2) var(--space-1);
   background: transparent;
   border: 0;
-  color: var(--color-text, #000);
+  color: var(--color-text);
   font: inherit;
-  line-height: var(--line-height-body, 1.6);
+  line-height: var(--line-height-body);
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
@@ -99,11 +99,11 @@ nav[aria-label] > ul > li {
 .nav-item[aria-current='page'],
 .nav-item[aria-expanded='true'] {
   text-decoration-line: underline;
-  text-decoration-thickness: var(--link-decoration-thickness, 1px);
-  text-underline-offset: var(--link-underline-offset, 0.14em);
+  text-decoration-thickness: var(--link-decoration-thickness);
+  text-underline-offset: var(--link-underline-offset);
 }
 
 .nav-item:focus-visible {
-  outline: 2px solid var(--color-focus-ring, currentcolor);
+  outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
 }
