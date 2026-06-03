@@ -29,6 +29,7 @@
   /* Shape primitives */
   --radius-none: 0;
   --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
 
   /* Border primitives */
   --border-width: 1px;
