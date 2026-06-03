@@ -18,7 +18,6 @@
 
   /* Layout tokens */
   --layout-wide-max: 90rem;
-  --layout-page-width: var(--layout-wide-max);
   --layout-page-gutter: 1.25rem;
   --layout-content-max: 56rem;
   --layout-section-space: var(--space-7);
@@ -26,11 +25,11 @@
   /* Optional column grid tokens for larger layouts */
   --grid-columns: 12;
   --grid-gutter: var(--space-2);
-  --grid-max-width: var(--layout-wide-max);
 
   /* Shape primitives */
   --radius-none: 0;
   --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
 
   /* Border primitives */
   --border-width: 1px;
