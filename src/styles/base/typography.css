@@ -153,6 +153,70 @@ b {
   line-height: var(--line-height-relaxed);
 }
 
+.rte {
+  max-width: 72ch;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-relaxed);
+}
+
+.rte > * + * {
+  margin-top: var(--space-text-stack);
+}
+
+.rte :where(h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+  font-family: var(--font-family-heading);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-heading);
+}
+
+.rte h1 {
+  font-size: var(--font-size-h3);
+}
+
+.rte h2 {
+  font-size: var(--font-size-h4);
+}
+
+.rte h3 {
+  font-size: var(--font-size-h5);
+}
+
+.rte h4,
+.rte h5,
+.rte h6 {
+  font-size: var(--font-size-h6);
+}
+
+.rte a {
+  color: var(--link-color);
+  text-decoration-color: var(--color-border-strong, currentcolor);
+  text-underline-offset: var(--link-underline-offset);
+}
+
+.rte a:hover {
+  color: var(--link-color-hover);
+}
+
+.rte :where(ul, ol) {
+  padding-inline-start: var(--space-list-indent);
+}
+
+.rte li + li {
+  margin-top: var(--space-list-item);
+}
+
+.rte blockquote {
+  padding-inline-start: var(--space-4, 1rem);
+  border-inline-start: 2px solid var(--color-border, #d1d5db);
+  color: var(--text-color-default);
+  font-style: normal;
+}
+
+.rte blockquote cite {
+  margin-top: var(--space-2, 0.5rem);
+}
+
 .text-caption {
   font-size: var(--font-size-caption);
   line-height: var(--line-height-body);
