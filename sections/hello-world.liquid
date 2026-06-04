@@ -1,298 +1,299 @@
 {% comment %}
   Welcome to Shopify theme development!
 {% endcomment %}
-
-<div class='highlights container'>
-  <div class='highlight'>
-    <h3>Key Concepts</h3>
-    <p class='highlight-description'>
-      Shopify themes are a package of template files, building blocks, and
-      supporting assets. Use these building blocks to create modular,
-      customizable themes.
-    </p>
-    <button aria-controls='demo-drawer' class='mt-4 p-2 border rounded'>
-      Toggle Drawer
-    </button>
-    <dialog is='ui-drawer' id='demo-drawer' focus-trap aria-label='Demo drawer'>
-      <div class='p-4 border rounded-2xl grid gap-y-1'>
-        <button
-          data-close-dialog
-          aria-label='{{ "general.accessibility.close" | t }}'
-        >
-          ✕
-        </button>
-        <p>Hello! This is the drawer that can be toggled from anywhere.</p>
-        <button data-close-dialog>Another close trigger</button>
-      </div>
-    </dialog>
-  </div>
-
-  <div class='highlight'>
-    <h3>Liquid</h3>
-    <p class='highlight-description'>
-      The Liquid templating language is the backbone of Shopify themes, and is
-      used to load dynamic content on storefronts. Extend Liquid objects to
-      store and present custom data using metafields.
-    </p>
-    <button aria-controls='yo-mama' class='mt-4 p-2 border rounded'>
-      Toggle Drawer
-    </button>
-    <ui-disclosure id='yo-mama'>
-      <div class='p-4 border rounded-2xl grid gap-y-1'>
-        <a href='#' data-close>Close</a>
-        <p>
-          Hello!!!! This is the generic ui-disclosure element that can be
-          toggled from anywhere.
-        </p>
-      </div>
-    </ui-disclosure>
-    <p>
-      {{
-        'View the Liquid reference'
-        | link_to: 'https://shopify.dev/docs/api/liquid'
-      }}
-    </p>
-  </div>
-
-  <div class='highlight'>
-    <h3>Best Practices</h3>
-    <p class='highlight-description'>
-      To optimize your theme development experience, Shopify has established a
-      set of best practices that you can refer to when developing your theme and
-      setting up your toolchains and processes.
-    </p>
-    <button aria-controls='demo-modal' class='mt-4 p-2 border rounded'>
-      Open Modal
-    </button>
-    <p>
-      {{
-        'Follow best practices'
-        | link_to: 'https://shopify.dev/docs/storefronts/themes/best-practices'
-      }}
-    </p>
-  </div>
-
-  <div class='highlight'>
-    <h3>Accordions</h3>
-    <p class='highlight-description'>
-      Accordion components let you organize content into collapsible sections.
-      Use standalone items or groups with single mode.
-    </p>
-    <ui-accordion-item>
-      <button
-        aria-controls='faq-shipping'
-        class='flex w-full justify-between items-center'
-      >
-        <h3>How long does shipping take?</h3>
-        <span slot='icon-closed'>+</span>
-        <span slot='icon-open'>−</span>
+{% comment %}
+  <div class='highlights container'>
+    <div class='highlight'>
+      <h3>Key Concepts</h3>
+      <p class='highlight-description'>
+        Shopify themes are a package of template files, building blocks, and
+        supporting assets. Use these building blocks to create modular,
+        customizable themes.
+      </p>
+      <button aria-controls='demo-drawer' class='mt-4 p-2 border rounded'>
+        Toggle Drawer
       </button>
-      <ui-disclosure id='faq-shipping'>
-        <p>
-          Standard shipping takes 5-7 business days. Express shipping is
-          available for 2-3 business days.
-        </p>
+      <dialog is='ui-drawer' id='demo-drawer' focus-trap aria-label='Demo drawer'>
+        <div class='p-4 border rounded-2xl grid gap-y-1'>
+          <button
+            data-close-dialog
+            aria-label='{{ "general.accessibility.close" | t }}'
+          >
+            ✕
+          </button>
+          <p>Hello! This is the drawer that can be toggled from anywhere.</p>
+          <button data-close-dialog>Another close trigger</button>
+        </div>
+      </dialog>
+    </div>
+
+    <div class='highlight'>
+      <h3>Liquid</h3>
+      <p class='highlight-description'>
+        The Liquid templating language is the backbone of Shopify themes, and is
+        used to load dynamic content on storefronts. Extend Liquid objects to
+        store and present custom data using metafields.
+      </p>
+      <button aria-controls='yo-mama' class='mt-4 p-2 border rounded'>
+        Toggle Drawer
+      </button>
+      <ui-disclosure id='yo-mama'>
+        <div class='p-4 border rounded-2xl grid gap-y-1'>
+          <a href='#' data-close>Close</a>
+          <p>
+            Hello!!!! This is the generic ui-disclosure element that can be
+            toggled from anywhere.
+          </p>
+        </div>
       </ui-disclosure>
-    </ui-accordion-item>
-    <ui-accordion-group>
-      <ui-accordion-item>
-        <button
-          aria-controls='faq-returns'
-          class='flex w-full justify-between items-center'
-        >
-          What is your return policy?
-          <span slot='icon-closed'>+</span>
-          <span slot='icon-open'>−</span>
-        </button>
-        <ui-disclosure id='faq-returns'>
-          <p>
-            We accept returns within 30 days of purchase. Items must be unused
-            and in original packaging.
-          </p>
-        </ui-disclosure>
-      </ui-accordion-item>
+      <p>
+        {{
+          'View the Liquid reference'
+          | link_to: 'https://shopify.dev/docs/api/liquid'
+        }}
+      </p>
+    </div>
 
-      <ui-accordion-item>
-        <button
-          aria-controls='faq-payment'
-          class='flex w-full justify-between items-center'
-        >
-          What payment methods do you accept?
-          <span slot='icon-closed'>+</span>
-          <span slot='icon-open'>−</span>
-        </button>
-        <ui-disclosure id='faq-payment'>
-          <p>
-            We accept all major credit cards, PayPal, Apple Pay, and Google Pay.
-          </p>
-        </ui-disclosure>
-      </ui-accordion-item>
-    </ui-accordion-group>
-  </div>
+    <div class='highlight'>
+      <h3>Best Practices</h3>
+      <p class='highlight-description'>
+        To optimize your theme development experience, Shopify has established a
+        set of best practices that you can refer to when developing your theme and
+        setting up your toolchains and processes.
+      </p>
+      <button aria-controls='demo-modal' class='mt-4 p-2 border rounded'>
+        Open Modal
+      </button>
+      <p>
+        {{
+          'Follow best practices'
+          | link_to: 'https://shopify.dev/docs/storefronts/themes/best-practices'
+        }}
+      </p>
+    </div>
 
-  <div class='highlight'>
-    <h3>Accordion Group</h3>
-    <p class='highlight-description'>
-      Accordion components let you organize content into collapsible sections.
-      Groups enforce single-item mode by default. Add 'multiple' to allow many
-      open.
-    </p>
-    <ui-accordion-group>
+    <div class='highlight'>
+      <h3>Accordions</h3>
+      <p class='highlight-description'>
+        Accordion components let you organize content into collapsible sections.
+        Use standalone items or groups with single mode.
+      </p>
       <ui-accordion-item>
         <button
-          aria-controls='group-shipping'
+          aria-controls='faq-shipping'
           class='flex w-full justify-between items-center'
         >
           <h3>How long does shipping take?</h3>
           <span slot='icon-closed'>+</span>
           <span slot='icon-open'>−</span>
         </button>
-        <ui-disclosure id='group-shipping'>
+        <ui-disclosure id='faq-shipping'>
           <p>
             Standard shipping takes 5-7 business days. Express shipping is
             available for 2-3 business days.
           </p>
         </ui-disclosure>
       </ui-accordion-item>
-      <ui-accordion-item>
-        <button
-          aria-controls='group-returns'
-          class='flex w-full justify-between items-center'
-        >
-          What is your return policy?
-          <span slot='icon-closed'>+</span>
-          <span slot='icon-open'>−</span>
-        </button>
-        <ui-disclosure id='group-returns' open>
-          <p>
-            We accept returns within 30 days of purchase. Items must be unused
-            and in original packaging.
-          </p>
-        </ui-disclosure>
-      </ui-accordion-item>
-      <ui-accordion-item>
-        <button
-          aria-controls='group-payment'
-          class='flex w-full justify-between items-center'
-        >
-          What payment methods do you accept?
-          <span slot='icon-closed'>+</span>
-          <span slot='icon-open'>−</span>
-        </button>
-        <ui-disclosure id='group-payment'>
-          <p>
-            We accept all major credit cards, PayPal, Apple Pay, and Google Pay.
-          </p>
-        </ui-disclosure>
-      </ui-accordion-item>
-    </ui-accordion-group>
-  </div>
+      <ui-accordion-group>
+        <ui-accordion-item>
+          <button
+            aria-controls='faq-returns'
+            class='flex w-full justify-between items-center'
+          >
+            What is your return policy?
+            <span slot='icon-closed'>+</span>
+            <span slot='icon-open'>−</span>
+          </button>
+          <ui-disclosure id='faq-returns'>
+            <p>
+              We accept returns within 30 days of purchase. Items must be unused
+              and in original packaging.
+            </p>
+          </ui-disclosure>
+        </ui-accordion-item>
 
-  <div class='highlight'>
-    <h3>Tabs</h3>
-    <p class='highlight-description'>
-      Tabs organize related content into one active panel at a time. Use arrow
-      keys to move between tabs, and Tab to enter and leave the component.
-    </p>
-
-    <ui-tabs-group>
-      <div data-tablist role='tablist' aria-label='Product information tabs'>
-        <button
-          type='button'
-          data-tab
-          id='demo-tab-details'
-          role='tab'
-          aria-controls='demo-panel-details'
-          data-active
-        >
-          Details
-        </button>
-        <button
-          type='button'
-          data-tab
-          id='demo-tab-shipping'
-          role='tab'
-          aria-controls='demo-panel-shipping'
-        >
-          Shipping
-        </button>
-        <button
-          type='button'
-          data-tab
-          id='demo-tab-returns'
-          role='tab'
-          aria-controls='demo-panel-returns'
-        >
-          Returns
-        </button>
-      </div>
-
-      <div
-        data-panel
-        id='demo-panel-details'
-        role='tabpanel'
-        aria-labelledby='demo-tab-details'
-      >
-        Learn more about this product, including fit, materials, and care.
-      </div>
-      <div
-        data-panel
-        id='demo-panel-shipping'
-        role='tabpanel'
-        aria-labelledby='demo-tab-shipping'
-      >
-        Standard shipping takes 5-7 business days. Express is available at
-        checkout.
-      </div>
-      <div
-        data-panel
-        id='demo-panel-returns'
-        role='tabpanel'
-        aria-labelledby='demo-tab-returns'
-      >
-        Returns are accepted within 30 days for unused items in original
-        packaging.
-      </div>
-    </ui-tabs-group>
-  </div>
-</div>
-
-<dialog
-  is='ui-modal'
-  id='demo-modal'
-  focus-trap
-  aria-labelledby='demo-modal-label'
->
-  <div class='p-6'>
-    <div class='modal-header'>
-      <h2 id='demo-modal-label'>Modal Dialog Example</h2>
-      <button
-        data-close-dialog
-        class='modal-close'
-        aria-label='{{ "general.accessibility.close" | t }}'
-      >
-        ✕
-      </button>
+        <ui-accordion-item>
+          <button
+            aria-controls='faq-payment'
+            class='flex w-full justify-between items-center'
+          >
+            What payment methods do you accept?
+            <span slot='icon-closed'>+</span>
+            <span slot='icon-open'>−</span>
+          </button>
+          <ui-disclosure id='faq-payment'>
+            <p>
+              We accept all major credit cards, PayPal, Apple Pay, and Google Pay.
+            </p>
+          </ui-disclosure>
+        </ui-accordion-item>
+      </ui-accordion-group>
     </div>
-    <div class='modal-body'>
-      <p>This is a centered modal dialog! It demonstrates:</p>
-      <ul>
-        <li>Centered positioning</li>
-        <li>Backdrop overlay</li>
-        <li>Focus trap</li>
-        <li>Keyboard support (Esc to close)</li>
-        <li>ARIA accessibility</li>
-      </ul>
-      <p>
-        Click the backdrop, press Escape, or click the close button to dismiss.
+
+    <div class='highlight'>
+      <h3>Accordion Group</h3>
+      <p class='highlight-description'>
+        Accordion components let you organize content into collapsible sections.
+        Groups enforce single-item mode by default. Add 'multiple' to allow many
+        open.
       </p>
+      <ui-accordion-group>
+        <ui-accordion-item>
+          <button
+            aria-controls='group-shipping'
+            class='flex w-full justify-between items-center'
+          >
+            <h3>How long does shipping take?</h3>
+            <span slot='icon-closed'>+</span>
+            <span slot='icon-open'>−</span>
+          </button>
+          <ui-disclosure id='group-shipping'>
+            <p>
+              Standard shipping takes 5-7 business days. Express shipping is
+              available for 2-3 business days.
+            </p>
+          </ui-disclosure>
+        </ui-accordion-item>
+        <ui-accordion-item>
+          <button
+            aria-controls='group-returns'
+            class='flex w-full justify-between items-center'
+          >
+            What is your return policy?
+            <span slot='icon-closed'>+</span>
+            <span slot='icon-open'>−</span>
+          </button>
+          <ui-disclosure id='group-returns' open>
+            <p>
+              We accept returns within 30 days of purchase. Items must be unused
+              and in original packaging.
+            </p>
+          </ui-disclosure>
+        </ui-accordion-item>
+        <ui-accordion-item>
+          <button
+            aria-controls='group-payment'
+            class='flex w-full justify-between items-center'
+          >
+            What payment methods do you accept?
+            <span slot='icon-closed'>+</span>
+            <span slot='icon-open'>−</span>
+          </button>
+          <ui-disclosure id='group-payment'>
+            <p>
+              We accept all major credit cards, PayPal, Apple Pay, and Google Pay.
+            </p>
+          </ui-disclosure>
+        </ui-accordion-item>
+      </ui-accordion-group>
     </div>
-    <div class='modal-footer'>
-      <button data-close-dialog class='button'>Close</button>
-      <button class='button button-primary'>Take Action</button>
+
+    <div class='highlight'>
+      <h3>Tabs</h3>
+      <p class='highlight-description'>
+        Tabs organize related content into one active panel at a time. Use arrow
+        keys to move between tabs, and Tab to enter and leave the component.
+      </p>
+
+      <ui-tabs-group>
+        <div data-tablist role='tablist' aria-label='Product information tabs'>
+          <button
+            type='button'
+            data-tab
+            id='demo-tab-details'
+            role='tab'
+            aria-controls='demo-panel-details'
+            data-active
+          >
+            Details
+          </button>
+          <button
+            type='button'
+            data-tab
+            id='demo-tab-shipping'
+            role='tab'
+            aria-controls='demo-panel-shipping'
+          >
+            Shipping
+          </button>
+          <button
+            type='button'
+            data-tab
+            id='demo-tab-returns'
+            role='tab'
+            aria-controls='demo-panel-returns'
+          >
+            Returns
+          </button>
+        </div>
+
+        <div
+          data-panel
+          id='demo-panel-details'
+          role='tabpanel'
+          aria-labelledby='demo-tab-details'
+        >
+          Learn more about this product, including fit, materials, and care.
+        </div>
+        <div
+          data-panel
+          id='demo-panel-shipping'
+          role='tabpanel'
+          aria-labelledby='demo-tab-shipping'
+        >
+          Standard shipping takes 5-7 business days. Express is available at
+          checkout.
+        </div>
+        <div
+          data-panel
+          id='demo-panel-returns'
+          role='tabpanel'
+          aria-labelledby='demo-tab-returns'
+        >
+          Returns are accepted within 30 days for unused items in original
+          packaging.
+        </div>
+      </ui-tabs-group>
     </div>
   </div>
-</dialog>
+
+  <dialog
+    is='ui-modal'
+    id='demo-modal'
+    focus-trap
+    aria-labelledby='demo-modal-label'
+  >
+    <div class='p-6'>
+      <div class='modal-header'>
+        <h2 id='demo-modal-label'>Modal Dialog Example</h2>
+        <button
+          data-close-dialog
+          class='modal-close'
+          aria-label='{{ "general.accessibility.close" | t }}'
+        >
+          ✕
+        </button>
+      </div>
+      <div class='modal-body'>
+        <p>This is a centered modal dialog! It demonstrates:</p>
+        <ul>
+          <li>Centered positioning</li>
+          <li>Backdrop overlay</li>
+          <li>Focus trap</li>
+          <li>Keyboard support (Esc to close)</li>
+          <li>ARIA accessibility</li>
+        </ul>
+        <p>
+          Click the backdrop, press Escape, or click the close button to dismiss.
+        </p>
+      </div>
+      <div class='modal-footer'>
+        <button data-close-dialog class='button'>Close</button>
+        <button class='button button-primary'>Take Action</button>
+      </div>
+    </div>
+  </dialog>
+{% endcomment %}
 
 {% render 'typography-showcase' %}
 {% render 'colors-showcase' %}
@@ -300,6 +301,7 @@
 {% render 'buttons-links-showcase' %}
 {% render 'form-controls-showcase' %}
 {% render 'interaction-primitives-showcase' %}
+{% render 'custom-components-showcase' %}
 
 {% stylesheet %}
   .welcome {

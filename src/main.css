@@ -6,6 +6,7 @@
 @import './styles/primitives/interactive.css';
 @import './styles/primitives/forms.css';
 @import './styles/primitives/content.css';
+@import './styles/components/accordion.css';
 @import './styles/components/dialog.css';
 @import './styles/components/disclosure.css';
 @import './styles/components/navigation.css';
