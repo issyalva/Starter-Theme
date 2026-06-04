@@ -1,13 +1,11 @@
 .surface {
   padding: var(--space-4);
   border: var(--border-width) solid var(--color-border);
-  border-radius: var(--radius-sm);
   background: var(--color-surface);
 }
 
 details {
   border: var(--border-width) solid var(--color-border);
-  border-radius: var(--radius-sm);
   background: var(--color-surface);
 }
 
