@@ -189,9 +189,7 @@
           </p>
 
           <h5>Heading five</h5>
-          <p>
-            Lower emphasis headings remain legible and compact.
-          </p>
+          <p>Lower emphasis headings remain legible and compact.</p>
 
           <h6>Heading six</h6>
           <p>
@@ -231,48 +229,45 @@
 
 {% stylesheet %}
   .typography-showcase__header {
-    margin-bottom: var(--space-5, 1.5rem);
+    margin-bottom: var(--space-5);
   }
 
   .typography-showcase__content {
-    background: var(--color-surface, var(--light, #fff));
+    background: var(--color-surface, var(--light));
   }
 
   .typography-showcase__group + .typography-showcase__group {
-    margin-top: var(--space-6, 2rem);
-    padding-top: var(--space-6, 2rem);
-    border-top: var(--border-width, 1px) solid
-      var(--color-border, var(--gray-300, #d1d5db));
+    margin-top: var(--space-6);
+    padding-top: var(--space-6);
+    border-top: var(--border-width) solid var(--color-border, var(--gray-300));
   }
 
   .typography-showcase__group > * + * {
-    margin-top: var(--space-2, 0.5rem);
+    margin-top: var(--space-2);
   }
 
   .typography-showcase__sample {
-    padding: var(--space-3, 0.75rem);
-    border-radius: var(--radius-sm, 0.5rem);
-    background: var(--color-surface-muted, var(--gray-100, #f3f4f6));
-    border: var(--border-width, 1px) solid
-      var(--color-border, var(--gray-300, #d1d5db));
+    padding: var(--space-3);
+    background: var(--color-surface-muted, var(--gray-100));
+    border: var(--border-width) solid var(--color-border, var(--gray-300));
   }
 
   .typography-showcase__sample + .typography-showcase__sample {
-    margin-top: var(--space-3, 0.75rem);
+    margin-top: var(--space-3);
   }
 
   .typography-showcase__label {
-    margin: 0 0 var(--space-2, 0.5rem);
+    margin: 0 0 var(--space-2);
     font-family:
       ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
       'Courier New', monospace;
-    font-size: var(--font-size-caption, 0.75rem);
+    font-size: var(--font-size-caption);
     line-height: 1.3;
-    color: var(--color-text-muted, var(--gray-500, #6b7280));
+    color: var(--color-text-muted, var(--gray-500));
   }
 
   .typography-showcase__compare > * + * {
-    margin-top: var(--space-2, 0.5rem);
+    margin-top: var(--space-2);
   }
 
   .typography-showcase__figure {
@@ -282,10 +277,9 @@
   .typography-showcase__figure-sample {
     display: grid;
     place-items: center;
-    min-height: var(--space-8, 4rem);
-    border: var(--border-width, 1px) dashed
-      var(--color-border-strong, var(--gray-500, #6b7280));
-    border-radius: var(--radius-sm, 0.5rem);
-    background: var(--color-surface-muted, var(--gray-100, #f3f4f6));
+    min-height: var(--space-8);
+    border: var(--border-width) dashed
+      var(--color-border-strong, var(--gray-500));
+    background: var(--color-surface-muted, var(--gray-100));
   }
 {% endstylesheet %}
