@@ -3,6 +3,7 @@
 @import './styles/base/spacing.css';
 @import './styles/base/layout.css';
 @import './styles/base/typography.css';
+@import './styles/base/motion.css';
 @import './styles/primitives/interactive.css';
 @import './styles/primitives/forms.css';
 @import './styles/primitives/content.css';

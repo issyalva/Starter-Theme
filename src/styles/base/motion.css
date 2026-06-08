@@ -1,0 +1,23 @@
+:root {
+  /* Duration tokens */
+  --motion-duration-instant: 0s;
+  --motion-duration-fast: 150ms;
+  --motion-duration-base: 300ms;
+  --motion-duration-slow: 500ms;
+
+  /* Easing tokens */
+  --motion-easing-fast: cubic-bezier(0.4, 0, 1, 1);
+  --motion-easing-base: cubic-bezier(0.4, 0, 0.2, 1);
+  --motion-easing-slow: cubic-bezier(0, 0, 0.2, 1);
+
+  --motion-transition-base: all var(--motion-duration-base)
+    var(--motion-easing-base);
+  --motion-transition-fast: all var(--motion-duration-fast)
+    var(--motion-easing-fast);
+
+  @media (prefers-reduced-motion: reduce) {
+    --motion-duration-fast: 0ms;
+    --motion-duration-base: 0ms;
+    --motion-duration-slow: 0ms;
+  }
+}
