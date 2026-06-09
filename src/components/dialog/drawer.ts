@@ -18,8 +18,49 @@ import { DialogBase } from './dialog-base.js';
  *   <div>Cart items</div>
  * </dialog>
  */
-export class Drawer extends DialogBase {}
+export class Drawer extends DialogBase {
+  private _isClosing = false;
+
+  private readonly _onAnimationEnd = (event: Event): void => {
+    if (!(event instanceof AnimationEvent)) return;
+    if (!this._isClosing || event.target !== this) return;
+    if (!event.animationName.startsWith('drawer-exit-')) return;
+
+    this.removeAttribute('data-closing');
+    this._isClosing = false;
+
+    super.close();
+  };
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    this.addEventListener('animationend', this._onAnimationEnd);
+  }
+
+  disconnectedCallback(): void {
+    this.removeEventListener('animationend', this._onAnimationEnd);
+    this.removeAttribute('data-closing');
+    this._isClosing = false;
+    super.disconnectedCallback();
+  }
+
+  close(): void {
+    if (!this.open || this._isClosing) return;
+
+    const shouldAnimate = !window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    if (!shouldAnimate) {
+      super.close();
+      return;
+    }
+
+    this._isClosing = true;
+    this.setAttribute('data-closing', '');
+  }
+}
 
 if (!customElements.get('ui-drawer')) {
-	customElements.define('ui-drawer', Drawer, { extends: 'dialog' });
+  customElements.define('ui-drawer', Drawer, { extends: 'dialog' });
 }

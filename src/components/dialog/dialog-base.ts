@@ -67,7 +67,9 @@ export class DialogBase extends HTMLDialogElement {
       this._cleanupFocusTrap = null;
     }
 
-    this.close();
+    if (this.open) {
+      super.close();
+    }
   }
 
   show(): void {
