@@ -132,32 +132,34 @@
                 <a href='#' role='menuitem'>Best sellers</a>
               </dropdown-menu>
             </li>
-            <li class='mega-menu'>
-              <button
-                class='nav-item'
-                aria-controls='showcase-mega'
-                aria-haspopup='true'
-              >
-                Mega menu
-              </button>
-              <mega-menu id='showcase-mega'>
-                <div class='mega-menu-grid'>
-                  <section>
-                    <p class='mega-menu-column-title'>Shop</p>
-                    <ul class='mega-menu-list'>
-                      <li><a href='#'>Men</a></li>
-                      <li><a href='#'>Women</a></li>
-                    </ul>
-                  </section>
-                  <section>
-                    <p class='mega-menu-column-title'>Support</p>
-                    <ul class='mega-menu-list'>
-                      <li><a href='#'>Contact</a></li>
-                      <li><a href='#'>FAQ</a></li>
-                    </ul>
-                  </section>
-                </div>
-              </mega-menu>
+            <li>
+              <div class='mega-menu'>
+                <button
+                  class='nav-item'
+                  aria-controls='showcase-mega'
+                  aria-haspopup='true'
+                >
+                  Mega menu
+                </button>
+                <mega-menu id='showcase-mega'>
+                  <div class='mega-menu-grid'>
+                    <section>
+                      <p class='mega-menu-column-title'>Shop</p>
+                      <ul class='mega-menu-list'>
+                        <li><a href='#'>Men</a></li>
+                        <li><a href='#'>Women</a></li>
+                      </ul>
+                    </section>
+                    <section>
+                      <p class='mega-menu-column-title'>Support</p>
+                      <ul class='mega-menu-list'>
+                        <li><a href='#'>Contact</a></li>
+                        <li><a href='#'>FAQ</a></li>
+                      </ul>
+                    </section>
+                  </div>
+                </mega-menu>
+              </div>
             </li>
           </ul>
         </nav>
@@ -194,6 +196,7 @@
           id='showcase-drawer'
           side='right'
           aria-label='Showcase drawer'
+          focus-trap
         >
           <div class='custom-components-showcase__dialog-content'>
             <h4 class='h5'>Drawer title</h4>
@@ -209,6 +212,7 @@
           id='showcase-drawer-left'
           side='left'
           aria-label='Showcase drawer'
+          focus-trap
         >
           <div class='custom-components-showcase__dialog-content'>
             <h4 class='h5'>Drawer title</h4>

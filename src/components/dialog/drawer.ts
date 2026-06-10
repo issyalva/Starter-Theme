@@ -18,8 +18,79 @@ import { DialogBase } from './dialog-base.js';
  *   <div>Cart items</div>
  * </dialog>
  */
-export class Drawer extends DialogBase {}
+export class Drawer extends DialogBase {
+  private _isClosing = false;
+
+  private _isDrawerExitAnimationEvent(event: Event): event is AnimationEvent {
+    return (
+      event instanceof AnimationEvent &&
+      event.target === this &&
+      event.animationName.startsWith('drawer-exit-')
+    );
+  }
+
+  private _finishAnimatedClose(): void {
+    this._resetClosingState();
+    super.close(this.returnValue);
+  }
+
+  private _resetClosingState(): void {
+    this.removeAttribute('data-closing');
+    this._isClosing = false;
+  }
+
+  private readonly _onCancel = (event: Event): void => {
+    event.preventDefault();
+    this.close();
+  };
+
+  private readonly _onDrawerClose = (): void => {
+    this._resetClosingState();
+  };
+
+  private readonly _onAnimationComplete = (event: Event): void => {
+    if (!this._isClosing || !this._isDrawerExitAnimationEvent(event)) return;
+    this._finishAnimatedClose();
+  };
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    this.addEventListener('cancel', this._onCancel);
+    this.addEventListener('close', this._onDrawerClose);
+    this.addEventListener('animationend', this._onAnimationComplete);
+    this.addEventListener('animationcancel', this._onAnimationComplete);
+  }
+
+  disconnectedCallback(): void {
+    this.removeEventListener('cancel', this._onCancel);
+    this.removeEventListener('close', this._onDrawerClose);
+    this.removeEventListener('animationend', this._onAnimationComplete);
+    this.removeEventListener('animationcancel', this._onAnimationComplete);
+    this._resetClosingState();
+    super.disconnectedCallback();
+  }
+
+  close(returnValue?: string): void {
+    if (returnValue !== undefined) {
+      this.returnValue = returnValue;
+    }
+
+    if (!this.open || this._isClosing) return;
+
+    const shouldAnimate = !window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    if (!shouldAnimate) {
+      super.close(this.returnValue);
+      return;
+    }
+
+    this._isClosing = true;
+    this.setAttribute('data-closing', '');
+  }
+}
 
 if (!customElements.get('ui-drawer')) {
-	customElements.define('ui-drawer', Drawer, { extends: 'dialog' });
+  customElements.define('ui-drawer', Drawer, { extends: 'dialog' });
 }

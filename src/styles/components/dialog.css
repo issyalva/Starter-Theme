@@ -25,10 +25,37 @@ dialog[is='ui-drawer'] {
   right: auto;
 }
 
-dialog[is='ui-drawer'][side='right'],
-dialog[is='ui-drawer'][side='end'] {
+dialog[is='ui-drawer'][open] {
+  animation: drawer-enter-left var(--motion-duration-base)
+    var(--motion-easing-base);
+}
+
+dialog[is='ui-drawer'][data-closing] {
+  animation: drawer-exit-left var(--motion-duration-base)
+    var(--motion-easing-base) forwards;
+  pointer-events: none;
+}
+
+dialog[is='ui-drawer'][side='right'] {
   left: auto;
   right: 0;
+}
+
+dialog[is='ui-drawer'][side='right'][open] {
+  animation-name: drawer-enter-right;
+}
+
+dialog[is='ui-drawer'][side='right'][data-closing] {
+  animation-name: drawer-exit-right;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  dialog[is='ui-drawer'][open],
+  dialog[is='ui-drawer'][data-closing],
+  dialog[is='ui-drawer'][side='right'][open],
+  dialog[is='ui-drawer'][side='right'][data-closing] {
+    animation: none;
+  }
 }
 
 dialog[is='ui-modal'] {
@@ -50,4 +77,44 @@ dialog[is='ui-modal'] {
 dialog[is='ui-drawer']::backdrop,
 dialog[is='ui-modal']::backdrop {
   background: var(--dialog-backdrop);
+}
+
+@keyframes drawer-enter-left {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes drawer-exit-left {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes drawer-enter-right {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes drawer-exit-right {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
 }
