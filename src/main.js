@@ -5,6 +5,7 @@ const componentMap = {
   'ui-disclosure': () => import('./components/disclosure/disclosure'),
   'ui-accordion-group': () => import('./components/accordion/accordion-group'),
   'ui-accordion-item': () => import('./components/accordion/accordion-item'),
+  'ui-select': () => import('./components/forms/select-dropdown'),
   'dialog[is="ui-drawer"]': () => import('./components/dialog/drawer'),
   'dialog[is="ui-modal"]': () => import('./components/dialog/modal'),
   'ui-tabs-group': () => import('./components/tabs/tabs-group'),
