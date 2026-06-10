@@ -36,19 +36,16 @@ dialog[is='ui-drawer'][data-closing] {
   pointer-events: none;
 }
 
-dialog[is='ui-drawer'][side='right'],
-dialog[is='ui-drawer'][side='end'] {
+dialog[is='ui-drawer'][side='right'] {
   left: auto;
   right: 0;
 }
 
-dialog[is='ui-drawer'][side='right'][open],
-dialog[is='ui-drawer'][side='end'][open] {
+dialog[is='ui-drawer'][side='right'][open] {
   animation-name: drawer-enter-right;
 }
 
-dialog[is='ui-drawer'][side='right'][data-closing],
-dialog[is='ui-drawer'][side='end'][data-closing] {
+dialog[is='ui-drawer'][side='right'][data-closing] {
   animation-name: drawer-exit-right;
 }
 
