@@ -49,6 +49,15 @@ dialog[is='ui-drawer'][side='right'][data-closing] {
   animation-name: drawer-exit-right;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  dialog[is='ui-drawer'][open],
+  dialog[is='ui-drawer'][data-closing],
+  dialog[is='ui-drawer'][side='right'][open],
+  dialog[is='ui-drawer'][side='right'][data-closing] {
+    animation: none;
+  }
+}
+
 dialog[is='ui-modal'] {
   position: fixed;
   top: 50%;

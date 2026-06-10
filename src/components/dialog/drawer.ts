@@ -42,7 +42,7 @@ export class Drawer extends DialogBase {
 
     this._resetClosingState();
 
-    super.close();
+    super.close(this.returnValue);
   };
 
   connectedCallback(): void {
@@ -60,7 +60,11 @@ export class Drawer extends DialogBase {
     super.disconnectedCallback();
   }
 
-  close(): void {
+  close(returnValue?: string): void {
+    if (returnValue !== undefined) {
+      this.returnValue = returnValue;
+    }
+
     if (!this.open || this._isClosing) return;
 
     const shouldAnimate = !window.matchMedia(
@@ -68,7 +72,7 @@ export class Drawer extends DialogBase {
     ).matches;
 
     if (!shouldAnimate) {
-      super.close();
+      super.close(this.returnValue);
       return;
     }
 

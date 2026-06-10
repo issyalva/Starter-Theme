@@ -68,6 +68,7 @@ export class DialogBase extends HTMLDialogElement {
     }
 
     if (this.open) {
+      this._unlockBodyScroll();
       super.close();
     }
   }
