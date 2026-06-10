@@ -21,6 +21,19 @@ import { DialogBase } from './dialog-base.js';
 export class Drawer extends DialogBase {
   private _isClosing = false;
 
+  private _isDrawerExitAnimationEvent(event: Event): event is AnimationEvent {
+    return (
+      event instanceof AnimationEvent &&
+      event.target === this &&
+      event.animationName.startsWith('drawer-exit-')
+    );
+  }
+
+  private _finishAnimatedClose(): void {
+    this._resetClosingState();
+    super.close(this.returnValue);
+  }
+
   private _resetClosingState(): void {
     this.removeAttribute('data-closing');
     this._isClosing = false;
@@ -35,27 +48,24 @@ export class Drawer extends DialogBase {
     this._resetClosingState();
   };
 
-  private readonly _onAnimationEnd = (event: Event): void => {
-    if (!(event instanceof AnimationEvent)) return;
-    if (!this._isClosing || event.target !== this) return;
-    if (!event.animationName.startsWith('drawer-exit-')) return;
-
-    this._resetClosingState();
-
-    super.close(this.returnValue);
+  private readonly _onAnimationComplete = (event: Event): void => {
+    if (!this._isClosing || !this._isDrawerExitAnimationEvent(event)) return;
+    this._finishAnimatedClose();
   };
 
   connectedCallback(): void {
     super.connectedCallback();
     this.addEventListener('cancel', this._onCancel);
     this.addEventListener('close', this._onDrawerClose);
-    this.addEventListener('animationend', this._onAnimationEnd);
+    this.addEventListener('animationend', this._onAnimationComplete);
+    this.addEventListener('animationcancel', this._onAnimationComplete);
   }
 
   disconnectedCallback(): void {
     this.removeEventListener('cancel', this._onCancel);
     this.removeEventListener('close', this._onDrawerClose);
-    this.removeEventListener('animationend', this._onAnimationEnd);
+    this.removeEventListener('animationend', this._onAnimationComplete);
+    this.removeEventListener('animationcancel', this._onAnimationComplete);
     this._resetClosingState();
     super.disconnectedCallback();
   }
