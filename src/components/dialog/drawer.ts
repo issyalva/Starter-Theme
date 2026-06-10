@@ -21,26 +21,42 @@ import { DialogBase } from './dialog-base.js';
 export class Drawer extends DialogBase {
   private _isClosing = false;
 
+  private _resetClosingState(): void {
+    this.removeAttribute('data-closing');
+    this._isClosing = false;
+  }
+
+  private readonly _onCancel = (event: Event): void => {
+    event.preventDefault();
+    this.close();
+  };
+
+  private readonly _onDrawerClose = (): void => {
+    this._resetClosingState();
+  };
+
   private readonly _onAnimationEnd = (event: Event): void => {
     if (!(event instanceof AnimationEvent)) return;
     if (!this._isClosing || event.target !== this) return;
     if (!event.animationName.startsWith('drawer-exit-')) return;
 
-    this.removeAttribute('data-closing');
-    this._isClosing = false;
+    this._resetClosingState();
 
     super.close();
   };
 
   connectedCallback(): void {
     super.connectedCallback();
+    this.addEventListener('cancel', this._onCancel);
+    this.addEventListener('close', this._onDrawerClose);
     this.addEventListener('animationend', this._onAnimationEnd);
   }
 
   disconnectedCallback(): void {
+    this.removeEventListener('cancel', this._onCancel);
+    this.removeEventListener('close', this._onDrawerClose);
     this.removeEventListener('animationend', this._onAnimationEnd);
-    this.removeAttribute('data-closing');
-    this._isClosing = false;
+    this._resetClosingState();
     super.disconnectedCallback();
   }
 
