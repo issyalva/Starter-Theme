@@ -209,11 +209,12 @@
       <div class='forms-showcase__stack'>
         <div class='form-field'>
           <label for='showcase-quantity' class='form-label'>Quantity</label>
-          <div class='quantity-selector'>
+          <ui-quantity-selector class='quantity-selector'>
             <button
               type='button'
               class='button button-secondary quantity-selector__button'
               aria-label='Decrease quantity'
+              data-quantity-change='-1'
             >
               −
             </button>
@@ -224,15 +225,17 @@
               value='1'
               min='1'
               inputmode='numeric'
+              data-quantity-input
             >
             <button
               type='button'
               class='button button-secondary quantity-selector__button'
               aria-label='Increase quantity'
+              data-quantity-change='1'
             >
               +
             </button>
-          </div>
+          </ui-quantity-selector>
           <p class='form-help'>Use this for adjustable line-item counts</p>
         </div>
       </div>
