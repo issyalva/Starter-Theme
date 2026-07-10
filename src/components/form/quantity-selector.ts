@@ -9,6 +9,11 @@
  * - One button with [data-quantity-decrement]
  * - One button with [data-quantity-increment]
  *
+ * Required classes for default theme styling:
+ * - Wrapper: quantity-selector
+ * - Input: quantity-selector__input
+ * - Buttons: quantity-selector__button
+ *
  * @example
  * <ui-quantity-selector class="quantity-selector">
  *   <button type="button" data-quantity-decrement aria-label="Decrease quantity">-</button>
@@ -31,7 +36,6 @@ export class QuantitySelector extends HTMLElement {
 
   connectedCallback(): void {
     if (this._isMounted) return;
-    this._isMounted = true;
 
     this._input = this.querySelector<HTMLInputElement>('[data-quantity-input]');
     this._decrementButton = this.querySelector<HTMLButtonElement>(
@@ -44,6 +48,8 @@ export class QuantitySelector extends HTMLElement {
     if (!this._input || !this._decrementButton || !this._incrementButton) {
       return;
     }
+
+    this._isMounted = true;
 
     this._input.readOnly = true;
     this._input.setAttribute('aria-readonly', 'true');
