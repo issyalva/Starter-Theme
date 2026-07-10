@@ -24,7 +24,7 @@ export class QuantitySelector extends HTMLElement {
       const onClick = (): void => {
         if (!this._input) return;
 
-        const step = this._getIntegerAttribute('step', 1);
+        const step = this._getStep();
         const deltaMultiplier = Number(control.dataset.quantityChange);
 
         if (!Number.isFinite(deltaMultiplier)) return;
@@ -70,11 +70,15 @@ export class QuantitySelector extends HTMLElement {
     return Number.isFinite(value) ? value : fallback;
   }
 
+  private _getStep(): number {
+    const rawStep = this._getIntegerAttribute('step', 1);
+    return rawStep > 0 ? rawStep : 1;
+  }
+
   private _normalizeValue(rawValue: number | string): number {
     const min = this._getIntegerAttribute('min', 0);
     const max = this._getIntegerAttribute('max', Number.POSITIVE_INFINITY);
-    const rawStep = this._getIntegerAttribute('step', 1);
-    const step = rawStep > 0 ? rawStep : 1;
+    const step = this._getStep();
 
     const parsed = Number.parseInt(String(rawValue), 10);
     const baseValue = Number.isFinite(parsed) ? parsed : min;
@@ -90,7 +94,7 @@ export class QuantitySelector extends HTMLElement {
     if (!this._input) return;
 
     const currentValue = this._normalizeValue(this._input.value);
-    const min = this._getIntegerAttribute('min', Number.NEGATIVE_INFINITY);
+    const min = this._getIntegerAttribute('min', 0);
     const max = this._getIntegerAttribute('max', Number.POSITIVE_INFINITY);
 
     this._controls.forEach((control) => {
