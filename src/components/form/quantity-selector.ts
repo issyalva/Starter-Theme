@@ -53,7 +53,7 @@ export class QuantitySelector extends HTMLElement {
 
       const step = this._getStep();
       const currentValue = this._normalizeValue(this._input.value);
-      this._setValue(currentValue - step);
+      this._setValue(currentValue - step, true);
     };
 
     const onIncrementClick = (): void => {
@@ -61,7 +61,7 @@ export class QuantitySelector extends HTMLElement {
 
       const step = this._getStep();
       const currentValue = this._normalizeValue(this._input.value);
-      this._setValue(currentValue + step);
+      this._setValue(currentValue + step, true);
     };
 
     this._decrementButton.addEventListener('click', onDecrementClick);
@@ -144,11 +144,19 @@ export class QuantitySelector extends HTMLElement {
     }
   }
 
-  private _setValue(nextValue: number | string): void {
+  private _setValue(nextValue: number | string, shouldNotify = false): void {
     if (!this._input) return;
 
-    this._input.value = String(this._normalizeValue(nextValue));
+    const previousValue = this._input.value;
+    const normalizedValue = String(this._normalizeValue(nextValue));
+
+    this._input.value = normalizedValue;
     this._updateDisabledState();
+
+    if (shouldNotify && normalizedValue !== previousValue) {
+      this._input.dispatchEvent(new Event('input', { bubbles: true }));
+      this._input.dispatchEvent(new Event('change', { bubbles: true }));
+    }
   }
 }
 
