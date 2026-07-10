@@ -10,6 +10,7 @@ const componentMap = {
   'ui-tabs-group': () => import('./components/tabs/tabs-group'),
   'dropdown-menu': () => import('./components/menu/dropdown-menu'),
   'mega-menu': () => import('./components/menu/mega-menu'),
+  'ui-quantity-selector': () => import('./components/form/quantity-selector'),
 };
 
 // Load components that exist on the page

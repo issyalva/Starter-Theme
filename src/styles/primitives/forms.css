@@ -165,8 +165,15 @@ textarea.form-control {
   text-align: center;
   border-inline-width: 0;
   border-radius: 0;
+  color: var(--field-fg);
+  background: var(--field-bg);
+  font-variant-numeric: tabular-nums;
   appearance: textfield;
   -moz-appearance: textfield;
+}
+
+.quantity-selector__input[readonly] {
+  cursor: default;
 }
 
 .quantity-selector__input::-webkit-outer-spin-button,
