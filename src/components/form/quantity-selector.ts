@@ -1,7 +1,32 @@
+/**
+ * Button-driven quantity selector custom element.
+ *
+ * Enhances a quantity input so value changes happen through increment/decrement
+ * controls only, while enforcing integer min/max/step constraints.
+ *
+ * Required markup inside <ui-quantity-selector>:
+ * - One input with [data-quantity-input]
+ * - One button with [data-quantity-decrement]
+ * - One button with [data-quantity-increment]
+ *
+ * @example
+ * <ui-quantity-selector class="quantity-selector">
+ *   <button type="button" data-quantity-decrement aria-label="Decrease quantity">-</button>
+ *   <input
+ *     type="number"
+ *     value="1"
+ *     min="1"
+ *     inputmode="numeric"
+ *     data-quantity-input
+ *   >
+ *   <button type="button" data-quantity-increment aria-label="Increase quantity">+</button>
+ * </ui-quantity-selector>
+ */
 export class QuantitySelector extends HTMLElement {
   private _isMounted = false;
   private _input: HTMLInputElement | null = null;
-  private _controls: HTMLButtonElement[] = [];
+  private _decrementButton: HTMLButtonElement | null = null;
+  private _incrementButton: HTMLButtonElement | null = null;
   private _cleanupFns: (() => void)[] = [];
 
   connectedCallback(): void {
@@ -9,33 +34,45 @@ export class QuantitySelector extends HTMLElement {
     this._isMounted = true;
 
     this._input = this.querySelector<HTMLInputElement>('[data-quantity-input]');
-    this._controls = Array.from(
-      this.querySelectorAll<HTMLButtonElement>('[data-quantity-change]')
+    this._decrementButton = this.querySelector<HTMLButtonElement>(
+      '[data-quantity-decrement]'
+    );
+    this._incrementButton = this.querySelector<HTMLButtonElement>(
+      '[data-quantity-increment]'
     );
 
-    if (!this._input || this._controls.length === 0) {
+    if (!this._input || !this._decrementButton || !this._incrementButton) {
       return;
     }
 
     this._input.readOnly = true;
     this._input.setAttribute('aria-readonly', 'true');
 
-    this._controls.forEach((control) => {
-      const onClick = (): void => {
-        if (!this._input) return;
+    const onDecrementClick = (): void => {
+      if (!this._input) return;
 
-        const step = this._getStep();
-        const deltaMultiplier = Number(control.dataset.quantityChange);
+      const step = this._getStep();
+      const currentValue = this._normalizeValue(this._input.value);
+      this._setValue(currentValue - step);
+    };
 
-        if (!Number.isFinite(deltaMultiplier)) return;
+    const onIncrementClick = (): void => {
+      if (!this._input) return;
 
-        const currentValue = this._normalizeValue(this._input.value);
-        this._setValue(currentValue + step * deltaMultiplier);
-      };
+      const step = this._getStep();
+      const currentValue = this._normalizeValue(this._input.value);
+      this._setValue(currentValue + step);
+    };
 
-      control.addEventListener('click', onClick);
-      this._addCleanup(() => control.removeEventListener('click', onClick));
-    });
+    this._decrementButton.addEventListener('click', onDecrementClick);
+    this._incrementButton.addEventListener('click', onIncrementClick);
+
+    this._addCleanup(() =>
+      this._decrementButton?.removeEventListener('click', onDecrementClick)
+    );
+    this._addCleanup(() =>
+      this._incrementButton?.removeEventListener('click', onIncrementClick)
+    );
 
     this._setValue(this._input.value);
   }
@@ -46,7 +83,8 @@ export class QuantitySelector extends HTMLElement {
 
     this._runCleanup();
     this._input = null;
-    this._controls = [];
+    this._decrementButton = null;
+    this._incrementButton = null;
   }
 
   private _addCleanup(cleanup: () => void): void {
@@ -97,16 +135,13 @@ export class QuantitySelector extends HTMLElement {
     const min = this._getIntegerAttribute('min', 0);
     const max = this._getIntegerAttribute('max', Number.POSITIVE_INFINITY);
 
-    this._controls.forEach((control) => {
-      const delta = Number(control.dataset.quantityChange);
-      if (!Number.isFinite(delta)) return;
+    if (this._decrementButton) {
+      this._decrementButton.disabled = currentValue <= min;
+    }
 
-      if (delta < 0) {
-        control.disabled = currentValue <= min;
-      } else if (delta > 0) {
-        control.disabled = currentValue >= max;
-      }
-    });
+    if (this._incrementButton) {
+      this._incrementButton.disabled = currentValue >= max;
+    }
   }
 
   private _setValue(nextValue: number | string): void {
