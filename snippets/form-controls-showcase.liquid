@@ -68,12 +68,74 @@
       <h2 class='h4'>Select and textarea</h2>
       <div class='forms-showcase__stack'>
         <div class='form-field'>
-          <label for='showcase-select' class='form-label'>Select</label>
-          <select id='showcase-select' class='form-control'>
+          <label for='showcase-select-native' class='form-label'>
+            Select (native)
+          </label>
+          <select id='showcase-select-native' class='form-control'>
             <option value=''>Choose an option</option>
             <option value='option-1' selected>Option one</option>
             <option value='option-2'>Option two</option>
           </select>
+        </div>
+
+        <div class='form-field'>
+          <label
+            id='showcase-select-label'
+            for='showcase-select'
+            class='form-label'
+          >
+            Select (custom)
+          </label>
+          <ui-select id='showcase-select' class='form-select'>
+            <button
+              id='showcase-select-trigger'
+              type='button'
+              class='button form-control form-select__trigger'
+              data-select-trigger
+              aria-labelledby='showcase-select-label showcase-select-trigger'
+            >
+              <span class='form-select__label' data-select-label></span>
+            </button>
+            <ul class='form-select__menu' data-select-menu role='listbox'>
+              <li>
+                <button
+                  type='button'
+                  class='form-select__option'
+                  data-select-option
+                  data-value=''
+                >
+                  Choose an option
+                </button>
+              </li>
+              <li>
+                <button
+                  type='button'
+                  class='form-select__option'
+                  data-select-option
+                  data-value='option-1'
+                  aria-selected='true'
+                >
+                  Option one
+                </button>
+              </li>
+              <li>
+                <button
+                  type='button'
+                  class='form-select__option'
+                  data-select-option
+                  data-value='option-2'
+                >
+                  Option two
+                </button>
+              </li>
+            </ul>
+            <input
+              type='hidden'
+              data-select-input
+              value='option-1'
+              aria-hidden='true'
+            >
+          </ui-select>
         </div>
 
         <div class='form-field'>
@@ -293,18 +355,77 @@
             <legend class='form-legend'>Inquiry details</legend>
 
             <div class='form-field'>
-              <label for='contact-subject' class='form-label'>Subject</label>
-              <select
+              <label
+                id='contact-subject-label'
+                for='contact-subject'
+                class='form-label'
+              >
+                Subject
+              </label>
+              <ui-select
                 id='contact-subject'
-                class='form-control'
-                name='subject'
+                class='form-select'
                 aria-describedby='contact-subject-help'
               >
-                <option value=''>Choose a topic</option>
-                <option value='general'>General question</option>
-                <option value='support'>Support request</option>
-                <option value='partnership'>Partnership inquiry</option>
-              </select>
+                <button
+                  id='contact-subject-trigger'
+                  type='button'
+                  class='button form-control form-select__trigger'
+                  data-select-trigger
+                  aria-labelledby='contact-subject-label contact-subject-trigger'
+                >
+                  <span class='form-select__label' data-select-label></span>
+                </button>
+                <ul class='form-select__menu' data-select-menu role='listbox'>
+                  <li>
+                    <button
+                      type='button'
+                      class='form-select__option'
+                      data-select-option
+                      data-value=''
+                    >
+                      Choose a topic
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      type='button'
+                      class='form-select__option'
+                      data-select-option
+                      data-value='general'
+                      aria-selected='true'
+                    >
+                      General question
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      type='button'
+                      class='form-select__option'
+                      data-select-option
+                      data-value='support'
+                    >
+                      Support request
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      type='button'
+                      class='form-select__option'
+                      data-select-option
+                      data-value='partnership'
+                    >
+                      Partnership inquiry
+                    </button>
+                  </li>
+                </ul>
+                <input
+                  type='hidden'
+                  data-select-input
+                  name='subject'
+                  value='general'
+                >
+              </ui-select>
               <p id='contact-subject-help' class='form-help'>
                 Helps route your message
               </p>
